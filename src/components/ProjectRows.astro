@@ -1,0 +1,31 @@
+---
+import type { CollectionEntry } from 'astro:content';
+interface Props {
+  items: CollectionEntry<'projects'>[];
+}
+const { items } = Astro.props;
+---
+
+<ul class="rows rows--plain">
+  {
+    items.map((p) => (
+      <li>
+        <div>
+          <h3>
+            <a href={`/projects/${p.id}/`}>{p.data.title}</a>
+          </h3>
+          <p class="badges" style="margin-top:0.5rem">
+            <span class={p.data.ownership === 'own-product' ? 'badge badge--own' : 'badge badge--client'}>
+              {p.data.ownershipLabel}
+            </span>
+            {p.data.status && <span class="badge">{p.data.status}</span>}
+          </p>
+        </div>
+        <p>{p.data.summary}</p>
+        <a class="rows__more" href={`/projects/${p.id}/`} aria-hidden="true" tabindex="-1">
+          View →
+        </a>
+      </li>
+    ))
+  }
+</ul>

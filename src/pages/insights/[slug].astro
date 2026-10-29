@@ -3,7 +3,7 @@ import { render, getEntries } from 'astro:content';
 import Base from '../../layouts/Base.astro';
 import Breadcrumbs from '../../components/Breadcrumbs.astro';
 import CtaBand from '../../components/CtaBand.astro';
-import ProjectCard from '../../components/ProjectCard.astro';
+import ProjectRows from '../../components/ProjectRows.astro';
 import { articles } from '../../data/content';
 import { articleSchema, breadcrumbSchema } from '../../data/schema';
 import { formatDate } from '../../data/format';
@@ -84,11 +84,7 @@ const crumbs = [
           <div class="section-head">
             <h2>Related projects</h2>
           </div>
-          <div class="grid grid--3">
-            {relatedProjects.map((p) => (
-              <ProjectCard project={p} />
-            ))}
-          </div>
+          <ProjectRows items={relatedProjects} />
         </div>
       </section>
     )

@@ -1,28 +1,30 @@
 ---
+import { Image } from 'astro:assets';
 import Base from '../layouts/Base.astro';
-import ServiceCard from '../components/ServiceCard.astro';
-import ProjectCard from '../components/ProjectCard.astro';
 import ArticleCard from '../components/ArticleCard.astro';
 import CtaBand from '../components/CtaBand.astro';
+import SystemsDiagram from '../components/SystemsDiagram.astro';
+import ProjectRows from '../components/ProjectRows.astro';
 import { SITE, CTA } from '../data/site';
 import { services, projects, articles } from '../data/content';
+import veyrafyShot from '../assets/projects/veyrafy-quantity-mismatch.png';
 
 const allServices = await services();
-const allProjects = await projects();
+const otherProjects = (await projects()).filter((p) => p.id !== 'veyrafy');
 const latest = (await articles()).slice(0, 3);
 
 const problems = [
   {
     title: 'Systems that do not talk to each other',
-    text: 'Orders, stock, invoices and customer records live in separate applications, and people move the data between them.',
+    text: 'Orders, stock, invoices and customer records live in separate applications, and people carry the data between them.',
   },
   {
-    title: 'Repetitive manual work',
-    text: 'Skilled staff spend hours copying, checking, chasing and reconciling instead of running the business.',
+    title: 'Skilled people doing repetitive work',
+    text: 'Hours every week go on copying, checking, chasing and reconciling instead of running the business.',
   },
   {
     title: 'No reliable view of operations',
-    text: 'Managers wait for exports and spreadsheets to know what is happening, and problems surface late.',
+    text: 'Managers wait for exports and spreadsheets to know what is happening, so problems surface late.',
   },
   {
     title: 'Software that does not fit',
@@ -30,87 +32,65 @@ const problems = [
   },
 ];
 
-const steps = [
-  { title: 'Understand the problem', text: 'How the work is done today, where time and money are lost, and what a good outcome looks like.' },
-  { title: 'Design the solution', text: 'Integrate, automate, configure or build: the simplest approach that solves the problem reliably.' },
-  { title: 'Deliver in stages', text: 'Working results early, tested with realistic data, with one accountable point of contact.' },
-  { title: 'Improve with evidence', text: 'Check the result against the original problem and plan the next improvement.' },
+const principles = [
+  {
+    title: 'The business problem comes first',
+    text: 'Technology is chosen to fit the problem: integrate, automate, configure or build, whichever is simplest and reliable.',
+  },
+  {
+    title: 'One accountable person',
+    text: 'You deal with someone who understands both the requirement and the technical work, and owns getting it delivered.',
+  },
+  {
+    title: 'Working results in stages',
+    text: 'Delivery in increments, tested with realistic data, so you see progress early and can change course cheaply.',
+  },
+  {
+    title: 'Honest about what is proven',
+    text: 'No invented figures, no borrowed logos. Projects are labelled for who owns them and how far they have got.',
+  },
 ];
 ---
 
 <Base title={SITE.title} fullTitle description={SITE.description}>
-  <section class="hero">
+  <section class="hero hero--split">
     <div class="container">
-      <span class="eyebrow">Systems integration · Process automation · Custom software</span>
-      <h1>I help businesses streamline operations by connecting their systems and automating manual work.</h1>
-      <p class="lead">
-        From connecting the software you already use to building custom applications and implementing AI-powered
-        workflows, I help established and growing businesses in India and the UAE solve operational problems with
-        practical technology.
-      </p>
-      <div class="actions">
-        <a class="button" href={CTA.href} data-cta="home-hero">{CTA.label}</a>
-        <a class="button button--ghost" href="/projects/">See projects and products</a>
+      <div>
+        <span class="kicker">For businesses in India and the UAE</span>
+        <h1>Connect your systems. Automate the manual work. Run a calmer operation.</h1>
+        <p class="lead">
+          I help established and growing businesses streamline operations by connecting the software they already use,
+          automating repetitive processes and building custom applications where nothing else fits.
+        </p>
+        <div class="actions">
+          <a class="button" href={CTA.href} data-cta="home-hero">{CTA.label}</a>
+          <a class="button button--ghost" href="#work">See the work</a>
+        </div>
+        <div class="hero__proof">
+          <span><strong>Systems integration</strong></span>
+          <span><strong>Process automation</strong></span>
+          <span><strong>AI implementation</strong></span>
+          <span><strong>Custom software</strong></span>
+        </div>
       </div>
+      <SystemsDiagram />
     </div>
   </section>
 
   <section class="section">
     <div class="container">
-      <div class="section-head">
-        <h2>Where operations lose time</h2>
-        <p>The symptoms are usually familiar long before anyone calls them a technology problem.</p>
-      </div>
-      <div class="grid grid--2">
+      <span class="kicker">The problem</span>
+      <h2>Where operations quietly lose time</h2>
+      <p class="lead" style="margin-bottom:2.5rem">
+        The symptoms are familiar long before anyone calls them a technology problem.
+      </p>
+      <ol class="rows">
         {
-          problems.map((p) => (
-            <div class="card">
+          problems.map((p, i) => (
+            <li>
+              <span class="rows__num">0{i + 1}</span>
               <h3>{p.title}</h3>
               <p>{p.text}</p>
-            </div>
-          ))
-        }
-      </div>
-    </div>
-  </section>
-
-  <section class="section section--soft">
-    <div class="container">
-      <div class="section-head">
-        <h2>How I help</h2>
-        <p>
-          Six ways of solving operational problems. Most projects combine several of them, starting from the business
-          problem rather than a particular technology.
-        </p>
-      </div>
-      <div class="grid grid--3">
-        {allServices.map((s) => <ServiceCard service={s} />)}
-      </div>
-      <p class="actions"><a href="/services/">Compare all services →</a></p>
-    </div>
-  </section>
-
-  <section class="section">
-    <div class="container split">
-      <div>
-        <h2>One accountable partner, from requirement to result</h2>
-        <p>
-          My work sits between business operations and software delivery. I work directly with owners and
-          decision-makers to understand the problem, decide on the right approach and get it implemented.
-        </p>
-        <p>
-          Delivery combines business analysis, solution architecture, AI-assisted development and, where the work
-          needs them, developers and specialists I coordinate. You deal with one person who understands both the
-          business requirement and the technical work.
-        </p>
-        <p><a href="/about/">More about how I work →</a></p>
-      </div>
-      <ol class="steps">
-        {
-          steps.map((s) => (
-            <li>
-              <strong>{s.title}</strong>
-              <span>{s.text}</span>
             </li>
           ))
         }
@@ -118,57 +98,124 @@ const steps = [
     </div>
   </section>
 
-  <section class="section section--soft">
+  <section class="section section--ink">
     <div class="container">
-      <div class="section-head">
-        <h2>Projects and products</h2>
-        <p>
-          Client work and products I own, each labelled for what it is. Confidential clients are described with a
-          pseudonym.
-        </p>
-      </div>
-      <div class="grid grid--3">
-        {allProjects.map((p) => <ProjectCard project={p} />)}
-      </div>
+      <p class="statement">
+        Most of these problems are not solved by more software. They are solved by <em>making the systems you already
+        have work together</em>, removing the steps nobody needs, and building only what is missing.
+      </p>
     </div>
   </section>
 
   <section class="section">
-    <div class="container split">
-      <div>
-        <h2>Working with businesses in India and the UAE</h2>
-        <p>
-          I work with businesses in India and the United Arab Emirates, including Dubai and Abu Dhabi. The problems are
-          similar across both markets: disconnected systems, manual processes and growth that has outgrown the tools
-          that supported it.
-        </p>
-        <p>
-          Projects are organised around clear written requirements, regular reviews of working software and
-          communication that fits your team's hours. India and the UAE are only one and a half hours apart.
-        </p>
+    <div class="container">
+      <span class="kicker">How I help</span>
+      <h2>Six ways to solve operational problems</h2>
+      <p class="lead" style="margin-bottom:2.5rem">Most projects combine several. Start with the one you recognise.</p>
+      <ul class="rows rows--plain">
+        {
+          allServices.map((s) => (
+            <li>
+              <h3>
+                <a href={`/services/${s.id}/`}>{s.data.shortTitle}</a>
+              </h3>
+              <p>{s.data.summary}</p>
+              <a class="rows__more" href={`/services/${s.id}/`} aria-hidden="true" tabindex="-1">
+                Learn more →
+              </a>
+            </li>
+          ))
+        }
+      </ul>
+    </div>
+  </section>
+
+  <section class="section section--soft" id="work">
+    <div class="container">
+      <span class="kicker">Proof of work</span>
+      <div class="feature">
+        <div>
+          <p class="badges"><span class="badge badge--own">My own product</span><span class="badge">In active development</span></p>
+          <h2>Veyrafy: supplier invoices checked against your records</h2>
+          <p>
+            Veyrafy reads supplier invoices, from PDFs to phone photos, and checks every line against purchase orders,
+            goods receipts and supplier records. When something does not match, it never guesses. It stops, shows the
+            evidence and asks the person responsible.
+          </p>
+          <p>
+            It brings together the work I do for clients: document extraction, grounded AI, business rules, ERP
+            integration and a workflow that keeps people in control.
+          </p>
+          <p><a href="/projects/veyrafy/">Read the Veyrafy case study →</a></p>
+        </div>
+        <figure class="shot">
+          <div class="shot__bar" aria-hidden="true"><span></span><span></span><span></span></div>
+          <Image
+            src={veyrafyShot}
+            alt="Veyrafy screen showing an invoice that bills 4,000 units more than the purchase order, with the difference explained and options to resolve it"
+            widths={[640, 960, 1280]}
+            sizes="(min-width: 980px) 640px, 100vw"
+          />
+          <figcaption>Veyrafy stopping an invoice that bills more than was ordered. Demo data.</figcaption>
+        </figure>
       </div>
-      <div class="panel">
-        <h3>Businesses this work suits</h3>
-        <ul class="checklist">
-          <li>Distributors, wholesalers and suppliers</li>
-          <li>Food, fruit and fresh produce businesses</li>
-          <li>Retail and ecommerce businesses</li>
-          <li>Multi-location and service operations</li>
-          <li>Founders building digital products</li>
-        </ul>
+
+      <h3 style="margin-top:4rem">More projects</h3>
+      <ProjectRows items={otherProjects} />
+    </div>
+  </section>
+
+  <section class="section">
+    <div class="container">
+      <span class="kicker">Working together</span>
+      <h2>What you can expect</h2>
+      <p class="lead" style="margin-bottom:2.5rem">
+        Larger technology projects succeed or fail on clarity and ownership more than on code.
+      </p>
+      <ul class="principles">
+        {
+          principles.map((p) => (
+            <li>
+              <strong>{p.title}</strong>
+              <span>{p.text}</span>
+            </li>
+          ))
+        }
+      </ul>
+    </div>
+  </section>
+
+  <section class="section section--soft">
+    <div class="container person">
+      <div class="person__photo" aria-hidden="true">AP</div>
+      <div>
+        <span class="kicker">Who you will work with</span>
+        <h2>Antony Pratap</h2>
+        <p class="lead">
+          Technology entrepreneur and implementation partner, working where business operations, software, integration
+          and AI meet.
+        </p>
+        <p>
+          I work directly with owners, founders and operations and finance leaders to understand the problem, choose the
+          right approach and get it implemented, using AI-assisted development and coordinating developers and
+          specialists where the work needs them. I also build products of my own, so I face the same decisions my
+          clients do.
+        </p>
+        <p>
+          I work with businesses in India and the United Arab Emirates, including Dubai and Abu Dhabi.
+        </p>
+        <p><a href="/about/">More about me and how I work →</a></p>
       </div>
     </div>
   </section>
 
   {
     latest.length > 0 && (
-      <section class="section section--soft">
+      <section class="section">
         <div class="container">
-          <div class="section-head">
-            <h2>Insights</h2>
-            <p>Practical guidance on integration, automation and software decisions.</p>
-          </div>
-          <div class="grid grid--3">
+          <span class="kicker">Insights</span>
+          <h2>Practical guidance</h2>
+          <div class="grid grid--3" style="margin-top:2rem">
             {latest.map((a) => (
               <ArticleCard article={a} />
             ))}

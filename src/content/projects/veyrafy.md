@@ -13,6 +13,13 @@ services:
   - business-systems-integration
   - custom-software-development
 tags: [Invoice verification, Document extraction, ERP integration, Finance automation]
+screenshots:
+  - src: ../../assets/projects/veyrafy-invoice-ready.png
+    alt: Veyrafy screen showing a supplier tax invoice beside the values it read, marked Invoice ready after the order, goods receipt and invoice agreed
+    caption: An invoice that matches its purchase order and goods receipt is marked ready, with the original document alongside. Demo data.
+  - src: ../../assets/projects/veyrafy-quantity-mismatch.png
+    alt: Veyrafy screen showing an invoice that bills 4,000 units more than the purchase order, with the difference explained and options to resolve it
+    caption: An invoice that bills more than was ordered is stopped and explained. There is no override. Demo data.
 ---
 
 ## The business problem

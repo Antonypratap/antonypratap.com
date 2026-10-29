@@ -23,7 +23,8 @@ until it is confirmed; update the page and remove the line.
 
 **Veyrafy** (`src/content/projects/veyrafy.md`)
 - [x] Capabilities and limitations taken from the Veyrafy repository documentation (README, PRODUCTION-READINESS, ERP-API).
-- [ ] Public product URL (veyrafy.com?) to link to.
+- [ ] Link to veyrafy.com and the public demo (demo.veyrafy.com, per the Veyrafy docs)? Not linked until confirmed live.
+- [x] Screenshots are from the local demo with made-up data (fixtures), cropped to exclude the organisation name in the sidebar.
 - [ ] Any ERP integration now verified with a real customer? (Currently stated: not yet.)
 
 **FreshRoute Produce (pseudonym)** (`src/content/projects/freshroute-produce.md`)
@@ -35,7 +36,7 @@ until it is confirmed; update the page and remove the line.
 
 - [ ] Background to add to the About page (career, years of experience, previous roles, where based).
 - [ ] LinkedIn and other profile URLs (`SITE.sameAs` in `src/data/site.ts`).
-- [ ] A professional photo (optional, helps trust).
+- [ ] A professional photo. The home page shows an "AP" monogram until one is provided (`.person__photo`).
 - [ ] Form service to use (Formspree, Web3Forms or another) and the receiving email address.
 - [ ] Privacy notice reviewed; it assumes a form service forwards enquiries by email.
 - [ ] Analytics: Plausible (no cookie banner needed) or Google Analytics 4?

@@ -2,7 +2,7 @@
 import Base from '../../layouts/Base.astro';
 import Breadcrumbs from '../../components/Breadcrumbs.astro';
 import CtaBand from '../../components/CtaBand.astro';
-import ProjectCard from '../../components/ProjectCard.astro';
+import ProjectRows from '../../components/ProjectRows.astro';
 import { projects } from '../../data/content';
 import { breadcrumbSchema } from '../../data/schema';
 
@@ -37,7 +37,7 @@ const crumbs = [
         <h2>Products I own</h2>
         <p>Software products I have defined and lead.</p>
       </div>
-      <div class="grid grid--2">{own.map((p) => <ProjectCard project={p} />)}</div>
+      <ProjectRows items={own} />
     </div>
   </section>
 
@@ -47,7 +47,7 @@ const crumbs = [
         <h2>Client projects</h2>
         <p>Work carried out for clients, who own the results.</p>
       </div>
-      <div class="grid grid--3">{client.map((p) => <ProjectCard project={p} />)}</div>
+      <ProjectRows items={client} />
     </div>
   </section>
 

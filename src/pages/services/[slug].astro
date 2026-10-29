@@ -3,7 +3,7 @@ import { render, getEntries } from 'astro:content';
 import Base from '../../layouts/Base.astro';
 import Breadcrumbs from '../../components/Breadcrumbs.astro';
 import CtaBand from '../../components/CtaBand.astro';
-import ProjectCard from '../../components/ProjectCard.astro';
+import ProjectRows from '../../components/ProjectRows.astro';
 import ArticleCard from '../../components/ArticleCard.astro';
 import { services, articlesFor } from '../../data/content';
 import { breadcrumbSchema, serviceSchema } from '../../data/schema';
@@ -59,19 +59,19 @@ const crumbs = [
 
   <section class="section section--soft">
     <div class="container">
-      <div class="section-head">
-        <h2>Typical scenarios</h2>
-      </div>
-      <div class="grid grid--2">
+      <span class="kicker">In practice</span>
+      <h2 style="margin-bottom:2rem">Typical scenarios</h2>
+      <ol class="rows">
         {
-          data.scenarios.map((s) => (
-            <div class="card">
+          data.scenarios.map((s, i) => (
+            <li>
+              <span class="rows__num">0{i + 1}</span>
               <h3>{s.title}</h3>
               <p>{s.text}</p>
-            </div>
+            </li>
           ))
         }
-      </div>
+      </ol>
     </div>
   </section>
 
@@ -90,11 +90,7 @@ const crumbs = [
           <div class="section-head">
             <h2>Related projects and products</h2>
           </div>
-          <div class="grid grid--3">
-            {relatedProjects.map((p) => (
-              <ProjectCard project={p} />
-            ))}
-          </div>
+          <ProjectRows items={relatedProjects} />
         </div>
       </section>
     )

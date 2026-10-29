@@ -26,7 +26,8 @@ const services = defineCollection({
 
 const projects = defineCollection({
   loader: glob({ pattern: '**/*.md', base: './src/content/projects' }),
-  schema: z.object({
+  schema: ({ image }) =>
+    z.object({
     title: z.string(),
     metaTitle: z.string().max(65),
     description: z.string().min(70).max(165),
@@ -40,6 +41,8 @@ const projects = defineCollection({
     pseudonym: z.boolean().default(false),
     services: z.array(reference('services')).default([]),
     tags: z.array(z.string()).default([]),
+    /** Real screenshots only. Caption must say when the data shown is demo data. */
+    screenshots: z.array(z.object({ src: image(), alt: z.string().min(20), caption: z.string() })).default([]),
   }),
 });
 
