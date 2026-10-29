@@ -1,0 +1,31 @@
+---
+// Loads at most one analytics provider, only on production builds, only when configured.
+// Conversion events: "cta_click" (any element with data-cta) and "enquiry_submitted" (contact form).
+import { ENV, IS_PRODUCTION } from '../data/site';
+const plausible = IS_PRODUCTION && ENV.plausibleDomain;
+const ga4 = IS_PRODUCTION && !plausible && ENV.ga4Id;
+---
+
+{plausible && <script is:inline defer data-domain={ENV.plausibleDomain} src="https://plausible.io/js/script.js" />}
+{
+  ga4 && (
+    <>
+      <script is:inline async src={`https://www.googletagmanager.com/gtag/js?id=${ENV.ga4Id}`} />
+      <script is:inline define:vars={{ id: ENV.ga4Id }}>
+        window.dataLayer = window.dataLayer || [];
+        window.gtag = function () {
+          window.dataLayer.push(arguments);
+        };
+        window.gtag('js', new Date());
+        window.gtag('config', id);
+      </script>
+    </>
+  )
+}
+<script>
+  import { track } from '../scripts/track';
+  document.addEventListener('click', (event) => {
+    const el = (event.target as Element | null)?.closest<HTMLElement>('[data-cta]');
+    if (el) track('cta_click', { location: el.dataset.cta ?? 'unknown', page: location.pathname });
+  });
+</script>

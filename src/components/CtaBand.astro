@@ -1,0 +1,25 @@
+---
+import { CTA } from '../data/site';
+interface Props {
+  heading?: string;
+  text?: string;
+  label?: string;
+  location: string;
+}
+const {
+  heading = 'Have an operational problem worth solving?',
+  text = 'Tell me what is slowing your team down and which systems you use today. You do not need a technical specification: describing the problem is enough to start.',
+  label = CTA.label,
+  location,
+} = Astro.props;
+---
+
+<section class="section cta-band">
+  <div class="container cta-band__inner">
+    <div>
+      <h2>{heading}</h2>
+      <p>{text}</p>
+    </div>
+    <div><a class="button" href={CTA.href} data-cta={location}>{label}</a></div>
+  </div>
+</section>

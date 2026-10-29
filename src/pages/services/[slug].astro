@@ -1,0 +1,154 @@
+---
+import { render, getEntries } from 'astro:content';
+import Base from '../../layouts/Base.astro';
+import Breadcrumbs from '../../components/Breadcrumbs.astro';
+import CtaBand from '../../components/CtaBand.astro';
+import ProjectCard from '../../components/ProjectCard.astro';
+import ArticleCard from '../../components/ArticleCard.astro';
+import { services, articlesFor } from '../../data/content';
+import { breadcrumbSchema, serviceSchema } from '../../data/schema';
+import { CTA } from '../../data/site';
+
+export async function getStaticPaths() {
+  return (await services()).map((service) => ({ params: { slug: service.id }, props: { service } }));
+}
+
+const { service } = Astro.props;
+const { data } = service;
+const { Content } = await render(service);
+const relatedProjects = await getEntries(data.relatedProjects);
+const relatedServices = await getEntries(data.relatedServices);
+const relatedArticles = (await articlesFor((a) => a.data.relatedServices.some((r) => r.id === service.id))).slice(0, 3);
+const path = `/services/${service.id}/`;
+const crumbs = [
+  { name: 'Home', path: '/' },
+  { name: 'Services', path: '/services/' },
+  { name: data.shortTitle, path },
+];
+---
+
+<Base
+  title={data.metaTitle}
+  fullTitle
+  description={data.description}
+  jsonLd={[breadcrumbSchema(crumbs), serviceSchema({ name: data.title, description: data.description, path })]}
+>
+  <section class="page-head">
+    <div class="container">
+      <Breadcrumbs items={crumbs} />
+      <h1>{data.title}</h1>
+      <p class="lead">{data.summary}</p>
+      <div class="actions">
+        <a class="button" href={CTA.href} data-cta={`service-${service.id}-head`}>{data.ctaLabel}</a>
+      </div>
+    </div>
+  </section>
+
+  <section class="section">
+    <div class="container split">
+      <div>
+        <h2>Problems this solves</h2>
+        <ul class="checklist">{data.problems.map((p) => <li>{p}</li>)}</ul>
+      </div>
+      <aside class="panel">
+        <h2>Who it is for</h2>
+        <ul class="checklist">{data.audiences.map((a) => <li>{a}</li>)}</ul>
+      </aside>
+    </div>
+  </section>
+
+  <section class="section section--soft">
+    <div class="container">
+      <div class="section-head">
+        <h2>Typical scenarios</h2>
+      </div>
+      <div class="grid grid--2">
+        {
+          data.scenarios.map((s) => (
+            <div class="card">
+              <h3>{s.title}</h3>
+              <p>{s.text}</p>
+            </div>
+          ))
+        }
+      </div>
+    </div>
+  </section>
+
+  <section class="section">
+    <div class="container">
+      <div class="prose">
+        <Content />
+      </div>
+    </div>
+  </section>
+
+  {
+    relatedProjects.length > 0 && (
+      <section class="section section--soft">
+        <div class="container">
+          <div class="section-head">
+            <h2>Related projects and products</h2>
+          </div>
+          <div class="grid grid--3">
+            {relatedProjects.map((p) => (
+              <ProjectCard project={p} />
+            ))}
+          </div>
+        </div>
+      </section>
+    )
+  }
+
+  {
+    data.faqs.length > 0 && (
+      <section class="section">
+        <div class="container">
+          <div class="prose faq">
+            <h2>Frequently asked questions</h2>
+            {data.faqs.map((f) => (
+              <details>
+                <summary>{f.q}</summary>
+                <p>{f.a}</p>
+              </details>
+            ))}
+          </div>
+        </div>
+      </section>
+    )
+  }
+
+  {
+    relatedArticles.length > 0 && (
+      <section class="section section--soft">
+        <div class="container">
+          <div class="section-head">
+            <h2>Further reading</h2>
+          </div>
+          <div class="grid grid--3">
+            {relatedArticles.map((a) => (
+              <ArticleCard article={a} />
+            ))}
+          </div>
+        </div>
+      </section>
+    )
+  }
+
+  <section class="section section--tight">
+    <div class="container">
+      <h2>Related services</h2>
+      <ul class="checklist">
+        {
+          relatedServices.map((s) => (
+            <li>
+              <a href={`/services/${s.id}/`}>{s.data.title}</a>: {s.data.summary}
+            </li>
+          ))
+        }
+      </ul>
+    </div>
+  </section>
+
+  <CtaBand location={`service-${service.id}-band`} label={data.ctaLabel} />
+</Base>

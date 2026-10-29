@@ -1,0 +1,98 @@
+---
+import { render, getEntries } from 'astro:content';
+import Base from '../../layouts/Base.astro';
+import Breadcrumbs from '../../components/Breadcrumbs.astro';
+import CtaBand from '../../components/CtaBand.astro';
+import ProjectCard from '../../components/ProjectCard.astro';
+import { articles } from '../../data/content';
+import { articleSchema, breadcrumbSchema } from '../../data/schema';
+import { formatDate } from '../../data/format';
+import { SITE } from '../../data/site';
+
+export async function getStaticPaths() {
+  return (await articles()).map((article) => ({ params: { slug: article.id }, props: { article } }));
+}
+
+const { article } = Astro.props;
+const { data } = article;
+const { Content } = await render(article);
+const services = await getEntries(data.relatedServices);
+const relatedProjects = await getEntries(data.relatedProjects);
+const path = `/insights/${article.id}/`;
+const crumbs = [
+  { name: 'Home', path: '/' },
+  { name: 'Insights', path: '/insights/' },
+  { name: data.title, path },
+];
+---
+
+<Base
+  title={data.metaTitle ?? data.title}
+  description={data.description}
+  ogType="article"
+  noindex={data.draft}
+  publishedTime={data.published}
+  modifiedTime={data.updated}
+  jsonLd={[
+    breadcrumbSchema(crumbs),
+    articleSchema({ title: data.title, description: data.description, path, published: data.published, updated: data.updated }),
+  ]}
+>
+  <article>
+    <header class="page-head">
+      <div class="container">
+        <Breadcrumbs items={crumbs} />
+        {data.draft && <p><span class="draft-flag">Draft: not published</span></p>}
+        <span class="eyebrow">{data.topic}</span>
+        <h1>{data.title}</h1>
+        <p class="lead">{data.description}</p>
+        <div class="article-meta">
+          <span>By <a href="/about/">{SITE.name}</a></span>
+          <span>Published <time datetime={data.published.toISOString()}>{formatDate(data.published)}</time></span>
+          {data.updated && <span>Updated <time datetime={data.updated.toISOString()}>{formatDate(data.updated)}</time></span>}
+        </div>
+      </div>
+    </header>
+
+    <div class="section">
+      <div class="container split">
+        <div class="prose">
+          <Content />
+        </div>
+        {
+          services.length > 0 && (
+            <aside class="panel">
+              <h2>Related services</h2>
+              <ul class="checklist">
+                {services.map((s) => (
+                  <li>
+                    <a href={`/services/${s.id}/`}>{s.data.title}</a>
+                  </li>
+                ))}
+              </ul>
+            </aside>
+          )
+        }
+      </div>
+    </div>
+  </article>
+
+  {
+    relatedProjects.length > 0 && (
+      <section class="section section--soft">
+        <div class="container">
+          <div class="section-head">
+            <h2>Related projects</h2>
+          </div>
+          <div class="grid grid--3">
+            {relatedProjects.map((p) => (
+              <ProjectCard project={p} />
+            ))}
+          </div>
+        </div>
+      </section>
+    )
+  }
+
+  <CtaBand location={`article-${article.id}-band`} />
+</Base>

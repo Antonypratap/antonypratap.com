@@ -1,0 +1,49 @@
+---
+import { getCollection } from 'astro:content';
+import { SITE, CTA } from '../data/site';
+
+const services = (await getCollection('services')).sort((a, b) => a.data.order - b.data.order);
+const projects = (await getCollection('projects')).sort((a, b) => a.data.order - b.data.order);
+const year = new Date().getFullYear();
+---
+
+<footer class="site-footer">
+  <div class="container">
+    <div class="site-footer__grid">
+      <div>
+        <h2>{SITE.name}</h2>
+        <p>
+          Business systems integration, process automation and custom software for businesses in India and the
+          UAE.
+        </p>
+        <p><a href={CTA.href} data-cta="footer">{CTA.label} →</a></p>
+      </div>
+      <div>
+        <h2>Services</h2>
+        <ul>
+          {services.map((s) => <li><a href={`/services/${s.id}/`}>{s.data.shortTitle}</a></li>)}
+        </ul>
+      </div>
+      <div>
+        <h2>Projects</h2>
+        <ul>
+          {projects.map((p) => <li><a href={`/projects/${p.id}/`}>{p.data.title}</a></li>)}
+        </ul>
+      </div>
+      <div>
+        <h2>Site</h2>
+        <ul>
+          <li><a href="/about/">About</a></li>
+          <li><a href="/insights/">Insights</a></li>
+          <li><a href="/contact/">Contact</a></li>
+          <li><a href="/privacy/">Privacy</a></li>
+          {SITE.sameAs.map((url) => <li><a href={url} rel="me">{new URL(url).hostname.replace('www.', '')}</a></li>)}
+        </ul>
+      </div>
+    </div>
+    <div class="site-footer__legal">
+      <span>© {year} {SITE.name}</span>
+      <span>Project names marked “pseudonym” are fictional, used to protect client confidentiality.</span>
+    </div>
+  </div>
+</footer>

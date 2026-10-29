@@ -1,0 +1,173 @@
+---
+import Base from '../../layouts/Base.astro';
+import Breadcrumbs from '../../components/Breadcrumbs.astro';
+import { breadcrumbSchema } from '../../data/schema';
+import { ENV } from '../../data/site';
+
+const crumbs = [
+  { name: 'Home', path: '/' },
+  { name: 'Discuss a project', path: '/contact/' },
+];
+const configured = Boolean(ENV.formEndpoint);
+const countries = ['United Arab Emirates', 'India', 'Saudi Arabia', 'Qatar', 'Oman', 'Bahrain', 'Kuwait', 'United Kingdom', 'United States'];
+---
+
+<Base
+  title="Discuss a Project"
+  description="Tell Antony Pratap about the operational problem you want to solve: disconnected systems, manual processes or software that no longer fits. No technical specification needed."
+  jsonLd={[breadcrumbSchema(crumbs), { '@type': 'ContactPage', url: 'https://antonypratap.com/contact/' }]}
+>
+  <section class="page-head">
+    <div class="container">
+      <Breadcrumbs items={crumbs} />
+      <h1>Discuss a project</h1>
+      <p class="lead">
+        Tell me what your business needs to improve. You do not need to know about APIs, databases or architecture:
+        describe the problem in your own words and I will take it from there.
+      </p>
+    </div>
+  </section>
+
+  <section class="section">
+    <div class="container split">
+      <div>
+        <form
+          class="form"
+          id="enquiry"
+          method="POST"
+          action={configured ? ENV.formEndpoint : undefined}
+          data-endpoint={ENV.formEndpoint}
+          novalidate
+        >
+          {ENV.formAccessKey && <input type="hidden" name="access_key" value={ENV.formAccessKey} />}
+          <input type="hidden" name="subject" value="New project enquiry from antonypratap.com" />
+          <input type="hidden" name="page" value="" />
+          <div class="hp" aria-hidden="true">
+            <label>Leave this empty <input type="text" name="botcheck" tabindex="-1" autocomplete="off" /></label>
+          </div>
+
+          <div class="form__row">
+            <div class="field">
+              <label for="name">Name</label>
+              <input id="name" name="name" type="text" autocomplete="name" required />
+            </div>
+            <div class="field">
+              <label for="email">Business email</label>
+              <input id="email" name="email" type="email" autocomplete="email" required />
+            </div>
+          </div>
+          <div class="form__row">
+            <div class="field">
+              <label for="company">Company</label>
+              <input id="company" name="company" type="text" autocomplete="organization" required />
+            </div>
+            <div class="field">
+              <label for="country">Country</label>
+              <input id="country" name="country" type="text" list="country-list" autocomplete="country-name" required />
+              <datalist id="country-list">{countries.map((c) => <option value={c} />)}</datalist>
+            </div>
+          </div>
+          <div class="field">
+            <label for="need">
+              What does your business need to improve?
+              <span class="hint">For example: orders are re-keyed into our inventory system, or invoice checking takes too long.</span>
+            </label>
+            <textarea id="need" name="need" required></textarea>
+          </div>
+          <div class="field">
+            <label for="systems">
+              Software or systems you use today <span class="hint">Optional. Names are enough, if you know them.</span>
+            </label>
+            <input id="systems" name="systems" type="text" />
+          </div>
+          <div class="field">
+            <label for="scope">
+              Approximate scope or timeline <span class="hint">Optional. Anything you already know helps.</span>
+            </label>
+            <input id="scope" name="scope" type="text" />
+          </div>
+
+          <p class="note">
+            Your details are used only to respond to your enquiry. See the <a href="/privacy/">privacy notice</a>.
+          </p>
+
+          <div id="form-status" class="form-status" role="status" aria-live="polite" hidden></div>
+          {
+            !configured && (
+              <p class="form-status" data-kind="error">
+                The enquiry form is not connected yet in this build (PUBLIC_FORM_ENDPOINT is not set).
+              </p>
+            )
+          }
+          <div>
+            <button class="button" type="submit" disabled={!configured}>Send enquiry</button>
+          </div>
+        </form>
+      </div>
+
+      <aside>
+        <div class="panel">
+          <h2>What happens next</h2>
+          <ol class="steps">
+            <li><strong>I read your enquiry</strong><span>and reply personally, usually with a few clarifying questions.</span></li>
+            <li><strong>A conversation</strong><span>about the problem, your systems and what a good outcome would be.</span></li>
+            <li><strong>A recommended next step</strong><span>such as a discovery exercise, a proposal or an honest view that you do not need a project.</span></li>
+          </ol>
+        </div>
+        <div class="panel">
+          <h2>Useful to mention</h2>
+          <ul class="checklist">
+            <li>Where your team spends time on manual work</li>
+            <li>Which systems are involved, if you know</li>
+            <li>Any deadline or business event driving the change</li>
+          </ul>
+        </div>
+      </aside>
+    </div>
+  </section>
+</Base>
+
+<script>
+  import { track } from '../../scripts/track';
+
+  const form = document.querySelector<HTMLFormElement>('#enquiry');
+  const status = document.querySelector<HTMLElement>('#form-status');
+
+  function show(message: string, kind: 'info' | 'error') {
+    if (!status) return;
+    status.hidden = false;
+    status.dataset.kind = kind;
+    status.textContent = message;
+  }
+
+  form?.addEventListener('submit', async (event) => {
+    event.preventDefault();
+    const endpoint = form.dataset.endpoint;
+    if (!endpoint) return;
+
+    if (!form.checkValidity()) {
+      const firstInvalid = form.querySelector<HTMLElement>(':invalid');
+      show('Please complete the required fields: name, business email, company, country and what you need to improve.', 'error');
+      firstInvalid?.focus();
+      return;
+    }
+
+    const data = new FormData(form);
+    if (data.get('botcheck')) return;
+    data.set('page', document.referrer || location.href);
+
+    const button = form.querySelector<HTMLButtonElement>('button[type="submit"]');
+    if (button) button.disabled = true;
+    show('Sending…', 'info');
+
+    try {
+      const response = await fetch(endpoint, { method: 'POST', body: data, headers: { Accept: 'application/json' } });
+      if (!response.ok) throw new Error(String(response.status));
+      track('enquiry_submitted', { country: String(data.get('country') ?? '') });
+      location.assign('/contact/thanks/');
+    } catch {
+      show('Sorry, the enquiry could not be sent. Please try again in a moment.', 'error');
+      if (button) button.disabled = false;
+    }
+  });
+</script>

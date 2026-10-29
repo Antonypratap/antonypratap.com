@@ -1,0 +1,48 @@
+---
+import Base from '../../layouts/Base.astro';
+import Breadcrumbs from '../../components/Breadcrumbs.astro';
+import ArticleCard from '../../components/ArticleCard.astro';
+import CtaBand from '../../components/CtaBand.astro';
+import { articles } from '../../data/content';
+import { breadcrumbSchema } from '../../data/schema';
+
+const all = await articles();
+const crumbs = [
+  { name: 'Home', path: '/' },
+  { name: 'Insights', path: '/insights/' },
+];
+---
+
+<Base
+  title="Insights: Integration, Automation and Software"
+  description="Practical guides for business owners and operations leaders on systems integration, process automation, AI implementation and custom software decisions."
+  jsonLd={[breadcrumbSchema(crumbs), { '@type': 'Blog', url: 'https://antonypratap.com/insights/', name: 'Insights' }]}
+>
+  <section class="page-head">
+    <div class="container">
+      <Breadcrumbs items={crumbs} />
+      <h1>Insights</h1>
+      <p class="lead">
+        Practical guidance on connecting business systems, automating operations and making sound software decisions.
+      </p>
+    </div>
+  </section>
+
+  <section class="section">
+    <div class="container">
+      {
+        all.length > 0 ? (
+          <div class="grid grid--3">
+            {all.map((a) => (
+              <ArticleCard article={a} headingLevel="h2" />
+            ))}
+          </div>
+        ) : (
+          <p class="lead">The first articles are being prepared.</p>
+        )
+      }
+    </div>
+  </section>
+
+  <CtaBand location="insights-band" />
+</Base>

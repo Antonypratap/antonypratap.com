@@ -1,0 +1,55 @@
+---
+import Base from '../../layouts/Base.astro';
+import Breadcrumbs from '../../components/Breadcrumbs.astro';
+import CtaBand from '../../components/CtaBand.astro';
+import ProjectCard from '../../components/ProjectCard.astro';
+import { projects } from '../../data/content';
+import { breadcrumbSchema } from '../../data/schema';
+
+const all = await projects();
+const own = all.filter((p) => p.data.ownership === 'own-product');
+const client = all.filter((p) => p.data.ownership !== 'own-product');
+const crumbs = [
+  { name: 'Home', path: '/' },
+  { name: 'Projects', path: '/projects/' },
+];
+---
+
+<Base
+  title="Projects and Products"
+  description="Client projects and products by Antony Pratap: invoice verification, operations management, service platforms, ecommerce integration and education technology."
+  jsonLd={[breadcrumbSchema(crumbs)]}
+>
+  <section class="page-head">
+    <div class="container">
+      <Breadcrumbs items={crumbs} />
+      <h1>Projects and products</h1>
+      <p class="lead">
+        Each entry states who owns it and its current status. Client work is described without confidential details,
+        and confidential clients are given a clearly marked pseudonym.
+      </p>
+    </div>
+  </section>
+
+  <section class="section">
+    <div class="container">
+      <div class="section-head">
+        <h2>Products I own</h2>
+        <p>Software products I have defined and lead.</p>
+      </div>
+      <div class="grid grid--2">{own.map((p) => <ProjectCard project={p} />)}</div>
+    </div>
+  </section>
+
+  <section class="section section--soft">
+    <div class="container">
+      <div class="section-head">
+        <h2>Client projects</h2>
+        <p>Work carried out for clients, who own the results.</p>
+      </div>
+      <div class="grid grid--3">{client.map((p) => <ProjectCard project={p} />)}</div>
+    </div>
+  </section>
+
+  <CtaBand location="projects-band" />
+</Base>

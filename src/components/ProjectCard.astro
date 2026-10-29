@@ -1,0 +1,21 @@
+---
+import type { CollectionEntry } from 'astro:content';
+interface Props {
+  project: CollectionEntry<'projects'>;
+  headingLevel?: 'h2' | 'h3';
+}
+const { project, headingLevel = 'h3' } = Astro.props;
+const { data } = project;
+const Heading = headingLevel;
+const badgeClass = data.ownership === 'own-product' ? 'badge badge--own' : 'badge badge--client';
+---
+
+<article class="card card--link">
+  <div class="badges">
+    <span class={badgeClass}>{data.ownershipLabel}</span>
+    {data.status && <span class="badge">{data.status}</span>}
+  </div>
+  <Heading><a href={`/projects/${project.id}/`}>{data.title}</a></Heading>
+  <p>{data.summary}</p>
+  <div class="card__foot"><a href={`/projects/${project.id}/`} aria-hidden="true" tabindex="-1">Read the project →</a></div>
+</article>

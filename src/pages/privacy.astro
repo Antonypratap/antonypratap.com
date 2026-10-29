@@ -1,0 +1,45 @@
+---
+import Base from '../layouts/Base.astro';
+import Breadcrumbs from '../components/Breadcrumbs.astro';
+import { ENV } from '../data/site';
+const crumbs = [
+  { name: 'Home', path: '/' },
+  { name: 'Privacy', path: '/privacy/' },
+];
+const analytics = ENV.plausibleDomain ? 'Plausible Analytics' : ENV.ga4Id ? 'Google Analytics' : '';
+---
+
+<Base title="Privacy Notice" description="How antonypratap.com handles the personal information you submit through the enquiry form and the analytics it collects.">
+  <section class="page-head">
+    <div class="container">
+      <Breadcrumbs items={crumbs} />
+      <h1>Privacy notice</h1>
+    </div>
+  </section>
+  <section class="section">
+    <div class="container prose">
+      <h2>Enquiries</h2>
+      <p>
+        When you send an enquiry, the details you enter (name, business email, company, country and your description
+        of the project) are used only to respond to you and to discuss a possible project. They are not sold or shared
+        for marketing. The form is delivered by a form-processing service that forwards the enquiry by email.
+      </p>
+      <h2>Analytics</h2>
+      {
+        analytics ? (
+          <p>
+            This site uses {analytics} to understand which pages are visited and how many enquiries are sent. It is
+            used only to improve the site.
+          </p>
+        ) : (
+          <p>This site does not currently use analytics or tracking cookies.</p>
+        )
+      }
+      <h2>Your requests</h2>
+      <p>
+        To ask what information is held about you, or to have it deleted, reply to any email you have received from me
+        or send a request through the <a href="/contact/">contact form</a>.
+      </p>
+    </div>
+  </section>
+</Base>

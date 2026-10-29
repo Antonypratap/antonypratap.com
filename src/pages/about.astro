@@ -1,0 +1,103 @@
+---
+import Base from '../layouts/Base.astro';
+import Breadcrumbs from '../components/Breadcrumbs.astro';
+import CtaBand from '../components/CtaBand.astro';
+import { breadcrumbSchema } from '../data/schema';
+
+const crumbs = [
+  { name: 'Home', path: '/' },
+  { name: 'About', path: '/about/' },
+];
+---
+
+<Base
+  title="About Antony Pratap"
+  description="Antony Pratap is a technology entrepreneur and implementation partner who helps businesses connect their systems, automate operations and build practical software."
+  jsonLd={[breadcrumbSchema(crumbs), { '@type': 'AboutPage', url: 'https://antonypratap.com/about/', about: { '@id': 'https://antonypratap.com/#person' } }]}
+>
+  <section class="page-head">
+    <div class="container">
+      <Breadcrumbs items={crumbs} />
+      <h1>About Antony Pratap</h1>
+      <p class="lead">
+        I am a technology entrepreneur and implementation partner. I work where business operations, software
+        development, systems integration, automation and AI meet.
+      </p>
+    </div>
+  </section>
+
+  <section class="section">
+    <div class="container split">
+      <div class="prose">
+        <h2>Business problems first</h2>
+        <p>
+          My strength is understanding how a business actually runs, seeing where technology can improve it, and
+          getting a practical solution delivered. I work directly with owners, founders and operations and finance
+          leaders, the people who feel the cost of disconnected systems and manual work.
+        </p>
+        <p>
+          Some problems are solved by connecting existing software. Some need a process to be simplified and automated.
+          Some need a custom application. A few benefit from AI. Choosing between them is the most important decision
+          in a project, so I make it on the evidence of the business problem, not on a preference for a particular
+          technology.
+        </p>
+
+        <h2>How I deliver</h2>
+        <p>I am not a development agency that supplies hours, and I do not claim to personally perform every specialist task. My work combines:</p>
+        <ul>
+          <li><strong>Business analysis and requirements definition:</strong> understanding the process, the people and the rules.</li>
+          <li><strong>Technical planning and solution architecture:</strong> choosing the approach, systems and integrations.</li>
+          <li><strong>AI-assisted development:</strong> modern tools that make delivery faster without lowering quality.</li>
+          <li><strong>Developers and specialists</strong> where the work requires them, coordinated by me.</li>
+          <li><strong>Integration, testing and iterative delivery:</strong> working results in stages, checked against the original problem.</li>
+        </ul>
+        <p>
+          You have one point of contact who understands both the business requirement and the technical work, and who
+          takes responsibility for getting it delivered.
+        </p>
+
+        <h2>Products and client work</h2>
+        <p>
+          Alongside client projects, I build my own software products. <a href="/projects/veyrafy/">Veyrafy</a> verifies
+          supplier invoices against business records, and <a href="/projects/opsdone/">OpsDone</a> manages operational
+          work and accountability across locations. Building products of my own means I deal with the same questions my
+          clients face: what to build, what to leave out, and how to make software dependable in daily use.
+        </p>
+        <p>
+          Client work includes <a href="/projects/opsfirst/">OpsFirst</a>, a service operations platform built for
+          iDine; <a href="/projects/snacktroops/">SnackTroops</a>, a school-based initiative; and an ecommerce and
+          integration project for a fruit distribution business described as
+          <a href="/projects/freshroute-produce/">FreshRoute Produce (pseudonym)</a>.
+        </p>
+
+        <h2>Where I work</h2>
+        <p>
+          I work with businesses in India and the United Arab Emirates, including Dubai and Abu Dhabi.
+        </p>
+      </div>
+      <aside>
+        <div class="panel">
+          <h2>Engagement types</h2>
+          <ul class="checklist">
+            <li>Technical discovery and implementation planning</li>
+            <li>Integration projects</li>
+            <li>Business automation projects</li>
+            <li>Custom application development</li>
+            <li>Existing system improvement</li>
+            <li>Ongoing development and enhancement</li>
+          </ul>
+        </div>
+        <div class="panel">
+          <h2>What I will not do</h2>
+          <ul class="checklist">
+            <li>Promise results that have not been measured</li>
+            <li>Recommend AI where simpler software works better</li>
+            <li>Disclose one client's confidential information to another</li>
+          </ul>
+        </div>
+      </aside>
+    </div>
+  </section>
+
+  <CtaBand location="about-band" />
+</Base>

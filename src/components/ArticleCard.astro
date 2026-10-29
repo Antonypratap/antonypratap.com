@@ -1,0 +1,21 @@
+---
+import type { CollectionEntry } from 'astro:content';
+import { formatDate } from '../data/format';
+interface Props {
+  article: CollectionEntry<'insights'>;
+  headingLevel?: 'h2' | 'h3';
+}
+const { article, headingLevel = 'h3' } = Astro.props;
+const { data } = article;
+const Heading = headingLevel;
+---
+
+<article class="card card--link">
+  <div class="badges">
+    <span class="badge">{data.topic}</span>
+    {data.draft && <span class="draft-flag">Draft</span>}
+  </div>
+  <Heading><a href={`/insights/${article.id}/`}>{data.title}</a></Heading>
+  <p>{data.description}</p>
+  <div class="card__foot"><time datetime={data.published.toISOString()}>{formatDate(data.published)}</time></div>
+</article>

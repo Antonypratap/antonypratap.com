@@ -1,0 +1,66 @@
+---
+import Base from '../../layouts/Base.astro';
+import Breadcrumbs from '../../components/Breadcrumbs.astro';
+import CtaBand from '../../components/CtaBand.astro';
+import { services } from '../../data/content';
+import { breadcrumbSchema } from '../../data/schema';
+
+const all = await services();
+const crumbs = [
+  { name: 'Home', path: '/' },
+  { name: 'Services', path: '/services/' },
+];
+---
+
+<Base
+  title="Services: Integration, Automation and Custom Software"
+  description="Business systems integration, process automation, AI implementation, custom software, ecommerce integration and technology consulting for businesses in India and the UAE."
+  jsonLd={[breadcrumbSchema(crumbs)]}
+>
+  <section class="page-head">
+    <div class="container">
+      <Breadcrumbs items={crumbs} />
+      <h1>Services</h1>
+      <p class="lead">
+        Each service solves a different kind of operational problem. Most projects combine several, so start with the
+        problem you recognise.
+      </p>
+    </div>
+  </section>
+
+  <section class="section">
+    <div class="container">
+      {
+        all.map((s, i) => (
+          <article class={i > 0 ? 'section--tight' : ''} style={i > 0 ? 'border-top:1px solid var(--line)' : ''}>
+            <div class="split">
+              <div>
+                <h2>
+                  <a href={`/services/${s.id}/`}>{s.data.title}</a>
+                </h2>
+                <p>{s.data.summary}</p>
+                <p>
+                  <a href={`/services/${s.id}/`}>How {s.data.shortTitle.toLowerCase()} works →</a>
+                </p>
+              </div>
+              <div>
+                <h3 class="eyebrow">Typical problems</h3>
+                <ul class="checklist">
+                  {s.data.problems.slice(0, 3).map((p) => (
+                    <li>{p}</li>
+                  ))}
+                </ul>
+              </div>
+            </div>
+          </article>
+        ))
+      }
+    </div>
+  </section>
+
+  <CtaBand
+    location="services-band"
+    heading="Not sure which service fits?"
+    text="Describe the problem in your own words. Working out the right approach is part of the job."
+  />
+</Base>

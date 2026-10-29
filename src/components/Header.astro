@@ -1,0 +1,46 @@
+---
+import { NAV, CTA, SITE } from '../data/site';
+const path = Astro.url.pathname;
+const isCurrent = (href: string) => path === href || path.startsWith(href);
+---
+
+<header class="site-header">
+  <div class="container site-header__inner">
+    <a class="brand" href="/">{SITE.name}</a>
+
+    <nav class="nav nav--desktop" aria-label="Main">
+      <ul>
+        {
+          NAV.map((item) => (
+            <li>
+              <a href={item.href} aria-current={isCurrent(item.href) ? 'page' : undefined}>
+                {item.label}
+              </a>
+            </li>
+          ))
+        }
+        <li><a class="button button--small" href={CTA.href} data-cta="header">{CTA.label}</a></li>
+      </ul>
+    </nav>
+
+    <details class="nav-toggle">
+      <summary>Menu</summary>
+      <div class="nav-toggle__panel">
+        <nav class="nav" aria-label="Main (mobile)">
+          <ul>
+            {
+              NAV.map((item) => (
+                <li>
+                  <a href={item.href} aria-current={isCurrent(item.href) ? 'page' : undefined}>
+                    {item.label}
+                  </a>
+                </li>
+              ))
+            }
+            <li><a class="button" href={CTA.href} data-cta="header-mobile">{CTA.label}</a></li>
+          </ul>
+        </nav>
+      </div>
+    </details>
+  </div>
+</header>

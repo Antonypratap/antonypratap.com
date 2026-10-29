@@ -1,0 +1,99 @@
+---
+import { render, getEntries } from 'astro:content';
+import Base from '../../layouts/Base.astro';
+import Breadcrumbs from '../../components/Breadcrumbs.astro';
+import CtaBand from '../../components/CtaBand.astro';
+import ProjectCard from '../../components/ProjectCard.astro';
+import { projects } from '../../data/content';
+import { breadcrumbSchema } from '../../data/schema';
+
+export async function getStaticPaths() {
+  return (await projects()).map((project) => ({ params: { slug: project.id }, props: { project } }));
+}
+
+const { project } = Astro.props;
+const { data } = project;
+const { Content } = await render(project);
+const relatedServices = await getEntries(data.services);
+const others = (await projects()).filter((p) => p.id !== project.id).slice(0, 3);
+const path = `/projects/${project.id}/`;
+const crumbs = [
+  { name: 'Home', path: '/' },
+  { name: 'Projects', path: '/projects/' },
+  { name: data.title, path },
+];
+const badgeClass = data.ownership === 'own-product' ? 'badge badge--own' : 'badge badge--client';
+---
+
+<Base title={data.metaTitle} fullTitle description={data.description} jsonLd={[breadcrumbSchema(crumbs)]}>
+  <section class="page-head">
+    <div class="container">
+      <Breadcrumbs items={crumbs} />
+      <div class="badges">
+        <span class={badgeClass}>{data.ownershipLabel}</span>
+        {data.status && <span class="badge">{data.status}</span>}
+        {data.pseudonym && <span class="badge">Pseudonym</span>}
+      </div>
+      <h1>{data.title}</h1>
+      <p class="lead">{data.summary}</p>
+    </div>
+  </section>
+
+  <section class="section">
+    <div class="container split">
+      <div class="prose">
+        <Content />
+      </div>
+      <aside>
+        <div class="panel">
+          <h2>At a glance</h2>
+          <dl class="facts">
+            <div>
+              <dt>Ownership</dt>
+              <dd>{data.ownershipLabel}</dd>
+            </div>
+            {
+              data.status && (
+                <div>
+                  <dt>Status</dt>
+                  <dd>{data.status}</dd>
+                </div>
+              )
+            }
+            {
+              data.tags.length > 0 && (
+                <div>
+                  <dt>Areas</dt>
+                  <dd>{data.tags.join(' · ')}</dd>
+                </div>
+              )
+            }
+          </dl>
+        </div>
+        {
+          relatedServices.length > 0 && (
+            <div class="panel">
+              <h2>Related services</h2>
+              <ul class="checklist">
+                {relatedServices.map((s) => (
+                  <li>
+                    <a href={`/services/${s.id}/`}>{s.data.title}</a>
+                  </li>
+                ))}
+              </ul>
+            </div>
+          )
+        }
+      </aside>
+    </div>
+  </section>
+
+  <section class="section section--soft">
+    <div class="container">
+      <div class="section-head"><h2>Other projects</h2></div>
+      <div class="grid grid--3">{others.map((p) => <ProjectCard project={p} />)}</div>
+    </div>
+  </section>
+
+  <CtaBand location={`project-${project.id}-band`} />
+</Base>

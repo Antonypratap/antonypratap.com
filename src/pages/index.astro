@@ -1,0 +1,182 @@
+---
+import Base from '../layouts/Base.astro';
+import ServiceCard from '../components/ServiceCard.astro';
+import ProjectCard from '../components/ProjectCard.astro';
+import ArticleCard from '../components/ArticleCard.astro';
+import CtaBand from '../components/CtaBand.astro';
+import { SITE, CTA } from '../data/site';
+import { services, projects, articles } from '../data/content';
+
+const allServices = await services();
+const allProjects = await projects();
+const latest = (await articles()).slice(0, 3);
+
+const problems = [
+  {
+    title: 'Systems that do not talk to each other',
+    text: 'Orders, stock, invoices and customer records live in separate applications, and people move the data between them.',
+  },
+  {
+    title: 'Repetitive manual work',
+    text: 'Skilled staff spend hours copying, checking, chasing and reconciling instead of running the business.',
+  },
+  {
+    title: 'No reliable view of operations',
+    text: 'Managers wait for exports and spreadsheets to know what is happening, and problems surface late.',
+  },
+  {
+    title: 'Software that does not fit',
+    text: 'Off-the-shelf tools force workarounds, and important processes still run on spreadsheets.',
+  },
+];
+
+const steps = [
+  { title: 'Understand the problem', text: 'How the work is done today, where time and money are lost, and what a good outcome looks like.' },
+  { title: 'Design the solution', text: 'Integrate, automate, configure or build: the simplest approach that solves the problem reliably.' },
+  { title: 'Deliver in stages', text: 'Working results early, tested with realistic data, with one accountable point of contact.' },
+  { title: 'Improve with evidence', text: 'Check the result against the original problem and plan the next improvement.' },
+];
+---
+
+<Base title={SITE.title} fullTitle description={SITE.description}>
+  <section class="hero">
+    <div class="container">
+      <span class="eyebrow">Systems integration · Process automation · Custom software</span>
+      <h1>I help businesses streamline operations by connecting their systems and automating manual work.</h1>
+      <p class="lead">
+        From connecting the software you already use to building custom applications and implementing AI-powered
+        workflows, I help established and growing businesses in India and the UAE solve operational problems with
+        practical technology.
+      </p>
+      <div class="actions">
+        <a class="button" href={CTA.href} data-cta="home-hero">{CTA.label}</a>
+        <a class="button button--ghost" href="/projects/">See projects and products</a>
+      </div>
+    </div>
+  </section>
+
+  <section class="section">
+    <div class="container">
+      <div class="section-head">
+        <h2>Where operations lose time</h2>
+        <p>The symptoms are usually familiar long before anyone calls them a technology problem.</p>
+      </div>
+      <div class="grid grid--2">
+        {
+          problems.map((p) => (
+            <div class="card">
+              <h3>{p.title}</h3>
+              <p>{p.text}</p>
+            </div>
+          ))
+        }
+      </div>
+    </div>
+  </section>
+
+  <section class="section section--soft">
+    <div class="container">
+      <div class="section-head">
+        <h2>How I help</h2>
+        <p>
+          Six ways of solving operational problems. Most projects combine several of them, starting from the business
+          problem rather than a particular technology.
+        </p>
+      </div>
+      <div class="grid grid--3">
+        {allServices.map((s) => <ServiceCard service={s} />)}
+      </div>
+      <p class="actions"><a href="/services/">Compare all services →</a></p>
+    </div>
+  </section>
+
+  <section class="section">
+    <div class="container split">
+      <div>
+        <h2>One accountable partner, from requirement to result</h2>
+        <p>
+          My work sits between business operations and software delivery. I work directly with owners and
+          decision-makers to understand the problem, decide on the right approach and get it implemented.
+        </p>
+        <p>
+          Delivery combines business analysis, solution architecture, AI-assisted development and, where the work
+          needs them, developers and specialists I coordinate. You deal with one person who understands both the
+          business requirement and the technical work.
+        </p>
+        <p><a href="/about/">More about how I work →</a></p>
+      </div>
+      <ol class="steps">
+        {
+          steps.map((s) => (
+            <li>
+              <strong>{s.title}</strong>
+              <span>{s.text}</span>
+            </li>
+          ))
+        }
+      </ol>
+    </div>
+  </section>
+
+  <section class="section section--soft">
+    <div class="container">
+      <div class="section-head">
+        <h2>Projects and products</h2>
+        <p>
+          Client work and products I own, each labelled for what it is. Confidential clients are described with a
+          pseudonym.
+        </p>
+      </div>
+      <div class="grid grid--3">
+        {allProjects.map((p) => <ProjectCard project={p} />)}
+      </div>
+    </div>
+  </section>
+
+  <section class="section">
+    <div class="container split">
+      <div>
+        <h2>Working with businesses in India and the UAE</h2>
+        <p>
+          I work with businesses in India and the United Arab Emirates, including Dubai and Abu Dhabi. The problems are
+          similar across both markets: disconnected systems, manual processes and growth that has outgrown the tools
+          that supported it.
+        </p>
+        <p>
+          Projects are organised around clear written requirements, regular reviews of working software and
+          communication that fits your team's hours. India and the UAE are only one and a half hours apart.
+        </p>
+      </div>
+      <div class="panel">
+        <h3>Businesses this work suits</h3>
+        <ul class="checklist">
+          <li>Distributors, wholesalers and suppliers</li>
+          <li>Food, fruit and fresh produce businesses</li>
+          <li>Retail and ecommerce businesses</li>
+          <li>Multi-location and service operations</li>
+          <li>Founders building digital products</li>
+        </ul>
+      </div>
+    </div>
+  </section>
+
+  {
+    latest.length > 0 && (
+      <section class="section section--soft">
+        <div class="container">
+          <div class="section-head">
+            <h2>Insights</h2>
+            <p>Practical guidance on integration, automation and software decisions.</p>
+          </div>
+          <div class="grid grid--3">
+            {latest.map((a) => (
+              <ArticleCard article={a} />
+            ))}
+          </div>
+        </div>
+      </section>
+    )
+  }
+
+  <CtaBand location="home-band" />
+</Base>
