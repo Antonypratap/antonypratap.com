@@ -8,6 +8,8 @@ ownership: client-confidential
 ownershipLabel: Confidential client
 status: In progress
 pseudonym: true
+featured: true
+industries: [Fresh produce, Distribution]
 services:
   - ecommerce-integration
   - business-systems-integration

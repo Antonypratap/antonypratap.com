@@ -39,6 +39,17 @@ review it with `npm run dev`, then set `draft: false` and push. Published articl
 index, the sitemap and the RSS feed (`/insights/rss.xml`). A file name becomes the URL, so do not
 rename published files; if one must change, add a redirect in `public/_redirects`.
 
+**Adding a project:** copy `src/content/projects/_template.md` to a new file and fill it in.
+Nothing else needs editing. The project then appears automatically:
+
+- on `/projects/` (grouped as own products or client work; service filters appear at 6+ projects);
+- on every service page it lists under `services:` (featured first, up to 4, then a link to the rest);
+- on the home page if it is among the strongest (`featured: true`; the first featured project with
+  screenshots leads, followed by up to 4 others and a link to all projects);
+- in the footer if featured (up to 4), and in the About page counts.
+
+Keep `featured: true` for the few projects that best represent the work you want more of.
+
 **Project rules** (enforced by the schema where possible): every project states its ownership
 (`own-product`, `client`, `client-confidential`); status is shown only when confirmed; a
 pseudonym is labelled as one. See `CONTENT-REVIEW.md` for facts awaiting confirmation.

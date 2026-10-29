@@ -17,7 +17,6 @@ const services = defineCollection({
     problems: z.array(z.string()).min(3),
     scenarios: z.array(z.object({ title: z.string(), text: z.string() })).min(3),
     audiences: z.array(z.string()).min(2),
-    relatedProjects: z.array(reference('projects')).default([]),
     relatedServices: z.array(reference('services')).default([]),
     faqs: z.array(faq).default([]),
     ctaLabel: z.string().default('Discuss a project'),
@@ -25,13 +24,16 @@ const services = defineCollection({
 });
 
 const projects = defineCollection({
-  loader: glob({ pattern: '**/*.md', base: './src/content/projects' }),
+  // Files starting with "_" (such as _template.md) are not published.
+  loader: glob({ pattern: '**/[^_]*.md', base: './src/content/projects' }),
   schema: ({ image }) =>
     z.object({
     title: z.string(),
     metaTitle: z.string().max(65),
     description: z.string().min(70).max(165),
     summary: z.string(),
+    /** Optional outcome-led heading used where the project is featured. */
+    headline: z.string().optional(),
     order: z.number(),
     /** Who owns it. Shown on every card and page; never inferred. */
     ownership: z.enum(['own-product', 'client', 'client-confidential']),
@@ -39,7 +41,12 @@ const projects = defineCollection({
     /** Only shown when confirmed. */
     status: z.string().optional(),
     pseudonym: z.boolean().default(false),
-    services: z.array(reference('services')).default([]),
+    /** Featured projects lead on the home page, service pages and footer. Keep it to the strongest few. */
+    featured: z.boolean().default(false),
+    /** The services this project is evidence for. Service pages list their projects from this. */
+    services: z.array(reference('services')).min(1),
+    /** Industries the project belongs to, in plain words (e.g. "Fresh produce", "Hospitality"). */
+    industries: z.array(z.string()).default([]),
     tags: z.array(z.string()).default([]),
     /** Real screenshots only. Caption must say when the data shown is demo data. */
     screenshots: z.array(z.object({ src: image(), alt: z.string().min(20), caption: z.string() })).default([]),

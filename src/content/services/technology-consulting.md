@@ -23,10 +23,6 @@ audiences:
   - Business owners and managing directors who need a trusted technical counterpart.
   - Operations and finance leaders responsible for a system change.
   - Companies without an in-house technology team, or whose team is fully occupied.
-relatedProjects:
-  - snacktroops
-  - freshroute-produce
-  - opsfirst
 relatedServices:
   - business-systems-integration
   - custom-software-development

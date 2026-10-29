@@ -3,12 +3,16 @@ import Base from '../../layouts/Base.astro';
 import Breadcrumbs from '../../components/Breadcrumbs.astro';
 import CtaBand from '../../components/CtaBand.astro';
 import ProjectRows from '../../components/ProjectRows.astro';
-import { projects } from '../../data/content';
+import { projects, services } from '../../data/content';
 import { breadcrumbSchema } from '../../data/schema';
 
 const all = await projects();
 const own = all.filter((p) => p.data.ownership === 'own-product');
 const client = all.filter((p) => p.data.ownership !== 'own-product');
+// Only services that at least one project is evidence for.
+const filters = (await services()).filter((s) => all.some((p) => p.data.services.some((r) => r.id === s.id)));
+// Filters help once the list is long; with a handful of projects they are noise.
+const showFilters = all.length >= 6;
 const crumbs = [
   { name: 'Home', path: '/' },
   { name: 'Projects', path: '/projects/' },
@@ -17,7 +21,7 @@ const crumbs = [
 
 <Base
   title="Projects and Products"
-  description="Client projects and products by Antony Pratap: invoice verification, operations management, service platforms, ecommerce integration and education technology."
+  description="Client projects and products by Antony Pratap across systems integration, process automation, AI implementation, custom software and ecommerce integration."
   jsonLd={[breadcrumbSchema(crumbs)]}
 >
   <section class="page-head">
@@ -28,28 +32,80 @@ const crumbs = [
         Each entry states who owns it and its current status. Client work is described without confidential details,
         and confidential clients are given a clearly marked pseudonym.
       </p>
+      <nav class="filters" aria-label="Filter projects by service" hidden={!showFilters}>
+        <a href="/projects/" data-filter="">All</a>
+        {filters.map((s) => <a href={`/projects/?service=${s.id}`} data-filter={s.id}>{s.data.shortTitle}</a>)}
+      </nav>
+      <p id="filter-status" class="note" role="status" hidden></p>
     </div>
   </section>
 
-  <section class="section">
-    <div class="container">
-      <div class="section-head">
-        <h2>Products I own</h2>
-        <p>Software products I have defined and lead.</p>
-      </div>
-      <ProjectRows items={own} />
-    </div>
-  </section>
+  {
+    own.length > 0 && (
+      <section class="section project-group">
+        <div class="container">
+          <div class="section-head">
+            <h2>Products I own</h2>
+            <p>Software products I have defined and lead.</p>
+          </div>
+          <ProjectRows items={own} />
+        </div>
+      </section>
+    )
+  }
 
-  <section class="section section--soft">
-    <div class="container">
-      <div class="section-head">
-        <h2>Client projects</h2>
-        <p>Work carried out for clients, who own the results.</p>
-      </div>
-      <ProjectRows items={client} />
-    </div>
-  </section>
+  {
+    client.length > 0 && (
+      <section class="section section--soft project-group">
+        <div class="container">
+          <div class="section-head">
+            <h2>Client projects</h2>
+            <p>Work carried out for clients, who own the results.</p>
+          </div>
+          <ProjectRows items={client} />
+        </div>
+      </section>
+    )
+  }
 
   <CtaBand location="projects-band" />
 </Base>
+
+<script>
+  // Progressive enhancement: /projects/?service=<id> shows only the projects for that service.
+  // Without JavaScript every project is listed.
+  const nav = document.querySelector<HTMLElement>('.filters');
+  const status = document.querySelector<HTMLElement>('#filter-status');
+
+  function apply(service: string) {
+    let shown = 0;
+    document.querySelectorAll<HTMLElement>('[data-services]').forEach((row) => {
+      const match = !service || (row.dataset.services ?? '').split(' ').includes(service);
+      row.hidden = !match;
+      if (match) shown++;
+    });
+    document.querySelectorAll<HTMLElement>('.project-group').forEach((group) => {
+      group.hidden = !group.querySelector('[data-services]:not([hidden])');
+    });
+    nav?.querySelectorAll<HTMLAnchorElement>('a').forEach((a) => {
+      a.setAttribute('aria-current', String(a.dataset.filter === service));
+    });
+    if (status) {
+      const label = nav?.querySelector<HTMLAnchorElement>(`a[data-filter="${service}"]`)?.textContent;
+      status.hidden = !service;
+      status.textContent = service ? `Showing ${shown} project${shown === 1 ? '' : 's'} for ${label ?? service}.` : '';
+    }
+  }
+
+  const initial = new URLSearchParams(location.search).get('service') ?? '';
+  if (initial && nav) nav.hidden = false;
+  apply(initial);
+
+  nav?.addEventListener('click', (event) => {
+    const link = (event.target as Element).closest<HTMLAnchorElement>('a[data-filter]');
+    if (!link) return;
+    event.preventDefault();
+    history.replaceState(null, '', link.href);
+    apply(link.dataset.filter ?? '');
+  });
+</script>

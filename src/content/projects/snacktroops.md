@@ -6,6 +6,8 @@ summary: A school-based hamper management initiative that teaches children pract
 order: 4
 ownership: client
 ownershipLabel: Client project
+featured: false
+industries: [Education]
 services:
   - custom-software-development
   - technology-consulting

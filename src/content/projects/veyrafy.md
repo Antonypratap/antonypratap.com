@@ -3,10 +3,12 @@ title: Veyrafy
 metaTitle: 'Veyrafy: Supplier Invoice Verification Product | Antony Pratap'
 description: Veyrafy is my own invoice verification product. It reads supplier invoices, checks them against business records and asks a person when something does not match.
 summary: My own product for verifying supplier invoices. It reads invoices, checks them against purchase orders, goods receipts and supplier records, and asks a person when something does not match.
+headline: 'Veyrafy: supplier invoices checked against your records'
 order: 1
 ownership: own-product
 ownershipLabel: My own product
 status: In active development
+featured: true
 services:
   - ai-automation
   - business-process-automation
@@ -14,12 +16,12 @@ services:
   - custom-software-development
 tags: [Invoice verification, Document extraction, ERP integration, Finance automation]
 screenshots:
-  - src: ../../assets/projects/veyrafy-invoice-ready.png
-    alt: Veyrafy screen showing a supplier tax invoice beside the values it read, marked Invoice ready after the order, goods receipt and invoice agreed
-    caption: An invoice that matches its purchase order and goods receipt is marked ready, with the original document alongside. Demo data.
   - src: ../../assets/projects/veyrafy-quantity-mismatch.png
     alt: Veyrafy screen showing an invoice that bills 4,000 units more than the purchase order, with the difference explained and options to resolve it
     caption: An invoice that bills more than was ordered is stopped and explained. There is no override. Demo data.
+  - src: ../../assets/projects/veyrafy-invoice-ready.png
+    alt: Veyrafy screen showing a supplier tax invoice beside the values it read, marked Invoice ready after the order, goods receipt and invoice agreed
+    caption: An invoice that matches its purchase order and goods receipt is marked ready, with the original document alongside. Demo data.
 ---
 
 ## The business problem

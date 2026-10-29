@@ -25,10 +25,6 @@ audiences:
   - Finance teams processing supplier invoices, payments and reconciliations.
   - Multi-location businesses that need consistent processes and accountability across sites.
   - Owners who want to grow without adding headcount for routine administration.
-relatedProjects:
-  - opsdone
-  - veyrafy
-  - opsfirst
 relatedServices:
   - ai-automation
   - business-systems-integration

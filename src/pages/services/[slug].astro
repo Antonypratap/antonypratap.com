@@ -5,7 +5,7 @@ import Breadcrumbs from '../../components/Breadcrumbs.astro';
 import CtaBand from '../../components/CtaBand.astro';
 import ProjectRows from '../../components/ProjectRows.astro';
 import ArticleCard from '../../components/ArticleCard.astro';
-import { services, articlesFor } from '../../data/content';
+import { services, articlesFor, projectsForService } from '../../data/content';
 import { breadcrumbSchema, serviceSchema } from '../../data/schema';
 import { CTA } from '../../data/site';
 
@@ -16,7 +16,8 @@ export async function getStaticPaths() {
 const { service } = Astro.props;
 const { data } = service;
 const { Content } = await render(service);
-const relatedProjects = await getEntries(data.relatedProjects);
+const evidence = await projectsForService(service.id);
+const relatedProjects = evidence.slice(0, 4);
 const relatedServices = await getEntries(data.relatedServices);
 const relatedArticles = (await articlesFor((a) => a.data.relatedServices.some((r) => r.id === service.id))).slice(0, 3);
 const path = `/services/${service.id}/`;
@@ -91,6 +92,11 @@ const crumbs = [
             <h2>Related projects and products</h2>
           </div>
           <ProjectRows items={relatedProjects} />
+          {evidence.length > relatedProjects.length && (
+            <p class="actions">
+              <a href={`/projects/?service=${service.id}`}>All {evidence.length} related projects →</a>
+            </p>
+          )}
         </div>
       </section>
     )

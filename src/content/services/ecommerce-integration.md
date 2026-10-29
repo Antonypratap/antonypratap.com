@@ -24,8 +24,6 @@ audiences:
   - Distributors and wholesalers adding online ordering to an existing operation.
   - Retailers selling through a website alongside physical locations or marketplaces.
   - Businesses rebuilding a WordPress or other website that must connect to operations.
-relatedProjects:
-  - freshroute-produce
 relatedServices:
   - business-systems-integration
   - business-process-automation
@@ -54,4 +52,4 @@ An ecommerce website that is not connected to operations creates work. Every ord
 
 ## How the work is delivered
 
-The integration is designed alongside the website, not after it. Each flow is built and tested separately with realistic data, so the business can switch flows on one at a time. A case in point is my current work for [FreshRoute Produce (pseudonym)](/projects/freshroute-produce/), a fruit distribution business.
+The integration is designed alongside the website, not after it. Each flow is built and tested separately with realistic data, so the business can switch flows on one at a time.

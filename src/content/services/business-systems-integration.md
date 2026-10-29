@@ -25,10 +25,6 @@ audiences:
   - Growing businesses whose processes have outgrown spreadsheets and manual exports.
   - Finance and operations leaders who need dependable data across departments.
   - Businesses that have bought new software and need it connected to existing systems.
-relatedProjects:
-  - freshroute-produce
-  - veyrafy
-  - opsfirst
 relatedServices:
   - business-process-automation
   - ecommerce-integration

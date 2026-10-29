@@ -6,6 +6,7 @@ summary: A provider-side platform built for iDine to deliver and manage services
 order: 3
 ownership: client
 ownershipLabel: Client project for iDine
+featured: true
 services:
   - custom-software-development
   - business-process-automation

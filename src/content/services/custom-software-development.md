@@ -23,11 +23,6 @@ audiences:
   - Businesses with a distinctive process that standard software does not support well.
   - Founders building a digital product who need someone to own delivery end to end.
   - Organisations replacing spreadsheets or legacy tools with a maintainable application.
-relatedProjects:
-  - opsdone
-  - opsfirst
-  - snacktroops
-  - veyrafy
 relatedServices:
   - technology-consulting
   - business-systems-integration

@@ -3,6 +3,11 @@ import Base from '../layouts/Base.astro';
 import Breadcrumbs from '../components/Breadcrumbs.astro';
 import CtaBand from '../components/CtaBand.astro';
 import { breadcrumbSchema } from '../data/schema';
+import { projects } from '../data/content';
+
+const all = await projects();
+const ownProducts = all.filter((p) => p.data.ownership === 'own-product');
+const clientWork = all.filter((p) => p.data.ownership !== 'own-product');
 
 const crumbs = [
   { name: 'Home', path: '/' },
@@ -58,16 +63,25 @@ const crumbs = [
 
         <h2>Products and client work</h2>
         <p>
-          Alongside client projects, I build my own software products. <a href="/projects/veyrafy/">Veyrafy</a> verifies
-          supplier invoices against business records, and <a href="/projects/opsdone/">OpsDone</a> manages operational
-          work and accountability across locations. Building products of my own means I deal with the same questions my
-          clients face: what to build, what to leave out, and how to make software dependable in daily use.
+          Alongside client projects, I build software products of my own. Building products means facing the same
+          questions my clients face: what to build, what to leave out, and how to make software dependable in daily
+          use.
         </p>
+        {
+          ownProducts.length > 0 && (
+            <ul>
+              {ownProducts.map((p) => (
+                <li>
+                  <a href={`/projects/${p.id}/`}>{p.data.title}</a>: {p.data.summary}
+                </li>
+              ))}
+            </ul>
+          )
+        }
         <p>
-          Client work includes <a href="/projects/opsfirst/">OpsFirst</a>, a service operations platform built for
-          iDine; <a href="/projects/snacktroops/">SnackTroops</a>, a school-based initiative; and an ecommerce and
-          integration project for a fruit distribution business described as
-          <a href="/projects/freshroute-produce/">FreshRoute Produce (pseudonym)</a>.
+          Client work spans {clientWork.length} project{clientWork.length === 1 ? '' : 's'} listed on the
+          <a href="/projects/">projects page</a>, each labelled for ownership and status. Confidential clients are
+          described with a clearly marked pseudonym.
         </p>
 
         <h2>Where I work</h2>

@@ -32,6 +32,10 @@ until it is confirmed; update the page and remove the line.
 - [ ] Which integrations are complete and tested, in progress, or planned.
 - [ ] Add the client's real name to the `BLOCKED_TERMS` repository secret so the build fails if it ever appears.
 
+## Featured projects
+
+- [ ] Featured now: Veyrafy, FreshRoute Produce (pseudonym), OpsFirst. Confirm, or choose the projects that best represent the work you want more of.
+
 ## About and contact
 
 - [ ] Background to add to the About page (career, years of experience, previous roles, where based).

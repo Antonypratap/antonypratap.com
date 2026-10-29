@@ -9,7 +9,7 @@ const { items } = Astro.props;
 <ul class="rows rows--plain">
   {
     items.map((p) => (
-      <li>
+      <li data-services={p.data.services.map((s) => s.id).join(' ')}>
         <div>
           <h3>
             <a href={`/projects/${p.id}/`}>{p.data.title}</a>

@@ -81,7 +81,7 @@ for (const file of pages) {
     if (href.startsWith(SITE)) fail(rel, `absolute link to own site (use a relative path): ${href}`);
     if (!href.startsWith('/') || href.startsWith('//')) continue;
     if (!resolves(href)) fail(rel, `broken internal link: ${href}`);
-    const page = href.split('#')[0];
+    const page = href.split('#')[0].split('?')[0];
     if (page && !page.endsWith('/') && !/\.[a-z0-9]+$/i.test(page)) fail(rel, `link without trailing slash: ${href}`);
   }
 

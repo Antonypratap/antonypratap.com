@@ -23,8 +23,6 @@ audiences:
   - Finance and operations teams processing large volumes of documents.
   - Businesses whose data arrives in inconsistent formats from suppliers or customers.
   - Leaders who want a sober assessment of where AI would help their operations, and where it would not.
-relatedProjects:
-  - veyrafy
 relatedServices:
   - business-process-automation
   - technology-consulting
@@ -51,7 +49,3 @@ AI is genuinely useful for some business problems, especially reading unstructur
 4. **Validate against your records.** Compare what the AI produced with purchase orders, master data and business rules.
 5. **Keep people in the loop.** Uncertain or inconsistent cases go to a person with the evidence needed to decide quickly.
 6. **Measure in production.** Track how often results are corrected, so the workflow can be improved with evidence.
-
-## An example from my own product
-
-[Veyrafy](/projects/veyrafy/), my invoice verification product, follows this pattern. Invoices are read from PDFs and images, an optional local AI model may suggest values only by quoting text printed on the document, and deterministic rules decide whether the invoice matches the business records. Anything uncertain becomes a question for a person.

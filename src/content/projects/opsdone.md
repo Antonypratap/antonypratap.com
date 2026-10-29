@@ -6,6 +6,7 @@ summary: My own operations management SaaS product. It helps businesses log oper
 order: 2
 ownership: own-product
 ownershipLabel: My own product
+featured: false
 services:
   - custom-software-development
   - business-process-automation

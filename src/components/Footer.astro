@@ -1,9 +1,10 @@
 ---
-import { getCollection } from 'astro:content';
 import { SITE, CTA } from '../data/site';
 
-const services = (await getCollection('services')).sort((a, b) => a.data.order - b.data.order);
-const projects = (await getCollection('projects')).sort((a, b) => a.data.order - b.data.order);
+import { services as getServices, projects as getProjects } from '../data/content';
+
+const services = await getServices();
+const featured = (await getProjects()).filter((p) => p.data.featured).slice(0, 4);
 const year = new Date().getFullYear();
 ---
 
@@ -27,7 +28,8 @@ const year = new Date().getFullYear();
       <div>
         <h2>Projects</h2>
         <ul>
-          {projects.map((p) => <li><a href={`/projects/${p.id}/`}>{p.data.title}</a></li>)}
+          {featured.map((p) => <li><a href={`/projects/${p.id}/`}>{p.data.title}</a></li>)}
+          <li><a href="/projects/">All projects</a></li>
         </ul>
       </div>
       <div>
