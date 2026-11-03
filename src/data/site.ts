@@ -3,7 +3,7 @@ export const SITE = {
   url: 'https://antonypratap.com',
   title: 'Antony Pratap: Business Systems Integration and Automation',
   description:
-    'I help businesses streamline operations by connecting their systems, automating manual processes and building practical software. Working with businesses in India and the UAE.',
+    'I help businesses streamline operations by connecting systems, automating manual work and building software, apps and digital platforms. India and the UAE.',
   jobTitle: 'Business systems integration and implementation partner',
   locale: 'en',
   // Markets the site is written for. Not office locations.

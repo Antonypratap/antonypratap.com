@@ -69,8 +69,8 @@ const countries = ['United Arab Emirates', 'India', 'Saudi Arabia', 'Qatar', 'Om
           </div>
           <div class="field">
             <label for="need">
-              What does your business need to improve?
-              <span class="hint">For example: orders are re-keyed into our inventory system, or invoice checking takes too long.</span>
+              What would you like to build, fix or improve?
+              <span class="hint">For example: orders are re-keyed into our inventory system, we need a customer app, or our website should connect to our stock.</span>
             </label>
             <textarea id="need" name="need" required></textarea>
           </div>
@@ -147,7 +147,7 @@ const countries = ['United Arab Emirates', 'India', 'Saudi Arabia', 'Qatar', 'Om
 
     if (!form.checkValidity()) {
       const firstInvalid = form.querySelector<HTMLElement>(':invalid');
-      show('Please complete the required fields: name, business email, company, country and what you need to improve.', 'error');
+      show('Please complete the required fields: name, business email, company, country and what you need.', 'error');
       firstInvalid?.focus();
       return;
     }

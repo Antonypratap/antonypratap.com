@@ -50,6 +50,11 @@ until it is confirmed; update the page and remove the line.
 - [ ] Confirm the delivery model wording (AI-assisted development plus coordinated developers and specialists).
 - [ ] Confirm statements in the FAQs: written agreement on ownership of commissioned work; disclosure of commercial interest in recommended products.
 
+## Wider capabilities
+
+- [ ] Confirm the "Beyond the core services" list (`src/data/capabilities.ts`): add or remove areas (for example digital marketing, SEO, IoT, blockchain) to match what you will take on.
+- [ ] Any of them to promote to a full service page later? (Add a file to `src/content/services/`.)
+
 ## Insights
 
 - [ ] Review the draft "What Is Systems Integration?" (`src/content/insights/what-is-systems-integration.md`) and set `draft: false` to publish.

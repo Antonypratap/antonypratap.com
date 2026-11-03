@@ -2,6 +2,7 @@
 import Base from '../../layouts/Base.astro';
 import Breadcrumbs from '../../components/Breadcrumbs.astro';
 import CtaBand from '../../components/CtaBand.astro';
+import Capabilities from '../../components/Capabilities.astro';
 import { services } from '../../data/content';
 import { breadcrumbSchema } from '../../data/schema';
 
@@ -14,7 +15,7 @@ const crumbs = [
 
 <Base
   title="Services: Integration, Automation and Custom Software"
-  description="Business systems integration, process automation, AI implementation, custom software, ecommerce integration and technology consulting for businesses in India and the UAE."
+  description="Systems integration, process automation, AI, custom software, apps, ecommerce and technology consulting for businesses in India and the UAE."
   jsonLd={[breadcrumbSchema(crumbs)]}
 >
   <section class="page-head">
@@ -56,6 +57,10 @@ const crumbs = [
         ))
       }
     </div>
+  </section>
+
+  <section class="section section--soft">
+    <div class="container"><Capabilities location="services-capabilities" /></div>
   </section>
 
   <CtaBand

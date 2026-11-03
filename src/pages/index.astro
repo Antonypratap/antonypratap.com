@@ -5,6 +5,7 @@ import CtaBand from '../components/CtaBand.astro';
 import SystemsDiagram from '../components/SystemsDiagram.astro';
 import ProjectRows from '../components/ProjectRows.astro';
 import FeaturedProject from '../components/FeaturedProject.astro';
+import Capabilities from '../components/Capabilities.astro';
 import { SITE, CTA } from '../data/site';
 import { services, projects, articles } from '../data/content';
 
@@ -62,7 +63,7 @@ const principles = [
         <h1>Connect your systems. Automate the manual work. Run a calmer operation.</h1>
         <p class="lead">
           I help established and growing businesses streamline operations by connecting the software they already use,
-          automating repetitive processes and building custom applications where nothing else fits.
+          automating repetitive processes and building the software, apps and platforms the business needs.
         </p>
         <div class="actions">
           <a class="button" href={CTA.href} data-cta="home-hero">{CTA.label}</a>
@@ -112,8 +113,8 @@ const principles = [
   <section class="section">
     <div class="container">
       <span class="kicker">How I help</span>
-      <h2>Six ways to solve operational problems</h2>
-      <p class="lead" style="margin-bottom:2.5rem">Most projects combine several. Start with the one you recognise.</p>
+      <h2>Core services</h2>
+      <p class="lead" style="margin-bottom:2.5rem">Where most of my work is focused. Projects usually combine several.</p>
       <ul class="rows rows--plain">
         {
           allServices.map((s) => (
@@ -129,6 +130,7 @@ const principles = [
           ))
         }
       </ul>
+      <div style="margin-top:4.5rem"><Capabilities location="home-capabilities" /></div>
     </div>
   </section>
 

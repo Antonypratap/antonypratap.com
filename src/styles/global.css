@@ -1169,3 +1169,32 @@ a:hover {
 [hidden] {
   display: none !important;
 }
+
+.capability-grid {
+  list-style: none;
+  padding: 0;
+  margin: 2rem 0 0;
+  display: grid;
+  gap: 0 2.5rem;
+}
+
+@media (min-width: 760px) {
+  .capability-grid {
+    grid-template-columns: repeat(2, 1fr);
+  }
+}
+
+.capability-grid li {
+  padding: 1rem 0;
+  border-bottom: 1px solid var(--line);
+}
+
+.capability-grid strong {
+  display: block;
+  color: var(--ink);
+}
+
+.capability-grid span {
+  color: var(--muted);
+  font-size: 0.97rem;
+}

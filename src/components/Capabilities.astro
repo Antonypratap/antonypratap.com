@@ -1,0 +1,32 @@
+---
+import { CAPABILITIES } from '../data/capabilities';
+import { CTA } from '../data/site';
+interface Props {
+  location: string;
+  headingLevel?: 'h2' | 'h3';
+}
+const { location, headingLevel = 'h2' } = Astro.props;
+const Heading = headingLevel;
+---
+
+<div class="capabilities">
+  <span class="kicker">Beyond the core services</span>
+  <Heading>Whatever the digital work, start with the problem</Heading>
+  <p class="lead">
+    The services above are where I focus, but they are not a limit. If your business needs it built, connected,
+    automated or improved, it is worth a conversation.
+  </p>
+  <ul class="capability-grid">
+    {
+      CAPABILITIES.map((c) => (
+        <li>
+          <strong>{c.title}</strong>
+          <span>{c.text}</span>
+        </li>
+      ))
+    }
+  </ul>
+  <p class="actions">
+    <a class="button button--ghost" href={CTA.href} data-cta={location}>Tell me what you need</a>
+  </p>
+</div>
