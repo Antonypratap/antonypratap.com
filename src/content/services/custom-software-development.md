@@ -37,19 +37,24 @@ faqs:
   - q: Can you take over or improve an existing application?
     a: Yes, after reviewing its code, hosting and documentation to understand its condition. The review tells us whether to improve, stabilise or replace it.
 ctaLabel: Discuss a software project
+process:
+  heading: "How a custom software project runs"
+  steps:
+    - title: "Discovery"
+      text: "The process, users, rules, data and integrations, written down and agreed."
+    - title: "Architecture and plan"
+      text: "Technology choices, hosting, security, integrations and a delivery plan in stages."
+    - title: "Iterative delivery"
+      text: "Working software shown regularly, so feedback shapes the product while changes are still cheap."
+    - title: "Testing"
+      text: "Automated tests for business rules, plus testing with realistic data and real users before go-live."
+    - title: "Launch and support"
+      text: "Deployment, documentation, monitoring and a plan for improvements."
 ---
 
 ## Build only what earns its place
 
 Custom software is a long-term asset and a long-term responsibility. Before recommending it, I check whether existing products, configuration or integration would solve the problem at lower cost. When building is the right decision, the first release is kept deliberately focused so it is useful early and can grow on evidence.
-
-## How a custom software project runs
-
-1. **Discovery.** The process, users, rules, data and integrations, written down and agreed.
-2. **Architecture and plan.** Technology choices, hosting, security, integrations and a delivery plan in stages.
-3. **Iterative delivery.** Working software shown regularly, so feedback shapes the product while changes are still cheap.
-4. **Testing.** Automated tests for business rules, plus testing with realistic data and real users before go-live.
-5. **Launch and support.** Deployment, documentation, monitoring and a plan for improvements.
 
 ## How the work is delivered
 

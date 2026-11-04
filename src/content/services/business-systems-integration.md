@@ -39,6 +39,22 @@ faqs:
   - q: What happens when an integration fails?
     a: A well-built integration expects failures, such as a system being offline or a record being rejected. It retries safely, never creates duplicates, and tells a person when something needs attention. That behaviour is designed and tested, not left to chance.
 ctaLabel: Explore an integration project
+process:
+  heading: "How I approach an integration"
+  intro: "Integration work goes wrong when it starts with technology instead of the business process. I start by understanding how information actually moves today, who depends on it, and where errors or delays cost the business money or time."
+  steps:
+    - title: "Map the current flow"
+      text: "Which systems hold which data, who enters it, where it is copied, and where it goes wrong."
+    - title: "Decide the source of truth"
+      text: "For each type of record (customers, items, stock, orders, invoices) agree which system owns it and which systems only read it."
+    - title: "Assess each system's interfaces"
+      text: "APIs, webhooks, export formats, limits and authentication, verified against documentation and test environments rather than assumed."
+    - title: "Design for failure"
+      text: "Retries, duplicate prevention, validation, logging and a clear way for a person to resolve exceptions."
+    - title: "Build and test in stages"
+      text: "One flow at a time, tested with realistic data before it touches live operations."
+    - title: "Hand over and support"
+      text: "Documentation of what runs where, how to monitor it and what to do when something needs attention."
 ---
 
 ## What systems integration means in practice
@@ -46,17 +62,6 @@ ctaLabel: Explore an integration project
 Most established businesses run on several applications: an ERP or accounting system, an ecommerce platform, an inventory or warehouse system, payment gateways, a CRM, and usually a set of spreadsheets that hold everything together. Each application may work well on its own. The cost appears in the gaps between them, where people re-enter data, check one report against another and chase information across departments.
 
 Systems integration closes those gaps. Information entered once flows to the systems that need it, in the right format, at the right time, with clear rules for what happens when something does not match.
-
-## How I approach an integration
-
-Integration work goes wrong when it starts with technology instead of the business process. I start by understanding how information actually moves today, who depends on it, and where errors or delays cost the business money or time.
-
-1. **Map the current flow.** Which systems hold which data, who enters it, where it is copied, and where it goes wrong.
-2. **Decide the source of truth.** For each type of record (customers, items, stock, orders, invoices) agree which system owns it and which systems only read it.
-3. **Assess each system's interfaces.** APIs, webhooks, export formats, limits and authentication, verified against documentation and test environments rather than assumed.
-4. **Design for failure.** Retries, duplicate prevention, validation, logging and a clear way for a person to resolve exceptions.
-5. **Build and test in stages.** One flow at a time, tested with realistic data before it touches live operations.
-6. **Hand over and support.** Documentation of what runs where, how to monitor it and what to do when something needs attention.
 
 ## Integration is not always the answer
 

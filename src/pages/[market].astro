@@ -3,7 +3,9 @@ import { render, getCollection, getEntries } from 'astro:content';
 import Base from '../layouts/Base.astro';
 import Breadcrumbs from '../components/Breadcrumbs.astro';
 import CtaBand from '../components/CtaBand.astro';
-import ProjectRows from '../components/ProjectRows.astro';
+import CaseGrid from '../components/CaseGrid.astro';
+import SectionHeader from '../components/SectionHeader.astro';
+import FaqList from '../components/FaqList.astro';
 import { projects } from '../data/content';
 import { breadcrumbSchema } from '../data/schema';
 import { CTA, SITE } from '../data/site';
@@ -22,8 +24,9 @@ const all = await projects();
 // Work done in this country leads; then other projects that evidence the same services.
 const local = all.filter((p) => p.data.markets.some((m) => m.id === market.id));
 const related = all.filter((p) => !local.includes(p) && p.data.services.some((s) => serviceIds.has(s.id)));
-const evidence = [...local, ...related].slice(0, Math.max(4, local.length));
+const evidence = [...local, ...related].slice(0, Math.max(3, local.length));
 const path = `/${market.id}/`;
+const place = data.country === 'United Arab Emirates' ? 'the UAE' : data.country;
 const crumbs = [
   { name: 'Home', path: '/' },
   { name: data.country, path },
@@ -53,10 +56,7 @@ const serviceSchema = {
 
   <section class="section">
     <div class="container">
-      <div class="section-head">
-        <span class="kicker">What businesses here ask for</span>
-        <h2>Common projects in {data.country === 'United Arab Emirates' ? 'the UAE' : data.country}</h2>
-      </div>
+      <SectionHeader eyebrow="What businesses here ask for" title={`Common projects in ${place}`} />
       <ol class="rows">
         {
           data.needs.map((n, i) => (
@@ -95,10 +95,7 @@ const serviceSchema = {
 
   <section class="section">
     <div class="container">
-      <div class="section-head">
-        <span class="kicker">Services</span>
-        <h2>How I can help</h2>
-      </div>
+      <SectionHeader eyebrow="Services" title="How I can help" />
       <ul class="rows rows--plain">
         {
           services.map((s) => (
@@ -121,11 +118,8 @@ const serviceSchema = {
     evidence.length > 0 && (
       <section class="section section--soft">
         <div class="container">
-          <div class="section-head">
-            <span class="kicker">Proof of work</span>
-            <h2>{local.length > 0 ? `Work in ${data.country === 'United Arab Emirates' ? 'the UAE' : data.country} and related projects` : 'Related projects and products'}</h2>
-          </div>
-          <ProjectRows items={evidence} />
+          <SectionHeader eyebrow="Proof of work" title={local.length > 0 ? `Work in ${place} and related projects` : 'Related projects and products'} />
+          <CaseGrid items={evidence} />
         </div>
       </section>
     )
@@ -135,15 +129,8 @@ const serviceSchema = {
     data.faqs.length > 0 && (
       <section class="section">
         <div class="container">
-          <div class="prose faq">
-            <h2>Questions from {data.country === 'United Arab Emirates' ? 'UAE' : data.country} businesses</h2>
-            {data.faqs.map((f) => (
-              <details>
-                <summary>{f.q}</summary>
-                <p>{f.a}</p>
-              </details>
-            ))}
-          </div>
+          <SectionHeader eyebrow="FAQ" title={`Questions from ${data.country === 'United Arab Emirates' ? 'UAE' : data.country} businesses`} />
+          <FaqList faqs={data.faqs} />
         </div>
       </section>
     )

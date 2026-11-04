@@ -2,7 +2,8 @@
 import Base from '../../layouts/Base.astro';
 import Breadcrumbs from '../../components/Breadcrumbs.astro';
 import CtaBand from '../../components/CtaBand.astro';
-import ProjectRows from '../../components/ProjectRows.astro';
+import CaseGrid from '../../components/CaseGrid.astro';
+import SectionHeader from '../../components/SectionHeader.astro';
 import { projects, services } from '../../data/content';
 import { breadcrumbSchema } from '../../data/schema';
 
@@ -44,11 +45,8 @@ const crumbs = [
     own.length > 0 && (
       <section class="section project-group">
         <div class="container">
-          <div class="section-head">
-            <h2>Products I own</h2>
-            <p>Software products I have defined and lead.</p>
-          </div>
-          <ProjectRows items={own} />
+          <SectionHeader eyebrow="Products" title="Products I own" intro="Software products I have defined and lead." />
+          <CaseGrid items={own} />
         </div>
       </section>
     )
@@ -58,11 +56,8 @@ const crumbs = [
     client.length > 0 && (
       <section class="section section--soft project-group">
         <div class="container">
-          <div class="section-head">
-            <h2>Client projects</h2>
-            <p>Work carried out for clients, who own the results.</p>
-          </div>
-          <ProjectRows items={client} />
+          <SectionHeader eyebrow="Client work" title="Client projects" intro="Work carried out for clients, who own the results. Confidential clients appear under a marked pseudonym." />
+          <CaseGrid items={client} />
         </div>
       </section>
     )

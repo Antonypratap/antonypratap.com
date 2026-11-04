@@ -1,18 +1,21 @@
 ---
-import { getEntries } from 'astro:content';
+import { getEntries, getCollection } from 'astro:content';
 import Base from '../layouts/Base.astro';
 import ArticleCard from '../components/ArticleCard.astro';
 import CtaBand from '../components/CtaBand.astro';
 import SystemsDiagram from '../components/SystemsDiagram.astro';
-import ProjectRows from '../components/ProjectRows.astro';
 import FeaturedProject from '../components/FeaturedProject.astro';
-import Capabilities from '../components/Capabilities.astro';
+import CaseGrid from '../components/CaseGrid.astro';
+import SectionHeader from '../components/SectionHeader.astro';
+import ProcessSteps from '../components/ProcessSteps.astro';
 import Icon from '../components/Icon.astro';
 import LogoStrip from '../components/LogoStrip.astro';
 import { SITE, CTA } from '../data/site';
 import { PILLARS, REQUESTS } from '../data/pillars';
+import { CAPABILITIES } from '../data/capabilities';
 import { projects, articles } from '../data/content';
-import { getCollection } from 'astro:content';
+
+// Page story: what I do → proof → how I work → where → who → start a conversation.
 
 const pillars = await Promise.all(
   PILLARS.map(async (p) => ({
@@ -25,40 +28,23 @@ const pillars = await Promise.all(
 );
 
 const allProjects = await projects();
-// Lead with the strongest featured project that has real screens; then a short list, never the whole catalogue.
+// Lead with the strongest featured project that has real screens, then three more. Never the whole catalogue.
 const lead = allProjects.find((p) => p.data.featured && p.data.screenshots.length > 0) ?? allProjects[0];
-const moreProjects = allProjects.filter((p) => p !== lead).slice(0, 4);
+const moreProjects = allProjects.filter((p) => p !== lead).slice(0, 3);
 const latest = (await articles()).slice(0, 3);
 const markets = (await getCollection('markets')).sort((a, b) => a.data.order - b.data.order);
+const shortCountry = (c: string) => (c === 'United Arab Emirates' ? 'UAE' : c);
 
 const process = [
   { title: 'Talk it through', text: 'A conversation about the problem, your systems and what a good result looks like.' },
   { title: 'Agree the plan', text: 'Clear scope, approach, stages and risks, written down before work starts.' },
-  { title: 'Deliver in stages', text: 'Working results early, tested with realistic data, reviewed with you.' },
+  { title: 'Deliver in stages', text: 'Working results early, tested with realistic data and reviewed with you.' },
   { title: 'Support and improve', text: 'Go-live, handover and ongoing improvement based on how it is used.' },
-];
-
-const principles = [
-  {
-    title: 'One accountable partner',
-    text: 'You deal with one person who understands both the business requirement and the technical work, and owns delivery.',
-  },
-  {
-    title: 'The problem comes first',
-    text: 'Integrate, automate, configure or build: whichever solves the problem simply and reliably.',
-  },
-  {
-    title: 'A delivery model that scales',
-    text: 'Business analysis and architecture led by me, AI-assisted development, and developers and specialists brought in as the work requires.',
-  },
-  {
-    title: 'Honest about what is proven',
-    text: 'No invented figures or borrowed logos. Every project is labelled for who owns it and how far it has got.',
-  },
 ];
 ---
 
 <Base title={SITE.title} fullTitle description={SITE.description}>
+  <!-- 1. The promise -->
   <section class="hero">
     <div class="container">
       <div class="hero__grid">
@@ -66,17 +52,12 @@ const principles = [
           <span class="kicker">Technology partner for growing businesses</span>
           <h1>I build, connect and automate <span>the software your business runs on.</span></h1>
           <p class="lead">
-            Systems integration, workflow automation, AI and custom software for businesses in the UAE, New Zealand and beyond. One
-            accountable partner, from the first conversation to a working system.
+            Systems integration, workflow automation, AI and custom software for businesses in the UAE, New Zealand and
+            beyond. One accountable partner, from the first conversation to a working system.
           </p>
           <div class="actions">
             <a class="button" href={CTA.href} data-cta="home-hero">{CTA.label}</a>
-            <a class="button button--outline-light" href="#what-i-do">What I do</a>
-          </div>
-          <div class="hero__meta">
-            <span>Business problem first</span>
-            <span>Delivered in stages</span>
-            <span>UAE, New Zealand and beyond</span>
+            <a class="button button--outline-light" href="#work">See the work</a>
           </div>
         </div>
         <SystemsDiagram />
@@ -89,14 +70,16 @@ const principles = [
     </div>
   </section>
 
+  <!-- 2. What I do -->
   <section class="section" id="what-i-do">
     <div class="container">
-      <div style="margin:-2rem 0 3.5rem"><LogoStrip items={allProjects} /></div>
-      <div class="section-head section-head--center">
-        <span class="kicker">What I do</span>
-        <h2>Four ways I help businesses run better</h2>
-        <p>Most projects combine more than one. Each starts from the business problem, not from a technology.</p>
-      </div>
+      <LogoStrip items={allProjects} />
+      <SectionHeader
+        center
+        eyebrow="What I do"
+        title="Four ways I help businesses run better"
+        intro="Most projects combine more than one. Each starts from the business problem, not from a technology."
+      />
       <div class="pillars">
         {
           pillars.map((p) => (
@@ -107,12 +90,7 @@ const principles = [
               <h3>{p.title}</h3>
               <p>{p.text}</p>
               <ul>
-                {p.links.map((l) => (
-                  <li>
-                    <a href={l.href}>{l.label}</a>
-                  </li>
-                ))}
-                {p.extra.map((l) => (
+                {[...p.links, ...p.extra].map((l) => (
                   <li>
                     <a href={l.href}>{l.label}</a>
                   </li>
@@ -122,58 +100,54 @@ const principles = [
           ))
         }
       </div>
+      <p class="also">
+        <strong>Also:</strong>
+        {CAPABILITIES.slice(0, 6).map((c) => c.title.toLowerCase()).join(', ')} and more.
+        <a href="/services/#capabilities">Everything I do →</a>
+      </p>
     </div>
   </section>
 
+  <!-- 3. Proof -->
   <section class="section section--soft" id="work">
     <div class="container">
-      <div class="section-head">
-        <span class="kicker">Proof of work</span>
-        <h2>Products and projects</h2>
-        <p>Real work, labelled for who owns it and how far it has got.</p>
-      </div>
+      <SectionHeader
+        eyebrow="Proof of work"
+        title="Products and client projects"
+        intro="Real work, each labelled for who owns it and how far it has got."
+        action={{ href: '/projects/', label: `All ${allProjects.length} projects` }}
+      />
       {lead && <FeaturedProject project={lead} />}
       {
         moreProjects.length > 0 && (
           <div style="margin-top:3.5rem">
-            <ProjectRows items={moreProjects} />
+            <CaseGrid items={moreProjects} />
           </div>
         )
       }
-      <p class="actions"><a class="button button--ghost" href="/projects/">See all {allProjects.length} projects and products</a></p>
     </div>
   </section>
 
+  <!-- 4. How I work -->
   <section class="section">
     <div class="container">
-      <div class="section-head">
-        <span class="kicker">How it works</span>
-        <h2>From first conversation to working system</h2>
-        <p>You do not need a technical specification to start. Describing the problem is enough.</p>
-      </div>
-      <ol class="process">
-        {
-          process.map((s) => (
-            <li>
-              <strong>{s.title}</strong>
-              <span>{s.text}</span>
-            </li>
-          ))
-        }
-      </ol>
+      <SectionHeader
+        eyebrow="How I work"
+        title="From first conversation to working system"
+        intro="You do not need a technical specification to start. Describing the problem is enough. You deal with one person who understands the business requirement and the technical work, with developers and specialists brought in as the work requires."
+      />
+      <ProcessSteps steps={process} />
     </div>
   </section>
 
-  <section class="section">
+  <!-- 5. Where -->
+  <section class="section section--soft">
     <div class="container">
-      <div class="section-head">
-        <span class="kicker">Where I work</span>
-        <h2>Working with businesses across borders</h2>
-        <p>
-          I work remotely with businesses in the UAE, New Zealand, Australia, Saudi Arabia, Singapore and India, with
-          calls in your business hours and progress you can see.
-        </p>
-      </div>
+      <SectionHeader
+        eyebrow="Where I work"
+        title="Working with businesses across borders"
+        intro="Remote delivery for businesses in the UAE, New Zealand, Australia, Saudi Arabia, Singapore and India, with calls in your business hours."
+      />
       <div class="grid grid--2">
         {
           markets.map((m) => (
@@ -181,7 +155,7 @@ const principles = [
               <span class="kicker">{m.data.country}</span>
               <h3>{m.data.title}</h3>
               <p>{m.data.summary}</p>
-              <span class="card__foot">See how I work with {m.data.country === 'United Arab Emirates' ? 'UAE' : m.data.country} businesses →</span>
+              <span class="card__foot">How I work with {shortCountry(m.data.country)} businesses →</span>
             </a>
           ))
         }
@@ -189,37 +163,20 @@ const principles = [
     </div>
   </section>
 
-  <section class="section section--soft">
-    <div class="container">
-      <Capabilities location="home-capabilities" />
-    </div>
-  </section>
-
+  <!-- 6. Who -->
   <section class="section">
-    <div class="container">
-      <div class="person">
-        <div class="person__photo" aria-hidden="true">AP</div>
-        <div>
-          <span class="kicker">Who you will work with</span>
-          <h2>Antony Pratap</h2>
-          <p class="lead">
-            Technology entrepreneur and implementation partner, working where business operations, software, integration
-            and AI meet. I work directly with owners, founders and operations and finance leaders, and I build software
-            products of my own.
-          </p>
-          <p><a href="/about/">More about me and how I work →</a></p>
-        </div>
+    <div class="container person">
+      <div class="person__photo" aria-hidden="true">AP</div>
+      <div>
+        <span class="kicker">Who you will work with</span>
+        <h2>Antony Pratap</h2>
+        <p class="lead">
+          Technology entrepreneur and implementation partner. I work directly with owners, founders and operations and
+          finance leaders to understand the problem, choose the right approach and get it implemented. I also build
+          software products of my own, so I face the same decisions my clients do.
+        </p>
+        <p><a href="/about/">More about me and how I work →</a></p>
       </div>
-      <ul class="principles" style="margin-top:3rem">
-        {
-          principles.map((p) => (
-            <li>
-              <strong>{p.title}</strong>
-              <span>{p.text}</span>
-            </li>
-          ))
-        }
-      </ul>
     </div>
   </section>
 
@@ -227,10 +184,7 @@ const principles = [
     latest.length > 0 && (
       <section class="section section--soft">
         <div class="container">
-          <div class="section-head">
-            <span class="kicker">Insights</span>
-            <h2>Practical guidance</h2>
-          </div>
+          <SectionHeader eyebrow="Insights" title="Practical guidance" action={{ href: '/insights/', label: 'All articles' }} />
           <div class="grid grid--3">
             {latest.map((a) => (
               <ArticleCard article={a} />
@@ -241,5 +195,6 @@ const principles = [
     )
   }
 
+  <!-- 7. Start a conversation -->
   <CtaBand location="home-band" />
 </Base>

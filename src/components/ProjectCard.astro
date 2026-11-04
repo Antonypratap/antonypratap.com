@@ -1,0 +1,41 @@
+---
+import { Image } from 'astro:assets';
+import { getEntries, type CollectionEntry } from 'astro:content';
+interface Props {
+  project: CollectionEntry<'projects'>;
+  headingLevel?: 'h2' | 'h3';
+}
+const { project, headingLevel = 'h3' } = Astro.props;
+const { data } = project;
+const Heading = headingLevel;
+const href = `/projects/${project.id}/`;
+const shot = data.screenshots[0];
+const countries = (await getEntries(data.markets)).map((m) =>
+  m.data.country === 'United Arab Emirates' ? 'UAE' : m.data.country,
+);
+const context = [...data.industries, ...countries].join(' · ');
+---
+
+<article class="case-card" data-services={data.services.map((s) => s.id).join(' ')}>
+  <a class="case-card__media" href={href} tabindex="-1" aria-hidden="true">
+    {
+      shot ? (
+        <Image src={shot.src} alt={shot.alt} widths={[480, 720]} sizes="(min-width: 1000px) 400px, 100vw" />
+      ) : (
+        <span class="case-card__cover">
+          <span class="case-card__cover-title">{data.title.replace(' (pseudonym)', '')}</span>
+          {context && <span class="case-card__cover-meta">{context}</span>}
+        </span>
+      )
+    }
+  </a>
+  <div class="case-card__body">
+    <p class="badges">
+      <span class={data.ownership === 'own-product' ? 'badge badge--own' : 'badge badge--client'}>{data.ownershipLabel}</span>
+      {data.status && <span class="badge">{data.status}</span>}
+    </p>
+    <Heading><a href={href}>{data.title}</a></Heading>
+    <p>{data.summary}</p>
+    <span class="case-card__more">Read the case study →</span>
+  </div>
+</article>

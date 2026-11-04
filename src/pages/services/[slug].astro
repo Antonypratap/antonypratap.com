@@ -3,7 +3,10 @@ import { render, getEntries } from 'astro:content';
 import Base from '../../layouts/Base.astro';
 import Breadcrumbs from '../../components/Breadcrumbs.astro';
 import CtaBand from '../../components/CtaBand.astro';
-import ProjectRows from '../../components/ProjectRows.astro';
+import SectionHeader from '../../components/SectionHeader.astro';
+import ProcessSteps from '../../components/ProcessSteps.astro';
+import CaseGrid from '../../components/CaseGrid.astro';
+import FaqList from '../../components/FaqList.astro';
 import ArticleCard from '../../components/ArticleCard.astro';
 import { services, articlesFor, projectsForService } from '../../data/content';
 import { breadcrumbSchema, serviceSchema } from '../../data/schema';
@@ -17,7 +20,7 @@ const { service } = Astro.props;
 const { data } = service;
 const { Content } = await render(service);
 const evidence = await projectsForService(service.id);
-const relatedProjects = evidence.slice(0, 4);
+const relatedProjects = evidence.slice(0, 3);
 const relatedServices = await getEntries(data.relatedServices);
 const relatedArticles = (await articlesFor((a) => a.data.relatedServices.some((r) => r.id === service.id))).slice(0, 3);
 const path = `/services/${service.id}/`;
@@ -34,87 +37,90 @@ const crumbs = [
   description={data.description}
   jsonLd={[breadcrumbSchema(crumbs), serviceSchema({ name: data.title, description: data.description, path })]}
 >
+  <!-- 1. What this is -->
   <section class="page-head">
     <div class="container">
       <Breadcrumbs items={crumbs} />
+      <span class="kicker">Service</span>
       <h1>{data.title}</h1>
       <p class="lead">{data.summary}</p>
       <div class="actions">
         <a class="button" href={CTA.href} data-cta={`service-${service.id}-head`}>{data.ctaLabel}</a>
+        <a class="button button--outline-light" href="#how-it-works">How it works</a>
       </div>
     </div>
   </section>
 
+  <!-- 2. Sound familiar? -->
   <section class="section">
-    <div class="container split">
-      <div>
-        <h2>Problems this solves</h2>
-        <ul class="checklist">{data.problems.map((p) => <li>{p}</li>)}</ul>
+    <div class="container">
+      <SectionHeader eyebrow="Sound familiar?" title="The problems this solves" />
+      <ul class="checklist checklist--grid">{data.problems.map((p) => <li>{p}</li>)}</ul>
+    </div>
+  </section>
+
+  <!-- 3. What I deliver -->
+  <section class="section section--soft">
+    <div class="container">
+      <SectionHeader eyebrow="What I deliver" title="Typical projects" intro="Examples of the work this service covers. Most projects combine several." />
+      <div class="grid grid--2">
+        {
+          data.scenarios.map((s) => (
+            <div class="card">
+              <h3>{s.title}</h3>
+              <p>{s.text}</p>
+            </div>
+          ))
+        }
+      </div>
+    </div>
+  </section>
+
+  <!-- 4. The approach, and who it is for -->
+  <section class="section">
+    <div class="container story">
+      <div class="prose">
+        <Content />
       </div>
       <aside class="panel">
         <h2>Who it is for</h2>
         <ul class="checklist">{data.audiences.map((a) => <li>{a}</li>)}</ul>
+        <a class="button" href={CTA.href} data-cta={`service-${service.id}-aside`}>{data.ctaLabel}</a>
       </aside>
     </div>
   </section>
 
-  <section class="section section--soft">
+  <!-- 5. How it works -->
+  <section class="section section--soft" id="how-it-works">
     <div class="container">
-      <span class="kicker">In practice</span>
-      <h2 style="margin-bottom:2rem">Typical scenarios</h2>
-      <ol class="rows">
-        {
-          data.scenarios.map((s, i) => (
-            <li>
-              <span class="rows__num">0{i + 1}</span>
-              <h3>{s.title}</h3>
-              <p>{s.text}</p>
-            </li>
-          ))
-        }
-      </ol>
+      <SectionHeader eyebrow="How it works" title={data.process.heading} intro={data.process.intro} />
+      <ProcessSteps steps={data.process.steps} />
     </div>
   </section>
 
-  <section class="section">
-    <div class="container">
-      <div class="prose">
-        <Content />
-      </div>
-    </div>
-  </section>
-
+  <!-- 6. Proof -->
   {
     relatedProjects.length > 0 && (
-      <section class="section section--soft">
+      <section class="section">
         <div class="container">
-          <div class="section-head">
-            <h2>Related projects and products</h2>
-          </div>
-          <ProjectRows items={relatedProjects} />
-          {evidence.length > relatedProjects.length && (
-            <p class="actions">
-              <a href={`/projects/?service=${service.id}`}>All {evidence.length} related projects →</a>
-            </p>
-          )}
+          <SectionHeader
+            eyebrow="Proof of work"
+            title="Related projects"
+            action={evidence.length > relatedProjects.length ? { href: '/projects/', label: `All ${evidence.length} projects` } : undefined}
+          />
+          <CaseGrid items={relatedProjects} />
         </div>
       </section>
     )
   }
 
+  <!-- 7. Questions -->
   {
     data.faqs.length > 0 && (
-      <section class="section">
+      <section class="section section--soft">
         <div class="container">
-          <div class="prose faq">
-            <h2>Frequently asked questions</h2>
-            {data.faqs.map((f) => (
-              <details>
-                <summary>{f.q}</summary>
-                <p>{f.a}</p>
-              </details>
-            ))}
-          </div>
+          <SectionHeader eyebrow="FAQ" title="Common questions" />
+          <FaqList faqs={data.faqs} />
         </div>
       </section>
     )
@@ -122,11 +128,9 @@ const crumbs = [
 
   {
     relatedArticles.length > 0 && (
-      <section class="section section--soft">
+      <section class="section">
         <div class="container">
-          <div class="section-head">
-            <h2>Further reading</h2>
-          </div>
+          <SectionHeader eyebrow="Insights" title="Further reading" />
           <div class="grid grid--3">
             {relatedArticles.map((a) => (
               <ArticleCard article={a} />
@@ -137,18 +141,20 @@ const crumbs = [
     )
   }
 
-  <section class="section section--tight">
+  <!-- 8. Next step -->
+  <section class="section">
     <div class="container">
-      <h2>Related services</h2>
-      <ul class="checklist">
+      <SectionHeader eyebrow="Related services" title="Often combined with" />
+      <div class="link-cards">
         {
           relatedServices.map((s) => (
-            <li>
-              <a href={`/services/${s.id}/`}>{s.data.title}</a>: {s.data.summary}
-            </li>
+            <a href={`/services/${s.id}/`}>
+              <strong>{s.data.shortTitle} →</strong>
+              <span>{s.data.summary}</span>
+            </a>
           ))
         }
-      </ul>
+      </div>
     </div>
   </section>
 

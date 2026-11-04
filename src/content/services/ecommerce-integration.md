@@ -36,6 +36,19 @@ faqs:
   - q: Can the integration be built while the website is being redesigned?
     a: Yes, and that is often the best time, because the website can be designed around the data and flows it needs rather than having them added later.
 ctaLabel: Explore an ecommerce integration
+process:
+  heading: "How an ecommerce integration project runs"
+  steps:
+    - title: "Map the flows"
+      text: "How products, prices, stock, orders, payments and customer data move today, and where staff fill the gaps by hand."
+    - title: "Agree the source of truth"
+      text: "Which system owns each type of record, and which systems only read it."
+    - title: "Design for failure"
+      text: "What happens when a system is offline, an order cannot be fulfilled or a payment does not match."
+    - title: "Build and test each flow"
+      text: "One flow at a time, tested with realistic data before it touches live orders."
+    - title: "Switch on in stages"
+      text: "Flows go live one by one, with monitoring and a clear way to handle exceptions."
 ---
 
 ## The website is only the front of the operation

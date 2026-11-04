@@ -1,0 +1,20 @@
+---
+// The one section heading pattern used across the site: eyebrow, H2, short intro, optional link.
+interface Props {
+  eyebrow?: string;
+  title: string;
+  intro?: string;
+  center?: boolean;
+  action?: { href: string; label: string };
+}
+const { eyebrow, title, intro, center = false, action } = Astro.props;
+---
+
+<header class:list={['section-header', { 'section-header--center': center }]}>
+  <div>
+    {eyebrow && <span class="kicker">{eyebrow}</span>}
+    <h2>{title}</h2>
+    {intro && <p>{intro}</p>}
+  </div>
+  {action && <a class="section-header__action" href={action.href}>{action.label} →</a>}
+</header>

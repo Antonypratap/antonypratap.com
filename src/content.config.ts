@@ -19,6 +19,12 @@ const services = defineCollection({
     audiences: z.array(z.string()).min(2),
     relatedServices: z.array(reference('services')).default([]),
     faqs: z.array(faq).default([]),
+    /** The engagement process, shown as numbered steps. */
+    process: z.object({
+      heading: z.string(),
+      intro: z.string().optional(),
+      steps: z.array(z.object({ title: z.string(), text: z.string() })).min(3),
+    }),
     ctaLabel: z.string().default('Discuss a project'),
   }),
 });

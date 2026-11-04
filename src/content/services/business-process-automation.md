@@ -39,19 +39,24 @@ faqs:
   - q: Can you automate a process that is not documented?
     a: Yes. Documenting how the process really works, including its exceptions, is the first step. It is often where the biggest improvements are found.
 ctaLabel: Talk about a process you want to automate
+process:
+  heading: "How an automation engagement works"
+  steps:
+    - title: "Observe the work"
+      text: "Walk through the process with the people who do it, including the exceptions they handle every week."
+    - title: "Measure where time goes"
+      text: "Identify the steps that are frequent, repetitive and error-prone, using your own estimates and records rather than assumed figures."
+    - title: "Simplify"
+      text: "Remove steps that add no value, agree standard rules and define who decides what."
+    - title: "Automate in increments"
+      text: "Start with the step that gives the clearest benefit at the lowest risk, prove it, then extend."
+    - title: "Keep a person in control"
+      text: "Every automated workflow has a clear exception path, an audit trail of what happened and why, and a way to stop or correct it."
 ---
 
 ## Automate the process you want, not the one you have
 
 Automating a confused process produces confused results faster. Before anything is automated, I look at why each step exists, which steps can be removed, and which decisions genuinely need a person. The automation then follows a simpler process with fewer hand-offs.
-
-## How an automation engagement works
-
-1. **Observe the work.** Walk through the process with the people who do it, including the exceptions they handle every week.
-2. **Measure where time goes.** Identify the steps that are frequent, repetitive and error-prone, using your own estimates and records rather than assumed figures.
-3. **Simplify.** Remove steps that add no value, agree standard rules and define who decides what.
-4. **Automate in increments.** Start with the step that gives the clearest benefit at the lowest risk, prove it, then extend.
-5. **Keep a person in control.** Every automated workflow has a clear exception path, an audit trail of what happened and why, and a way to stop or correct it.
 
 ## What good automation looks like
 

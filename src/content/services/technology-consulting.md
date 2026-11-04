@@ -35,19 +35,24 @@ faqs:
   - q: Do you work with our existing IT team or suppliers?
     a: Yes. Part of the role is coordinating everyone involved so decisions are made with the full picture.
 ctaLabel: Request an implementation discussion
+process:
+  heading: "How an engagement typically runs"
+  steps:
+    - title: "Conversation"
+      text: "An initial discussion of the problem, its business impact and any constraints."
+    - title: "Discovery"
+      text: "Workshops with the people involved and a review of the existing systems and data."
+    - title: "Recommendation"
+      text: "Options, trade-offs, risks and a staged plan you can make a decision on."
+    - title: "Implementation"
+      text: "Delivery led by me, using AI-assisted development, developers and specialists as the work requires."
+    - title: "Review and improvement"
+      text: "Checking the result against the original problem and planning the next improvements."
 ---
 
 ## One accountable point of contact
 
 Technology projects often fail in the gap between the business and the people building the solution. Requirements are interpreted differently, decisions are delayed, and nobody owns the outcome. My role is to close that gap: understand the business problem, translate it into a sound technical plan, and see it through to a working result.
-
-## How an engagement typically runs
-
-1. **Conversation.** An initial discussion of the problem, its business impact and any constraints.
-2. **Discovery.** Workshops with the people involved and a review of the existing systems and data.
-3. **Recommendation.** Options, trade-offs, risks and a staged plan you can make a decision on.
-4. **Implementation.** Delivery led by me, using AI-assisted development, developers and specialists as the work requires.
-5. **Review and improvement.** Checking the result against the original problem and planning the next improvements.
 
 ## Honest advice
 
