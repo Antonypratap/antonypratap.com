@@ -6,6 +6,7 @@ export default defineConfig({
   site: 'https://antonypratap.com',
   // Every page is served as /path/ (a folder with index.html): one URL per page.
   trailingSlash: 'always',
+  devToolbar: { enabled: false },
   build: { format: 'directory' },
   integrations: [
     sitemap({

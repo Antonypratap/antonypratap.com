@@ -1,4 +1,5 @@
 ---
+import { getEntries } from 'astro:content';
 import Base from '../layouts/Base.astro';
 import ArticleCard from '../components/ArticleCard.astro';
 import CtaBand from '../components/CtaBand.astro';
@@ -6,94 +7,152 @@ import SystemsDiagram from '../components/SystemsDiagram.astro';
 import ProjectRows from '../components/ProjectRows.astro';
 import FeaturedProject from '../components/FeaturedProject.astro';
 import Capabilities from '../components/Capabilities.astro';
+import Icon from '../components/Icon.astro';
 import { SITE, CTA } from '../data/site';
-import { services, projects, articles } from '../data/content';
+import { PILLARS, REQUESTS } from '../data/pillars';
+import { projects, articles } from '../data/content';
 
-const allServices = await services();
+const pillars = await Promise.all(
+  PILLARS.map(async (p) => ({
+    ...p,
+    links: (await getEntries(p.services.map((id) => ({ collection: 'services' as const, id })))).map((s) => ({
+      label: s.data.shortTitle,
+      href: `/services/${s.id}/`,
+    })),
+  })),
+);
+
 const allProjects = await projects();
 // Lead with the strongest featured project that has real screens; then a short list, never the whole catalogue.
 const lead = allProjects.find((p) => p.data.featured && p.data.screenshots.length > 0) ?? allProjects[0];
 const moreProjects = allProjects.filter((p) => p !== lead).slice(0, 4);
 const latest = (await articles()).slice(0, 3);
 
-const problems = [
-  {
-    title: 'Systems that do not talk to each other',
-    text: 'Orders, stock, invoices and customer records live in separate applications, and people carry the data between them.',
-  },
-  {
-    title: 'Skilled people doing repetitive work',
-    text: 'Hours every week go on copying, checking, chasing and reconciling instead of running the business.',
-  },
-  {
-    title: 'No reliable view of operations',
-    text: 'Managers wait for exports and spreadsheets to know what is happening, so problems surface late.',
-  },
-  {
-    title: 'Software that does not fit',
-    text: 'Off-the-shelf tools force workarounds, and important processes still run on spreadsheets.',
-  },
+const process = [
+  { title: 'Talk it through', text: 'A conversation about the problem, your systems and what a good result looks like.' },
+  { title: 'Agree the plan', text: 'Clear scope, approach, stages and risks, written down before work starts.' },
+  { title: 'Deliver in stages', text: 'Working results early, tested with realistic data, reviewed with you.' },
+  { title: 'Support and improve', text: 'Go-live, handover and ongoing improvement based on how it is used.' },
 ];
 
 const principles = [
   {
-    title: 'The business problem comes first',
-    text: 'Technology is chosen to fit the problem: integrate, automate, configure or build, whichever is simplest and reliable.',
+    title: 'One accountable partner',
+    text: 'You deal with one person who understands both the business requirement and the technical work, and owns delivery.',
   },
   {
-    title: 'One accountable person',
-    text: 'You deal with someone who understands both the requirement and the technical work, and owns getting it delivered.',
+    title: 'The problem comes first',
+    text: 'Integrate, automate, configure or build: whichever solves the problem simply and reliably.',
   },
   {
-    title: 'Working results in stages',
-    text: 'Delivery in increments, tested with realistic data, so you see progress early and can change course cheaply.',
+    title: 'A delivery model that scales',
+    text: 'Business analysis and architecture led by me, AI-assisted development, and developers and specialists brought in as the work requires.',
   },
   {
     title: 'Honest about what is proven',
-    text: 'No invented figures, no borrowed logos. Projects are labelled for who owns them and how far they have got.',
+    text: 'No invented figures or borrowed logos. Every project is labelled for who owns it and how far it has got.',
   },
 ];
 ---
 
 <Base title={SITE.title} fullTitle description={SITE.description}>
-  <section class="hero hero--split">
+  <section class="hero">
     <div class="container">
-      <div>
-        <span class="kicker">For businesses in India and the UAE</span>
-        <h1>Connect your systems. Automate the manual work. Run a calmer operation.</h1>
-        <p class="lead">
-          I help established and growing businesses streamline operations by connecting the software they already use,
-          automating repetitive processes and building the software, apps and platforms the business needs.
-        </p>
-        <div class="actions">
-          <a class="button" href={CTA.href} data-cta="home-hero">{CTA.label}</a>
-          <a class="button button--ghost" href="#work">See the work</a>
+      <div class="hero__grid">
+        <div>
+          <span class="kicker">Technology partner for growing businesses</span>
+          <h1>I build, connect and automate <span>the software your business runs on.</span></h1>
+          <p class="lead">
+            Systems integration, workflow automation, AI and custom software for businesses in India and the UAE. One
+            accountable partner, from the first conversation to a working system.
+          </p>
+          <div class="actions">
+            <a class="button" href={CTA.href} data-cta="home-hero">{CTA.label}</a>
+            <a class="button button--outline-light" href="#what-i-do">What I do</a>
+          </div>
+          <div class="hero__meta">
+            <span>Business problem first</span>
+            <span>Delivered in stages</span>
+            <span>India and the UAE</span>
+          </div>
         </div>
-        <div class="hero__proof">
-          <span><strong>Systems integration</strong></span>
-          <span><strong>Process automation</strong></span>
-          <span><strong>AI implementation</strong></span>
-          <span><strong>Custom software</strong></span>
-        </div>
+        <SystemsDiagram />
       </div>
-      <SystemsDiagram />
+
+      <div class="requests">
+        <p>Businesses come to me to…</p>
+        <ul>{REQUESTS.map((r) => <li>{r}</li>)}</ul>
+      </div>
+    </div>
+  </section>
+
+  <section class="section" id="what-i-do">
+    <div class="container">
+      <div class="section-head section-head--center">
+        <span class="kicker">What I do</span>
+        <h2>Four ways I help businesses run better</h2>
+        <p>Most projects combine more than one. Each starts from the business problem, not from a technology.</p>
+      </div>
+      <div class="pillars">
+        {
+          pillars.map((p) => (
+            <article class="pillar">
+              <div class="pillar__icon">
+                <Icon name={p.icon} />
+              </div>
+              <h3>{p.title}</h3>
+              <p>{p.text}</p>
+              <ul>
+                {p.links.map((l) => (
+                  <li>
+                    <a href={l.href}>{l.label}</a>
+                  </li>
+                ))}
+                {p.extra.map((l) => (
+                  <li>
+                    <a href={l.href}>{l.label}</a>
+                  </li>
+                ))}
+              </ul>
+            </article>
+          ))
+        }
+      </div>
+    </div>
+  </section>
+
+  <section class="section section--soft" id="work">
+    <div class="container">
+      <div class="section-head">
+        <span class="kicker">Proof of work</span>
+        <h2>Products and projects</h2>
+        <p>Real work, labelled for who owns it and how far it has got.</p>
+      </div>
+      {lead && <FeaturedProject project={lead} />}
+      {
+        moreProjects.length > 0 && (
+          <div style="margin-top:3.5rem">
+            <ProjectRows items={moreProjects} />
+          </div>
+        )
+      }
+      <p class="actions"><a class="button button--ghost" href="/projects/">See all {allProjects.length} projects and products</a></p>
     </div>
   </section>
 
   <section class="section">
     <div class="container">
-      <span class="kicker">The problem</span>
-      <h2>Where operations quietly lose time</h2>
-      <p class="lead" style="margin-bottom:2.5rem">
-        The symptoms are familiar long before anyone calls them a technology problem.
-      </p>
-      <ol class="rows">
+      <div class="section-head">
+        <span class="kicker">How it works</span>
+        <h2>From first conversation to working system</h2>
+        <p>You do not need a technical specification to start. Describing the problem is enough.</p>
+      </div>
+      <ol class="process">
         {
-          problems.map((p, i) => (
+          process.map((s) => (
             <li>
-              <span class="rows__num">0{i + 1}</span>
-              <h3>{p.title}</h3>
-              <p>{p.text}</p>
+              <strong>{s.title}</strong>
+              <span>{s.text}</span>
             </li>
           ))
         }
@@ -101,63 +160,28 @@ const principles = [
     </div>
   </section>
 
-  <section class="section section--ink">
+  <section class="section section--soft">
     <div class="container">
-      <p class="statement">
-        Most of these problems are not solved by more software. They are solved by <em>making the systems you already
-        have work together</em>, removing the steps nobody needs, and building only what is missing.
-      </p>
+      <Capabilities location="home-capabilities" />
     </div>
   </section>
 
   <section class="section">
     <div class="container">
-      <span class="kicker">How I help</span>
-      <h2>Core services</h2>
-      <p class="lead" style="margin-bottom:2.5rem">Where most of my work is focused. Projects usually combine several.</p>
-      <ul class="rows rows--plain">
-        {
-          allServices.map((s) => (
-            <li>
-              <h3>
-                <a href={`/services/${s.id}/`}>{s.data.shortTitle}</a>
-              </h3>
-              <p>{s.data.summary}</p>
-              <a class="rows__more" href={`/services/${s.id}/`} aria-hidden="true" tabindex="-1">
-                Learn more →
-              </a>
-            </li>
-          ))
-        }
-      </ul>
-      <div style="margin-top:4.5rem"><Capabilities location="home-capabilities" /></div>
-    </div>
-  </section>
-
-  <section class="section section--soft" id="work">
-    <div class="container">
-      <span class="kicker">Proof of work</span>
-      {lead && <FeaturedProject project={lead} />}
-      {
-        moreProjects.length > 0 && (
-          <>
-            <h3 style="margin-top:4rem">More work</h3>
-            <ProjectRows items={moreProjects} />
-          </>
-        )
-      }
-      <p class="actions"><a href="/projects/">All {allProjects.length} projects and products →</a></p>
-    </div>
-  </section>
-
-  <section class="section">
-    <div class="container">
-      <span class="kicker">Working together</span>
-      <h2>What you can expect</h2>
-      <p class="lead" style="margin-bottom:2.5rem">
-        Larger technology projects succeed or fail on clarity and ownership more than on code.
-      </p>
-      <ul class="principles">
+      <div class="person">
+        <div class="person__photo" aria-hidden="true">AP</div>
+        <div>
+          <span class="kicker">Who you will work with</span>
+          <h2>Antony Pratap</h2>
+          <p class="lead">
+            Technology entrepreneur and implementation partner, working where business operations, software, integration
+            and AI meet. I work directly with owners, founders and operations and finance leaders, and I build software
+            products of my own.
+          </p>
+          <p><a href="/about/">More about me and how I work →</a></p>
+        </div>
+      </div>
+      <ul class="principles" style="margin-top:3rem">
         {
           principles.map((p) => (
             <li>
@@ -170,37 +194,15 @@ const principles = [
     </div>
   </section>
 
-  <section class="section section--soft">
-    <div class="container person">
-      <div class="person__photo" aria-hidden="true">AP</div>
-      <div>
-        <span class="kicker">Who you will work with</span>
-        <h2>Antony Pratap</h2>
-        <p class="lead">
-          Technology entrepreneur and implementation partner, working where business operations, software, integration
-          and AI meet.
-        </p>
-        <p>
-          I work directly with owners, founders and operations and finance leaders to understand the problem, choose the
-          right approach and get it implemented, using AI-assisted development and coordinating developers and
-          specialists where the work needs them. I also build products of my own, so I face the same decisions my
-          clients do.
-        </p>
-        <p>
-          I work with businesses in India and the United Arab Emirates, including Dubai and Abu Dhabi.
-        </p>
-        <p><a href="/about/">More about me and how I work →</a></p>
-      </div>
-    </div>
-  </section>
-
   {
     latest.length > 0 && (
-      <section class="section">
+      <section class="section section--soft">
         <div class="container">
-          <span class="kicker">Insights</span>
-          <h2>Practical guidance</h2>
-          <div class="grid grid--3" style="margin-top:2rem">
+          <div class="section-head">
+            <span class="kicker">Insights</span>
+            <h2>Practical guidance</h2>
+          </div>
+          <div class="grid grid--3">
             {latest.map((a) => (
               <ArticleCard article={a} />
             ))}

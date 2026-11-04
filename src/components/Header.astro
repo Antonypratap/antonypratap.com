@@ -6,7 +6,13 @@ const isCurrent = (href: string) => path === href || path.startsWith(href);
 
 <header class="site-header">
   <div class="container site-header__inner">
-    <a class="brand" href="/">{SITE.name}</a>
+    <a class="brand" href="/" aria-label={`${SITE.name}, home`}>
+      <span class="brand__mark" aria-hidden="true">AP</span>
+      <span>
+        <span class="brand__name">{SITE.name}</span>
+        <span class="brand__tag">Integration · Automation · Software</span>
+      </span>
+    </a>
 
     <nav class="nav nav--desktop" aria-label="Main">
       <ul>
