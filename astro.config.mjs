@@ -7,7 +7,7 @@ export default defineConfig({
   // Every page is served as /path/ (a folder with index.html): one URL per page.
   trailingSlash: 'always',
   devToolbar: { enabled: false },
-  build: { format: 'directory' },
+  build: { format: 'directory', assets: 'assets' },
   integrations: [
     sitemap({
       filter: (page) => !page.includes('/contact/thanks/') && !page.includes('/404'),
