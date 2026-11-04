@@ -34,6 +34,8 @@ services:
   - business-process-automation
   - custom-software-development
 faqs:
+  - q: Have you worked with UAE businesses before?
+    a: Yes. My UAE work includes a fruit distribution business and a school-based initiative, both described on this site, as well as work for other established UAE organisations whose names are kept confidential.
   - q: Do you have an office in the UAE?
     a: No. I work with UAE businesses remotely, through video calls, shared documents and regular reviews of working software. Projects are organised so that decisions are made with you during your business hours.
   - q: Can you help us prepare for UAE e-invoicing?

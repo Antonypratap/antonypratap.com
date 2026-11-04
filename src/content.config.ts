@@ -45,6 +45,8 @@ const projects = defineCollection({
     featured: z.boolean().default(false),
     /** The services this project is evidence for. Service pages list their projects from this. */
     services: z.array(reference('services')).min(1),
+    /** Country pages this project is evidence for, by market file name (e.g. "uae"). Listed first there. */
+    markets: z.array(reference('markets')).default([]),
     /** Industries the project belongs to, in plain words (e.g. "Fresh produce", "Hospitality"). */
     industries: z.array(z.string()).default([]),
     tags: z.array(z.string()).default([]),

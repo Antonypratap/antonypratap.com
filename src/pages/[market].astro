@@ -18,7 +18,11 @@ const { data } = market;
 const { Content } = await render(market);
 const services = await getEntries(data.services);
 const serviceIds = new Set(data.services.map((s) => s.id));
-const evidence = (await projects()).filter((p) => p.data.services.some((s) => serviceIds.has(s.id))).slice(0, 4);
+const all = await projects();
+// Work done in this country leads; then other projects that evidence the same services.
+const local = all.filter((p) => p.data.markets.some((m) => m.id === market.id));
+const related = all.filter((p) => !local.includes(p) && p.data.services.some((s) => serviceIds.has(s.id)));
+const evidence = [...local, ...related].slice(0, Math.max(4, local.length));
 const path = `/${market.id}/`;
 const crumbs = [
   { name: 'Home', path: '/' },
@@ -119,7 +123,7 @@ const serviceSchema = {
         <div class="container">
           <div class="section-head">
             <span class="kicker">Proof of work</span>
-            <h2>Related projects and products</h2>
+            <h2>{local.length > 0 ? `Work in ${data.country === 'United Arab Emirates' ? 'the UAE' : data.country} and related projects` : 'Related projects and products'}</h2>
           </div>
           <ProjectRows items={evidence} />
         </div>

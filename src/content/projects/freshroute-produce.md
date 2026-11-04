@@ -2,7 +2,7 @@
 title: FreshRoute Produce (pseudonym)
 metaTitle: Fruit Distribution Website and Integrations | Antony Pratap
 description: A WordPress website revamp for a fruit distribution business, with integration work across ecommerce, inventory, ordering and payments. Client name is a pseudonym.
-summary: A WordPress website revamp for a fruit distribution business, with planned and in-progress integration across ecommerce, inventory, ordering and payments.
+summary: A WordPress website revamp for a fruit distribution business in the UAE, with planned and in-progress integration across ecommerce, inventory, ordering and payments.
 order: 5
 ownership: client-confidential
 ownershipLabel: Confidential client
@@ -10,6 +10,7 @@ status: In progress
 pseudonym: true
 featured: true
 industries: [Fresh produce, Distribution]
+markets: [uae]
 services:
   - ecommerce-integration
   - business-systems-integration
@@ -21,7 +22,7 @@ tags: [Fresh produce, Distribution, WordPress, Inventory, Payments]
 
 ## The business problem
 
-A fruit distribution business sells products whose availability and prices change quickly. When the website, the inventory system, ordering and payments are not connected, staff have to keep them in line by hand. That means slower ordering for customers and more room for errors in stock, orders and payments.
+A fruit distribution business in the United Arab Emirates sells products whose availability and prices change quickly. When the website, the inventory system, ordering and payments are not connected, staff have to keep them in line by hand. That means slower ordering for customers and more room for errors in stock, orders and payments.
 
 ## The scope
 
