@@ -1554,3 +1554,48 @@ a:hover {
     scroll-behavior: smooth;
   }
 }
+
+/* Client logos (only with permission) */
+
+.logo-strip {
+  display: flex;
+  flex-wrap: wrap;
+  align-items: center;
+  gap: 1rem 2.5rem;
+  padding: 1.5rem 0;
+  border-bottom: 1px solid var(--line);
+}
+
+.logo-strip p {
+  margin: 0;
+  font-size: 0.8rem;
+  font-weight: 650;
+  letter-spacing: 0.1em;
+  text-transform: uppercase;
+  color: var(--muted);
+}
+
+.logo-strip ul {
+  list-style: none;
+  margin: 0;
+  padding: 0;
+  display: flex;
+  flex-wrap: wrap;
+  align-items: center;
+  gap: 1.25rem 2.75rem;
+}
+
+.logo-strip img {
+  height: 2.25rem;
+  width: auto;
+  filter: grayscale(1);
+  opacity: 0.75;
+  transition:
+    filter 0.15s ease,
+    opacity 0.15s ease;
+}
+
+.logo-strip a:hover img {
+  filter: none;
+  opacity: 1;
+}

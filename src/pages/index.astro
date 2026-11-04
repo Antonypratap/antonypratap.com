@@ -8,6 +8,7 @@ import ProjectRows from '../components/ProjectRows.astro';
 import FeaturedProject from '../components/FeaturedProject.astro';
 import Capabilities from '../components/Capabilities.astro';
 import Icon from '../components/Icon.astro';
+import LogoStrip from '../components/LogoStrip.astro';
 import { SITE, CTA } from '../data/site';
 import { PILLARS, REQUESTS } from '../data/pillars';
 import { projects, articles } from '../data/content';
@@ -88,6 +89,7 @@ const principles = [
 
   <section class="section" id="what-i-do">
     <div class="container">
+      <div style="margin:-2rem 0 3.5rem"><LogoStrip items={allProjects} /></div>
       <div class="section-head section-head--center">
         <span class="kicker">What I do</span>
         <h2>Four ways I help businesses run better</h2>

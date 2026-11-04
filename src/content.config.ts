@@ -48,6 +48,11 @@ const projects = defineCollection({
     /** Industries the project belongs to, in plain words (e.g. "Fresh produce", "Hospitality"). */
     industries: z.array(z.string()).default([]),
     tags: z.array(z.string()).default([]),
+    /**
+     * Client logo, shown in the home page "Worked with" strip and on the project page. Only with the
+     * client's permission; never for confidential (pseudonym) clients.
+     */
+    logo: z.object({ src: image(), alt: z.string() }).optional(),
     /** Real screenshots only. Caption must say when the data shown is demo data. */
     screenshots: z.array(z.object({ src: image(), alt: z.string().min(20), caption: z.string() })).default([]),
   }),

@@ -1,0 +1,26 @@
+---
+import { Image } from 'astro:assets';
+import type { CollectionEntry } from 'astro:content';
+interface Props {
+  items: CollectionEntry<'projects'>[];
+}
+// Only projects with a permitted logo, never pseudonymous clients. Renders nothing until there is one.
+const withLogos = Astro.props.items.filter((p) => p.data.logo && !p.data.pseudonym);
+---
+
+{
+  withLogos.length > 0 && (
+    <div class="logo-strip">
+      <p>Worked with</p>
+      <ul>
+        {withLogos.map((p) => (
+          <li>
+            <a href={`/projects/${p.id}/`}>
+              <Image src={p.data.logo!.src} alt={p.data.logo!.alt} height={40} densities={[1, 2]} />
+            </a>
+          </li>
+        ))}
+      </ul>
+    </div>
+  )
+}
