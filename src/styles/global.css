@@ -1599,3 +1599,17 @@ a:hover {
   filter: none;
   opacity: 1;
 }
+
+.market-card {
+  color: inherit;
+  text-decoration: none;
+}
+
+.market-card:hover h3 {
+  color: var(--accent-strong);
+}
+
+.market-card .card__foot {
+  color: var(--accent);
+  font-weight: 600;
+}

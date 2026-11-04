@@ -53,10 +53,7 @@ export function serviceSchema(s: { name: string; description: string; path: stri
     description: s.description,
     url: new URL(s.path, SITE.url).href,
     provider: { '@id': PERSON_ID },
-    areaServed: [
-      { '@type': 'Country', name: 'India' },
-      { '@type': 'Country', name: 'United Arab Emirates' },
-    ],
+    areaServed: SITE.markets.map((name) => ({ '@type': 'Country', name })),
   };
 }
 

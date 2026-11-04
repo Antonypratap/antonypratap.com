@@ -3,11 +3,11 @@ export const SITE = {
   url: 'https://antonypratap.com',
   title: 'Antony Pratap: Business Systems Integration and Automation',
   description:
-    'I help businesses streamline operations by connecting systems, automating manual work and building software, apps and digital platforms. India and the UAE.',
+    'I help businesses streamline operations by connecting systems, automating manual work and building software and apps. For the UAE, New Zealand and beyond.',
   jobTitle: 'Business systems integration and implementation partner',
   locale: 'en',
-  // Markets the site is written for. Not office locations.
-  markets: ['India', 'United Arab Emirates'],
+  // Countries the site is written for (structured data areaServed). Not office locations.
+  markets: ['United Arab Emirates', 'New Zealand', 'Australia', 'Saudi Arabia', 'Singapore', 'India'],
   // Add profile URLs here once confirmed (LinkedIn, GitHub). Used in the footer and structured data.
   sameAs: [] as string[],
 };

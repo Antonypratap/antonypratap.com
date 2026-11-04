@@ -50,6 +50,13 @@ until it is confirmed; update the page and remove the line.
 - [ ] Confirm the delivery model wording (AI-assisted development plus coordinated developers and specialists).
 - [ ] Confirm statements in the FAQs: written agreement on ownership of commissioned work; disclosure of commercial interest in recommended products.
 
+## Country pages (/uae/, /new-zealand/)
+
+- [ ] Confirm the working arrangement stated: remote delivery, calls within the client's business hours, no local office.
+- [ ] Confirm the markets listed site-wide: UAE, New Zealand, Australia, Saudi Arabia, Singapore, India.
+- [ ] Local systems lists are "widely used" names only, with no partnership implied. Add any you have actually worked with.
+- [ ] Next country pages only when there is real substance for them (Australia, Saudi Arabia, Singapore).
+
 ## Wider capabilities
 
 - [ ] Confirm the "Beyond the core services" list (`src/data/capabilities.ts`): add or remove areas (for example digital marketing, SEO, IoT, blockchain) to match what you will take on.

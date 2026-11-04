@@ -1,9 +1,11 @@
 ---
+import { getCollection } from 'astro:content';
 import { SITE, CTA } from '../data/site';
 
 import { services as getServices, projects as getProjects } from '../data/content';
 
 const services = await getServices();
+const markets = (await getCollection('markets')).sort((a, b) => a.data.order - b.data.order);
 const featured = (await getProjects()).filter((p) => p.data.featured).slice(0, 4);
 const year = new Date().getFullYear();
 ---
@@ -14,7 +16,12 @@ const year = new Date().getFullYear();
       <div>
         <h2>{SITE.name}</h2>
         <p>
-          Systems integration, automation, software and digital solutions for businesses in India and the UAE.
+          Systems integration, automation, software and digital solutions for businesses in the UAE, New Zealand and beyond.
+        </p>
+        <p>
+          Where I work: {markets.map((m, i) => (
+            <>{i > 0 && ' · '}<a href={`/${m.id}/`}>{m.data.country === 'United Arab Emirates' ? 'UAE' : m.data.country}</a></>
+          ))}
         </p>
         <p><a href={CTA.href} data-cta="footer">{CTA.label} →</a></p>
       </div>

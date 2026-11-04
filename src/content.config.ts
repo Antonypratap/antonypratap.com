@@ -81,4 +81,29 @@ const insights = defineCollection({
   }),
 });
 
-export const collections = { services, projects, insights };
+/**
+ * Country pages (/uae/, /new-zealand/). Each must be genuinely useful to a business in that country:
+ * local systems, rules and how the work runs from there. Never imply a local office or local clients
+ * that do not exist.
+ */
+const markets = defineCollection({
+  loader: glob({ pattern: '**/[^_]*.md', base: './src/content/markets' }),
+  schema: z.object({
+    country: z.string(),
+    /** ISO 3166-1 alpha-2, for structured data. */
+    countryCode: z.string().length(2),
+    title: z.string(),
+    metaTitle: z.string().max(65),
+    description: z.string().min(70).max(165),
+    summary: z.string(),
+    order: z.number(),
+    /** Business systems commonly used in this market, grouped. Names only, no claims of partnership. */
+    systems: z.array(z.object({ group: z.string(), names: z.array(z.string()) })).min(2),
+    /** Typical local projects, in the visitor's words. */
+    needs: z.array(z.object({ title: z.string(), text: z.string() })).min(3),
+    services: z.array(reference('services')).min(1),
+    faqs: z.array(faq).default([]),
+  }),
+});
+
+export const collections = { services, projects, insights, markets };

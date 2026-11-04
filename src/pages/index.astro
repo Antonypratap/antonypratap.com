@@ -12,6 +12,7 @@ import LogoStrip from '../components/LogoStrip.astro';
 import { SITE, CTA } from '../data/site';
 import { PILLARS, REQUESTS } from '../data/pillars';
 import { projects, articles } from '../data/content';
+import { getCollection } from 'astro:content';
 
 const pillars = await Promise.all(
   PILLARS.map(async (p) => ({
@@ -28,6 +29,7 @@ const allProjects = await projects();
 const lead = allProjects.find((p) => p.data.featured && p.data.screenshots.length > 0) ?? allProjects[0];
 const moreProjects = allProjects.filter((p) => p !== lead).slice(0, 4);
 const latest = (await articles()).slice(0, 3);
+const markets = (await getCollection('markets')).sort((a, b) => a.data.order - b.data.order);
 
 const process = [
   { title: 'Talk it through', text: 'A conversation about the problem, your systems and what a good result looks like.' },
@@ -64,7 +66,7 @@ const principles = [
           <span class="kicker">Technology partner for growing businesses</span>
           <h1>I build, connect and automate <span>the software your business runs on.</span></h1>
           <p class="lead">
-            Systems integration, workflow automation, AI and custom software for businesses in India and the UAE. One
+            Systems integration, workflow automation, AI and custom software for businesses in the UAE, New Zealand and beyond. One
             accountable partner, from the first conversation to a working system.
           </p>
           <div class="actions">
@@ -74,7 +76,7 @@ const principles = [
           <div class="hero__meta">
             <span>Business problem first</span>
             <span>Delivered in stages</span>
-            <span>India and the UAE</span>
+            <span>UAE, New Zealand and beyond</span>
           </div>
         </div>
         <SystemsDiagram />
@@ -159,6 +161,31 @@ const principles = [
           ))
         }
       </ol>
+    </div>
+  </section>
+
+  <section class="section">
+    <div class="container">
+      <div class="section-head">
+        <span class="kicker">Where I work</span>
+        <h2>Working with businesses across borders</h2>
+        <p>
+          I work remotely with businesses in the UAE, New Zealand, Australia, Saudi Arabia, Singapore and India, with
+          calls in your business hours and progress you can see.
+        </p>
+      </div>
+      <div class="grid grid--2">
+        {
+          markets.map((m) => (
+            <a class="card card--link market-card" href={`/${m.id}/`}>
+              <span class="kicker">{m.data.country}</span>
+              <h3>{m.data.title}</h3>
+              <p>{m.data.summary}</p>
+              <span class="card__foot">See how I work with {m.data.country === 'United Arab Emirates' ? 'UAE' : m.data.country} businesses →</span>
+            </a>
+          ))
+        }
+      </div>
     </div>
   </section>
 

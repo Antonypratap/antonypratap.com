@@ -1,0 +1,149 @@
+---
+import { render, getCollection, getEntries } from 'astro:content';
+import Base from '../layouts/Base.astro';
+import Breadcrumbs from '../components/Breadcrumbs.astro';
+import CtaBand from '../components/CtaBand.astro';
+import ProjectRows from '../components/ProjectRows.astro';
+import { projects } from '../data/content';
+import { breadcrumbSchema } from '../data/schema';
+import { CTA, SITE } from '../data/site';
+
+// Country pages live at the top level (/uae/, /new-zealand/): one per file in src/content/markets/.
+export async function getStaticPaths() {
+  return (await getCollection('markets')).map((market) => ({ params: { market: market.id }, props: { market } }));
+}
+
+const { market } = Astro.props;
+const { data } = market;
+const { Content } = await render(market);
+const services = await getEntries(data.services);
+const serviceIds = new Set(data.services.map((s) => s.id));
+const evidence = (await projects()).filter((p) => p.data.services.some((s) => serviceIds.has(s.id))).slice(0, 4);
+const path = `/${market.id}/`;
+const crumbs = [
+  { name: 'Home', path: '/' },
+  { name: data.country, path },
+];
+const serviceSchema = {
+  '@type': 'ProfessionalService',
+  name: `${SITE.name}: ${data.title}`,
+  description: data.description,
+  url: new URL(path, SITE.url).href,
+  provider: { '@id': `${SITE.url}/#person` },
+  areaServed: { '@type': 'Country', name: data.country, identifier: data.countryCode },
+};
+---
+
+<Base title={data.metaTitle} fullTitle description={data.description} jsonLd={[breadcrumbSchema(crumbs), serviceSchema]}>
+  <section class="page-head">
+    <div class="container">
+      <Breadcrumbs items={crumbs} />
+      <span class="kicker">{data.country}</span>
+      <h1>{data.title}</h1>
+      <p class="lead">{data.summary}</p>
+      <div class="actions">
+        <a class="button" href={CTA.href} data-cta={`market-${market.id}-head`}>{CTA.label}</a>
+      </div>
+    </div>
+  </section>
+
+  <section class="section">
+    <div class="container">
+      <div class="section-head">
+        <span class="kicker">What businesses here ask for</span>
+        <h2>Common projects in {data.country === 'United Arab Emirates' ? 'the UAE' : data.country}</h2>
+      </div>
+      <ol class="rows">
+        {
+          data.needs.map((n, i) => (
+            <li>
+              <span class="rows__num">{String(i + 1).padStart(2, '0')}</span>
+              <h3>{n.title}</h3>
+              <p>{n.text}</p>
+            </li>
+          ))
+        }
+      </ol>
+    </div>
+  </section>
+
+  <section class="section section--soft">
+    <div class="container split">
+      <div class="prose">
+        <Content />
+      </div>
+      <aside class="panel">
+        <h2>Systems commonly used here</h2>
+        <dl class="facts">
+          {
+            data.systems.map((g) => (
+              <div>
+                <dt>{g.group}</dt>
+                <dd>{g.names.join(' · ')}</dd>
+              </div>
+            ))
+          }
+        </dl>
+        <p class="note" style="margin-top:1.25rem">Listed because they are widely used locally. No partnership with these vendors is implied.</p>
+      </aside>
+    </div>
+  </section>
+
+  <section class="section">
+    <div class="container">
+      <div class="section-head">
+        <span class="kicker">Services</span>
+        <h2>How I can help</h2>
+      </div>
+      <ul class="rows rows--plain">
+        {
+          services.map((s) => (
+            <li>
+              <h3>
+                <a href={`/services/${s.id}/`}>{s.data.title}</a>
+              </h3>
+              <p>{s.data.summary}</p>
+              <a class="rows__more" href={`/services/${s.id}/`} aria-hidden="true" tabindex="-1">
+                Learn more →
+              </a>
+            </li>
+          ))
+        }
+      </ul>
+    </div>
+  </section>
+
+  {
+    evidence.length > 0 && (
+      <section class="section section--soft">
+        <div class="container">
+          <div class="section-head">
+            <span class="kicker">Proof of work</span>
+            <h2>Related projects and products</h2>
+          </div>
+          <ProjectRows items={evidence} />
+        </div>
+      </section>
+    )
+  }
+
+  {
+    data.faqs.length > 0 && (
+      <section class="section">
+        <div class="container">
+          <div class="prose faq">
+            <h2>Questions from {data.country === 'United Arab Emirates' ? 'UAE' : data.country} businesses</h2>
+            {data.faqs.map((f) => (
+              <details>
+                <summary>{f.q}</summary>
+                <p>{f.a}</p>
+              </details>
+            ))}
+          </div>
+        </div>
+      </section>
+    )
+  }
+
+  <CtaBand location={`market-${market.id}-band`} />
+</Base>
