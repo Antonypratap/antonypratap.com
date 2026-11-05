@@ -26,6 +26,8 @@ needs:
     text: Supplier invoices captured, matched to orders and deliveries, and passed to Xero for payment, with a person deciding only the exceptions.
   - title: Software for exporters and primary industries
     text: Order management, traceability and reporting for horticulture, food and other exporters whose needs standard software does not quite meet.
+  - title: A website that works for the business
+    text: A revamped, well-designed website that presents your services clearly, works on every device and is ready to connect to the systems behind it when you need that.
   - title: Reporting you can trust
     text: One reliable view of sales, stock and margins drawn from several systems, instead of spreadsheets assembled each month.
 services:

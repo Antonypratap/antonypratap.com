@@ -1,8 +1,8 @@
 ---
 title: HarbourLink Logistics (pseudonym)
-metaTitle: Logistics Company Website Project | Antony Pratap
-description: A website project for a logistics company, currently in discussion. The client name is a pseudonym used to protect confidentiality.
-summary: A new website for a logistics company. The project is in discussion and its scope is still being defined.
+metaTitle: Logistics Website Revamp and Design, New Zealand | Antony Pratap
+description: A website revamp and design for a logistics business in New Zealand, currently in discussion. The client name is a pseudonym used to protect confidentiality.
+summary: A website revamp and design for a logistics business in New Zealand. The project is in discussion.
 order: 6
 ownership: client-confidential
 ownershipLabel: Confidential prospective client
@@ -10,16 +10,22 @@ status: In discussion
 pseudonym: true
 featured: false
 industries: [Logistics]
+markets: [new-zealand]
 services:
   - technology-consulting
-tags: [Logistics, Website]
+tags: [Logistics, Website revamp, Web design]
 ---
 
 > **About the name.** "HarbourLink Logistics" is a fictional name used to protect the company's confidentiality. It is not the company's real name, and no identifying details are published here.
 
 ## The opportunity
 
-A logistics company is looking for a new website. We are in discussion about what the website should do for the business and how it should fit with the way the company works.
+A logistics business in New Zealand wants to revamp and redesign its website. We are discussing what the new website should do for the business and how it should present the company's services to its customers.
+
+## Scope under discussion
+
+- **Website revamp.** Rebuilding the existing website.
+- **Design.** A new design for the website.
 
 ## Current status
 
