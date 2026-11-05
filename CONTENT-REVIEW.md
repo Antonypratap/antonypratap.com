@@ -28,7 +28,8 @@ until it is confirmed; update the page and remove the line.
 - [ ] Any ERP integration now verified with a real customer? (Currently stated: not yet.)
 
 **FreshRoute Produce (pseudonym)** (`src/content/projects/freshroute-produce.md`)
-- [ ] Which systems are used for inventory, data workflows and payments, and the role of each (can be described generically, e.g. "a cloud inventory system").
+- [x] Systems: WordPress (website), Xero (accounting), PayTabs (payments), Stream.
+- [ ] What Stream does in this project (currently described only as "part of the integration work").
 - [ ] Which integrations are complete and tested, in progress, or planned.
 - [ ] Add the client's real name to the `BLOCKED_TERMS` repository secret so the build fails if it ever appears.
 

@@ -72,11 +72,11 @@ const serviceSchema = {
   </section>
 
   <section class="section section--soft">
-    <div class="container split">
+    <div class:list={['container', { story: data.systems.length > 0 }]}>
       <div class="prose">
         <Content />
       </div>
-      <aside class="panel">
+      {data.systems.length > 0 && <aside class="panel">
         <h2>Systems commonly used here</h2>
         <dl class="facts">
           {
@@ -89,7 +89,7 @@ const serviceSchema = {
           }
         </dl>
         <p class="note" style="margin-top:1.25rem">Listed because they are widely used locally. No partnership with these vendors is implied.</p>
-      </aside>
+      </aside>}
     </div>
   </section>
 

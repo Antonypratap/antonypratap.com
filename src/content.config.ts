@@ -106,7 +106,7 @@ const markets = defineCollection({
     summary: z.string(),
     order: z.number(),
     /** Business systems commonly used in this market, grouped. Names only, no claims of partnership. */
-    systems: z.array(z.object({ group: z.string(), names: z.array(z.string()) })).min(2),
+    systems: z.array(z.object({ group: z.string(), names: z.array(z.string()) })).default([]),
     /** Typical local projects, in the visitor's words. */
     needs: z.array(z.object({ title: z.string(), text: z.string() })).min(3),
     services: z.array(reference('services')).min(1),

@@ -8,7 +8,7 @@ summary: For businesses in Dubai, Abu Dhabi and across the Emirates that need th
 order: 1
 systems:
   - group: Accounting and ERP
-    names: [Zoho Books, Tally, Odoo, SAP Business One, Microsoft Dynamics 365, QuickBooks]
+    names: [Xero, Zoho Books, Tally, Odoo, SAP Business One, Microsoft Dynamics 365, QuickBooks]
   - group: Ecommerce and sales
     names: [Shopify, WooCommerce, Magento, Noon, Amazon.ae]
   - group: Payments

@@ -15,7 +15,7 @@ services:
   - ecommerce-integration
   - business-systems-integration
   - technology-consulting
-tags: [Fresh produce, Distribution, WordPress, Inventory, Payments]
+tags: [Fresh produce, Distribution, WordPress, Xero, PayTabs, Stream]
 ---
 
 > **About the name.** "FreshRoute Produce" is a fictional name used to protect the client's confidentiality. It is not the client's real name, and no identifying details are published here.
@@ -27,7 +27,14 @@ A fruit distribution business in the United Arab Emirates sells products whose a
 ## The scope
 
 - **Website revamp.** Rebuilding the business's WordPress website.
-- **Integration requirements.** Connecting the website with the systems used for inventory, ordering, payments and related data workflows, so information flows between them instead of being re-entered.
+- **Integration requirements.** Connecting the website with the business's other systems, so information flows between them instead of being re-entered.
+
+## Systems involved
+
+- **WordPress:** the business website being revamped.
+- **Xero:** accounting.
+- **PayTabs:** online payments.
+- **Stream:** part of the integration work.
 
 ## The approach
 
