@@ -54,6 +54,20 @@ Keep `featured: true` for the few projects that best represent the work you want
 (`own-product`, `client`, `client-confidential`); status is shown only when confirmed; a
 pseudonym is labelled as one. See `CONTENT-REVIEW.md` for facts awaiting confirmation.
 
+## Hosting on GitHub Pages
+
+`.github/workflows/deploy.yml` builds and publishes the site on every push to `main`.
+
+1. Repository **Settings → Pages → Build and deployment → Source: GitHub Actions**.
+2. Optional variables (Settings → Secrets and variables → Actions → **Variables**): `PUBLIC_FORM_ENDPOINT`,
+   `PUBLIC_FORM_ACCESS_KEY`, `PUBLIC_PLAUSIBLE_DOMAIN` or `PUBLIC_GA4_ID`, `PUBLIC_GSC_VERIFICATION`.
+   Secret: `BLOCKED_TERMS` (confidential names the build must refuse).
+3. Custom domain: Settings → Pages → **Custom domain** `antonypratap.com`, then at the DNS provider add
+   `A` records for `@` to 185.199.108.153, 185.199.109.153, 185.199.110.153, 185.199.111.153, and a
+   `CNAME` for `www` to `<github-username>.github.io`. Tick **Enforce HTTPS** once the certificate is issued.
+
+GitHub Pages ignores `public/_headers` and `public/_redirects` (Cloudflare and Netlify formats).
+
 ## Hosting and previews
 
 Built for Cloudflare Pages (Vercel also works with no changes):
