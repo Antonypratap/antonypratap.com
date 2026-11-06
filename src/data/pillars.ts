@@ -21,7 +21,7 @@ export const PILLARS = [
     icon: 'build',
     title: 'Build',
     text: 'Custom software, web and mobile apps, portals and platforms for the work off-the-shelf tools cannot do.',
-    services: ['custom-software-development'],
+    services: ['custom-software-development', 'website-migration-recovery'],
     extra: [{ label: 'Apps, websites and more', href: '/services/#capabilities' }],
   },
   {

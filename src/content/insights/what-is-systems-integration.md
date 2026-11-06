@@ -4,7 +4,7 @@ metaTitle: 'What Is Systems Integration? A Guide for Business Owners'
 description: What systems integration means for a business, the signs you need it, the main ways systems are connected, and how to plan an integration that lasts.
 topic: Systems integration
 published: 2026-10-29
-draft: true
+draft: false
 relatedServices:
   - business-systems-integration
   - ecommerce-integration

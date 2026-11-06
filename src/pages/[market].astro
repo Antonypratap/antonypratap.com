@@ -6,7 +6,8 @@ import CtaBand from '../components/CtaBand.astro';
 import CaseGrid from '../components/CaseGrid.astro';
 import SectionHeader from '../components/SectionHeader.astro';
 import FaqList from '../components/FaqList.astro';
-import { projects } from '../data/content';
+import { projects, articlesFor } from '../data/content';
+import ArticleCard from '../components/ArticleCard.astro';
 import { breadcrumbSchema } from '../data/schema';
 import { CTA, SITE } from '../data/site';
 
@@ -26,6 +27,7 @@ const local = all.filter((p) => p.data.markets.some((m) => m.id === market.id));
 const related = all.filter((p) => !local.includes(p) && p.data.services.some((s) => serviceIds.has(s.id)));
 const evidence = [...local, ...related].slice(0, Math.max(3, local.length));
 const path = `/${market.id}/`;
+const guides = (await articlesFor((a) => a.data.markets.some((m) => m.id === market.id))).slice(0, 3);
 const place = data.country === 'United Arab Emirates' ? 'the UAE' : data.country;
 const crumbs = [
   { name: 'Home', path: '/' },
@@ -131,6 +133,21 @@ const serviceSchema = {
         <div class="container">
           <SectionHeader eyebrow="FAQ" title={`Questions from ${data.country === 'United Arab Emirates' ? 'UAE' : data.country} businesses`} />
           <FaqList faqs={data.faqs} />
+        </div>
+      </section>
+    )
+  }
+
+  {
+    guides.length > 0 && (
+      <section class="section section--soft">
+        <div class="container">
+          <SectionHeader eyebrow="Guides" title={`Guides for ${place === 'the UAE' ? 'UAE' : place} businesses`} action={{ href: '/insights/', label: 'All articles' }} />
+          <div class="grid grid--3">
+            {guides.map((a) => (
+              <ArticleCard article={a} />
+            ))}
+          </div>
         </div>
       </section>
     )

@@ -18,6 +18,7 @@ const { data } = article;
 const { Content } = await render(article);
 const services = await getEntries(data.relatedServices);
 const relatedProjects = await getEntries(data.relatedProjects);
+const markets = await getEntries(data.markets);
 const path = `/insights/${article.id}/`;
 const crumbs = [
   { name: 'Home', path: '/' },
@@ -28,6 +29,7 @@ const crumbs = [
 
 <Base
   title={data.metaTitle ?? data.title}
+  fullTitle={Boolean(data.metaTitle)}
   description={data.description}
   ogType="article"
   noindex={data.draft}
@@ -43,7 +45,15 @@ const crumbs = [
       <div class="container">
         <Breadcrumbs items={crumbs} />
         {data.draft && <p><span class="draft-flag">Draft: not published</span></p>}
-        <span class="eyebrow">{data.topic}</span>
+        <span class="eyebrow">
+          {data.topic}
+          {markets.map((m) => (
+            <>
+              {' · '}
+              <a href={`/${m.id}/`}>{m.data.country === 'United Arab Emirates' ? 'UAE' : m.data.country}</a>
+            </>
+          ))}
+        </span>
         <h1>{data.title}</h1>
         <p class="lead">{data.description}</p>
         <div class="article-meta">

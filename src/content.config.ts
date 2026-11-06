@@ -78,8 +78,11 @@ const insights = defineCollection({
       'AI implementation',
       'Custom software',
       'Ecommerce integration',
+      'Websites',
       'Operations',
     ]),
+    /** Countries the article is written for, by market file name. Shown as a label and linked. */
+    markets: z.array(reference('markets')).default([]),
     published: z.coerce.date(),
     updated: z.coerce.date().optional(),
     /** Drafts are built only in development (npm run dev) and never published. */
