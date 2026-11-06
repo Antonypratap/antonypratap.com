@@ -70,6 +70,20 @@ const graph = { '@context': 'https://schema.org', '@graph': [personSchema(), web
     {ENV.gscVerification && <meta name="google-site-verification" content={ENV.gscVerification} />}
 
     <script type="application/ld+json" set:html={JSON.stringify(graph)} />
+    <script is:inline>
+      // Open every newly visited page at the top. Some embedded viewers (such as previews) carry
+      // the previous scroll position over; back and forward navigation keep the browser's own.
+      (function () {
+        var nav = performance.getEntriesByType && performance.getEntriesByType('navigation')[0];
+        if (location.hash || (nav && nav.type === 'back_forward')) return;
+        var top = function () {
+          window.scrollTo({ top: 0, left: 0, behavior: 'instant' });
+        };
+        top();
+        addEventListener('DOMContentLoaded', top);
+        addEventListener('load', top);
+      })();
+    </script>
     <Analytics />
   </head>
   <body>
