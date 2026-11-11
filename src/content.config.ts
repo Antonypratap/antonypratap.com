@@ -67,7 +67,8 @@ const projects = defineCollection({
 });
 
 const insights = defineCollection({
-  loader: glob({ pattern: '**/*.md', base: './src/content/insights' }),
+  // Files starting with "_" (such as _template.md) are not published.
+  loader: glob({ pattern: '**/[^_]*.md', base: './src/content/insights' }),
   schema: z.object({
     title: z.string(),
     metaTitle: z.string().max(65).optional(),
