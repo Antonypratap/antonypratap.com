@@ -4,7 +4,6 @@ import Base from '../layouts/Base.astro';
 import ArticleCard from '../components/ArticleCard.astro';
 import CtaBand from '../components/CtaBand.astro';
 import SystemsDiagram from '../components/SystemsDiagram.astro';
-import FeaturedProject from '../components/FeaturedProject.astro';
 import CaseGrid from '../components/CaseGrid.astro';
 import SectionHeader from '../components/SectionHeader.astro';
 import ProcessSteps from '../components/ProcessSteps.astro';
@@ -28,9 +27,10 @@ const pillars = await Promise.all(
 );
 
 const allProjects = await projects();
-// Lead with the strongest featured project that has real screens, then three more. Never the whole catalogue.
-const lead = allProjects.find((p) => p.data.featured && p.data.screenshots.length > 0) ?? allProjects[0];
-const moreProjects = allProjects.filter((p) => p !== lead).slice(0, 3);
+// Six projects at equal weight, client work first and featured first within each group, so no single
+// project or product dominates the page. Never the whole catalogue.
+const isClient = (p: (typeof allProjects)[number]) => p.data.ownership !== 'own-product';
+const homeProjects = [...allProjects.filter(isClient), ...allProjects.filter((p) => !isClient(p))].slice(0, 6);
 const latest = (await articles()).slice(0, 3);
 const markets = (await getCollection('markets')).sort((a, b) => a.data.order - b.data.order);
 const shortCountry = (c: string) => (c === 'United Arab Emirates' ? 'UAE' : c);
@@ -113,18 +113,11 @@ const process = [
     <div class="container">
       <SectionHeader
         eyebrow="Proof of work"
-        title="Products and client projects"
+        title="Client projects and products"
         intro="Real work, each labelled for who owns it and how far it has got."
         action={{ href: '/projects/', label: `All ${allProjects.length} projects` }}
       />
-      {lead && <FeaturedProject project={lead} />}
-      {
-        moreProjects.length > 0 && (
-          <div style="margin-top:3.5rem">
-            <CaseGrid items={moreProjects} />
-          </div>
-        )
-      }
+      <CaseGrid items={homeProjects} />
     </div>
   </section>
 
