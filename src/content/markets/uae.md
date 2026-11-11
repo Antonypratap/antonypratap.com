@@ -36,14 +36,14 @@ services:
 faqs:
   - q: Have you worked with UAE businesses before?
     a: Yes. My UAE work includes a fruit distribution business and a school-based initiative, both described on this site, as well as work for other established UAE organisations whose names are kept confidential.
-  - q: Do you have an office in the UAE?
-    a: No. I work with UAE businesses remotely, through video calls, shared documents and regular reviews of working software. Projects are organised so that decisions are made with you during your business hours.
+  - q: Where are you based, and do you visit?
+    a: I am based in Bangalore, India, and work hybrid. Day-to-day delivery happens remotely, through video calls, shared documents and regular reviews of working software, and I make site visits when a project needs them, for example for discovery workshops or a go-live. There is no UAE office.
   - q: Can you help us prepare for UAE e-invoicing?
     a: Yes, on the systems side. That means assessing whether your ERP or accounting system can produce the required invoice data, how it will connect to your chosen accredited service provider, and what has to change in your processes. Tax advice remains with your tax adviser.
   - q: Do you work with Zoho, Tally or Odoo?
     a: These are among the most common systems in the UAE, and the approach is the same for each. Find out what the system can exchange through its API or import tools, then design reliable flows around it. Each project starts with checking this in your own setup rather than assuming it.
   - q: Which Emirates do you work with?
-    a: Businesses anywhere in the UAE, including Dubai, Abu Dhabi, Sharjah and the Northern Emirates. The work is delivered remotely, so location within the country makes no difference.
+    a: Businesses anywhere in the UAE, including Dubai, Abu Dhabi, Sharjah and the Northern Emirates. Delivery is hybrid, so location within the country makes no difference.
 ---
 
 ## Why UAE businesses outgrow their systems
@@ -54,6 +54,6 @@ Regulation adds to the pressure. VAT, Corporate Tax and the move to e-invoicing 
 
 ## How I work with UAE businesses
 
-I work remotely with owners and operations and finance leaders across the Emirates. A typical engagement starts with a conversation and a short discovery exercise. In it we map how information moves between your systems today, where it breaks, and which improvements would pay back first. Delivery then runs in stages, each one tested with realistic data and reviewed with you before it touches live operations.
+I work with owners and operations and finance leaders across the Emirates, remotely day to day and on site when a project needs it. A typical engagement starts with a conversation and a short discovery exercise. In it we map how information moves between your systems today, where it breaks, and which improvements would pay back first. Delivery then runs in stages, each one tested with realistic data and reviewed with you before it touches live operations.
 
 You have one accountable point of contact who understands both the business requirement and the technical work. Specialist developers are brought in where the work needs them.

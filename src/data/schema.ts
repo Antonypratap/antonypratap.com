@@ -10,6 +10,11 @@ export function personSchema() {
     name: SITE.name,
     url: `${SITE.url}/`,
     jobTitle: SITE.jobTitle,
+    homeLocation: {
+      '@type': 'Place',
+      name: 'Bangalore, India',
+      address: { '@type': 'PostalAddress', addressLocality: 'Bangalore', addressCountry: 'IN' },
+    },
     description: SITE.description,
     knowsAbout: [
       'Business systems integration',

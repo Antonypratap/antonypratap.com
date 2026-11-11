@@ -3,7 +3,7 @@ country: New Zealand
 countryCode: NZ
 title: Websites, software and automation for New Zealand businesses
 metaTitle: Website Revamps, Software and Automation | New Zealand
-description: Website revamps and design, custom software, systems integration and business automation for New Zealand businesses, delivered remotely.
+description: Website revamps and design, custom software, systems integration and business automation for New Zealand businesses, delivered from Bangalore, India.
 summary: For New Zealand businesses that need a better website, software that fits how they work, or less manual admin between the systems they already use.
 order: 2
 systems: []
@@ -23,7 +23,7 @@ services:
   - technology-consulting
 faqs:
   - q: Are you based in New Zealand?
-    a: No. I work with New Zealand businesses remotely. Calls are arranged within your business hours, and progress is shared through written updates and working previews, so the time difference does not slow decisions down.
+    a: No. I am based in Bangalore, India, and work with New Zealand businesses remotely, with site visits possible when a project needs them. Calls are arranged within your business hours, and progress is shared through written updates and working previews, so the time difference does not slow decisions down.
   - q: What work do you do for New Zealand businesses?
     a: My current New Zealand work is a website revamp for a logistics business, which is in discussion. The same services I provide elsewhere, including integration, automation and custom software, are available to New Zealand businesses.
   - q: Can a website revamp be done in stages?
@@ -32,7 +32,7 @@ faqs:
 
 ## How I work with New Zealand businesses
 
-I work remotely with business owners and managers in New Zealand. A project starts with a conversation about what the business needs, then a short written plan of what will be done and in what order. Work is delivered in stages, with previews you can review before anything goes live.
+I work with business owners and managers in New Zealand from Bangalore, India, remotely day to day. A project starts with a conversation about what the business needs, then a short written plan of what will be done and in what order. Work is delivered in stages, with previews you can review before anything goes live.
 
 ## More than a website
 

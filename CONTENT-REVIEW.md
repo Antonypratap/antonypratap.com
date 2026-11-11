@@ -53,7 +53,7 @@ until it is confirmed; update the page and remove the line.
 
 ## Country pages (/uae/, /new-zealand/)
 
-- [ ] Confirm the working arrangement stated: remote delivery, calls within the client's business hours, no local office.
+- [x] Working arrangement: based in Bangalore, India; hybrid (remote delivery with site visits when a project needs them); no UAE or NZ office.
 - [ ] Confirm the markets listed site-wide: UAE, New Zealand, Australia, Saudi Arabia, Singapore, India.
 - [ ] Local systems lists are "widely used" names only, with no partnership implied. Add any you have actually worked with.
 - [ ] Next country pages only when there is real substance for them (Australia, Saudi Arabia, Singapore).
