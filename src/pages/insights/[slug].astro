@@ -37,7 +37,15 @@ const crumbs = [
   modifiedTime={data.updated}
   jsonLd={[
     breadcrumbSchema(crumbs),
-    articleSchema({ title: data.title, description: data.description, path, published: data.published, updated: data.updated }),
+    articleSchema({
+      title: data.title,
+      description: data.description,
+      path,
+      published: data.published,
+      updated: data.updated,
+      answer: data.answer,
+      topic: data.topic,
+    }),
   ]}
 >
   <article>
@@ -67,6 +75,14 @@ const crumbs = [
     <div class="section">
       <div class="container split">
         <div class="prose">
+          {
+            data.answer && (
+              <aside class="in-short" aria-label="In short">
+                <strong>In short</strong>
+                <p>{data.answer}</p>
+              </aside>
+            )
+          }
           <Content />
         </div>
         {

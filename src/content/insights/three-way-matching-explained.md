@@ -2,6 +2,7 @@
 title: 'Three-Way Matching Explained: Purchase Orders, Goods Receipts and Invoices'
 metaTitle: 'Three-Way Matching Explained: PO, Goods Receipt and Invoice'
 description: What three-way matching is, why finance teams use it, how to handle mismatches and tolerances, and how to automate it without losing control of payments.
+answer: 'Three-way matching checks a supplier invoice against the purchase order and the goods receipt before payment: the supplier, items, quantities, prices, tax and totals must agree, and the invoice must not be a duplicate. It prevents paying for goods not ordered or not received. Automation can match invoices that agree and hold every mismatch for a person to decide.'
 topic: Process automation
 published: 2026-11-06
 relatedServices:

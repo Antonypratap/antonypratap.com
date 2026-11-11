@@ -18,6 +18,9 @@ export function personSchema() {
     description: SITE.description,
     knowsAbout: [
       'Business systems integration',
+      'ERP integration',
+      'E-invoicing integration',
+      'Website migration',
       'Business process automation',
       'AI implementation',
       'Custom software development',
@@ -62,17 +65,33 @@ export function serviceSchema(s: { name: string; description: string; path: stri
   };
 }
 
+/** Questions and answers as shown on the page, for search engines and AI assistants. */
+export function faqSchema(faqs: { q: string; a: string }[]) {
+  return {
+    '@type': 'FAQPage',
+    mainEntity: faqs.map((f) => ({
+      '@type': 'Question',
+      name: f.q,
+      acceptedAnswer: { '@type': 'Answer', text: f.a },
+    })),
+  };
+}
+
 export function articleSchema(a: {
   title: string;
   description: string;
   path: string;
   published: Date;
   updated?: Date;
+  answer?: string;
+  topic?: string;
 }) {
   return {
     '@type': 'BlogPosting',
     headline: a.title,
     description: a.description,
+    ...(a.answer ? { abstract: a.answer } : {}),
+    ...(a.topic ? { about: a.topic } : {}),
     url: new URL(a.path, SITE.url).href,
     mainEntityOfPage: new URL(a.path, SITE.url).href,
     datePublished: a.published.toISOString(),

@@ -8,7 +8,7 @@ import SectionHeader from '../components/SectionHeader.astro';
 import FaqList from '../components/FaqList.astro';
 import { projects, articlesFor } from '../data/content';
 import ArticleCard from '../components/ArticleCard.astro';
-import { breadcrumbSchema } from '../data/schema';
+import { breadcrumbSchema, faqSchema } from '../data/schema';
 import { CTA, SITE } from '../data/site';
 
 // Country pages live at the top level (/uae/, /new-zealand/): one per file in src/content/markets/.
@@ -43,7 +43,7 @@ const serviceSchema = {
 };
 ---
 
-<Base title={data.metaTitle} fullTitle description={data.description} jsonLd={[breadcrumbSchema(crumbs), serviceSchema]}>
+<Base title={data.metaTitle} fullTitle description={data.description} jsonLd={[breadcrumbSchema(crumbs), serviceSchema, ...(data.faqs.length ? [faqSchema(data.faqs)] : [])]}>
   <section class="page-head">
     <div class="container">
       <Breadcrumbs items={crumbs} />

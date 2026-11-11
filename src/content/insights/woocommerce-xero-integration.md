@@ -2,6 +2,7 @@
 title: 'Connecting WooCommerce and Xero: What to Plan Before You Switch It On'
 metaTitle: 'WooCommerce and Xero Integration: What to Plan First'
 description: How to connect a WooCommerce store with Xero properly. Choosing a connector, tax mapping, payments, refunds, stock and the decisions to make before you go live.
+answer: 'To connect WooCommerce and Xero properly, decide first whether each order or a daily summary becomes a Xero invoice, then choose a connector that handles your tax setup, map every tax case with your accountant, record card payments through a gateway clearing account, define refund and cancellation handling, and agree which system owns stock before going live.'
 topic: Ecommerce integration
 published: 2026-11-06
 markets: [uae]

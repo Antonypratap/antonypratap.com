@@ -2,6 +2,7 @@
 title: 'Singapore GST InvoiceNow Requirement: A Guide for Businesses'
 metaTitle: 'Singapore GST InvoiceNow Requirement: A Business Guide'
 description: 'What the GST InvoiceNow requirement means for Singapore businesses: who is affected and when, how it works over Peppol, and how to prepare your accounting system.'
+answer: 'Singapore''s GST InvoiceNow Requirement asks GST-registered businesses to send invoice data to IRAS through InvoiceNow, the national Peppol-based e-invoicing network. It applies to new voluntary GST registrants from 2025 and 2026 and extends to all GST-registered businesses in phases from 2028 to 2031. Most businesses comply through InvoiceNow-ready accounting software or an Access Point provider.'
 topic: Systems integration
 published: 2026-11-06
 relatedServices:

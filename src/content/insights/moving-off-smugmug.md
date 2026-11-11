@@ -2,6 +2,7 @@
 title: 'Moving Your Website Off SmugMug, Squarespace or Wix Without Losing Images or Rankings'
 metaTitle: 'Leaving SmugMug, Squarespace or Wix: A Safe Migration Plan'
 description: 'A step-by-step plan for moving a website off an expensive hosted platform: securing the domain, exporting images, keeping URLs, redirects and switching over safely.'
+answer: 'To move a website off SmugMug, Squarespace or Wix safely, first secure the domain in your own account, inventory every page and gallery, export full-resolution images and check the counts, rebuild on the new platform keeping URLs where possible, add permanent 301 redirects for the rest, switch DNS at a quiet time and keep the old account until nothing is missing.'
 topic: Websites
 published: 2026-11-06
 relatedServices:

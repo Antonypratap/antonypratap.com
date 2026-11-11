@@ -2,6 +2,7 @@
 title: 'Website Revamp Checklist: 12 Things to Decide Before You Rebuild'
 metaTitle: 'Website Revamp Checklist: 12 Decisions Before You Rebuild'
 description: Planning a website revamp? A checklist covering goals, content, platform, SEO redirects, forms, integrations and launch, so the new site beats the old one.
+answer: 'Before revamping a website, set one or two measurable goals, list your visitor types and what each needs, audit which current pages and forms perform, assign content owners, choose a platform you can maintain, map every old URL to a new one with permanent 301 redirects, test forms and integrations, then launch at a quiet time and measure against the goals.'
 topic: Websites
 published: 2026-11-06
 markets: [new-zealand]

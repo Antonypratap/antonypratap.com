@@ -9,7 +9,7 @@ import CaseGrid from '../../components/CaseGrid.astro';
 import FaqList from '../../components/FaqList.astro';
 import ArticleCard from '../../components/ArticleCard.astro';
 import { services, articlesFor, projectsForService } from '../../data/content';
-import { breadcrumbSchema, serviceSchema } from '../../data/schema';
+import { breadcrumbSchema, serviceSchema, faqSchema } from '../../data/schema';
 import { CTA } from '../../data/site';
 
 export async function getStaticPaths() {
@@ -35,7 +35,11 @@ const crumbs = [
   title={data.metaTitle}
   fullTitle
   description={data.description}
-  jsonLd={[breadcrumbSchema(crumbs), serviceSchema({ name: data.title, description: data.description, path })]}
+  jsonLd={[
+    breadcrumbSchema(crumbs),
+    serviceSchema({ name: data.title, description: data.description, path }),
+    ...(data.faqs.length ? [faqSchema(data.faqs)] : []),
+  ]}
 >
   <!-- 1. What this is -->
   <section class="page-head">

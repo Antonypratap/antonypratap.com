@@ -84,6 +84,11 @@ const insights = defineCollection({
     ]),
     /** Countries the article is written for, by market file name. Shown as a label and linked. */
     markets: z.array(reference('markets')).default([]),
+    /**
+     * A direct answer to the article's main question in 40-70 words, shown first as "In short".
+     * Search engines and AI assistants quote passages like this, so make it complete on its own.
+     */
+    answer: z.string().min(150).max(520).optional(),
     published: z.coerce.date(),
     updated: z.coerce.date().optional(),
     /** Drafts are built only in development (npm run dev) and never published. */

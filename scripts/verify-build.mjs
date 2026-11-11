@@ -25,6 +25,11 @@ function walk(dir) {
 
 const files = walk(DIST);
 const pages = files.filter((f) => f.endsWith('.html'));
+// Text files for machines (llms.txt, robots.txt, sitemaps, RSS) must not leak blocked terms either.
+for (const file of files.filter((f) => /\.(txt|xml)$/.test(f))) {
+  const text = readFileSync(file, 'utf8').toLowerCase();
+  for (const term of blocked) if (text.includes(term)) fail(relative(DIST, file), 'contains a blocked term');
+}
 const titles = new Map();
 const descriptions = new Map();
 
@@ -101,7 +106,7 @@ for (const file of pages) {
   if (!indexable && inSitemap) fail(relative(DIST, file), 'noindex page listed in sitemap');
 }
 
-for (const required of ['robots.txt', 'sitemap-index.xml', 'og-default.png', 'favicon.svg', 'insights/rss.xml']) {
+for (const required of ['robots.txt', 'llms.txt', 'sitemap-index.xml', 'og-default.png', 'favicon.svg', 'insights/rss.xml']) {
   if (!existsSync(join(DIST, required))) errors.push(`missing ${required}`);
 }
 

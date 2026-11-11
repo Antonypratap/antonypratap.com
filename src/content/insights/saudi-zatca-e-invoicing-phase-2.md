@@ -2,6 +2,7 @@
 title: 'Saudi Arabia E-Invoicing Phase 2 (ZATCA): What Integration Involves'
 metaTitle: 'ZATCA Phase 2 E-Invoicing: What Integration Involves'
 description: 'A systems-focused guide to ZATCA Phase 2 e-invoicing in Saudi Arabia: integration waves, the Fatoora platform, clearance and reporting, and how to prepare your ERP.'
+answer: 'ZATCA Phase 2 requires Saudi VAT-registered businesses, in waves announced in advance, to integrate their invoicing systems with ZATCA''s Fatoora platform. Standard B2B invoices are cleared by ZATCA before being shared; simplified B2C invoices are reported after issue. Invoices must be structured XML with a cryptographic stamp and QR code, from a solution onboarded with ZATCA.'
 topic: Systems integration
 published: 2026-11-06
 relatedServices:
