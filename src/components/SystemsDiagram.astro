@@ -1,42 +1,57 @@
 ---
-// Hero illustration: business systems connected through one integration and automation layer,
-// with only exceptions reaching a person. Inline SVG, so it costs no request and stays sharp.
-const systems = [
-  { x: 16, label: 'Website', sub: 'orders' },
-  { x: 140, label: 'Inventory', sub: 'stock' },
-  { x: 264, label: 'ERP', sub: 'accounts' },
-  { x: 388, label: 'Payments', sub: 'gateway' },
+// Hero illustration of the whole offer: the systems a business already uses are connected (top row),
+// and what is built and automated around them (bottom row), all serving one connected operation.
+// Inline SVG, so it costs no request and stays sharp.
+const top = [
+  { label: 'Website', sub: '& online store' },
+  { label: 'Accounting', sub: '& ERP' },
+  { label: 'Inventory', sub: '& orders' },
 ];
+const bottom = [
+  { label: 'Custom apps', sub: '& portals' },
+  { label: 'Automated', sub: 'workflows' },
+  { label: 'Reports', sub: '& AI' },
+];
+const x = (i: number) => 12 + i * 160;
 ---
 
 <figure class="diagram">
-  <svg viewBox="0 0 512 360" role="img" aria-labelledby="diagram-title diagram-desc">
-    <title id="diagram-title">Connected business systems</title>
+  <svg viewBox="0 0 492 412" role="img" aria-labelledby="diagram-title diagram-desc">
+    <title id="diagram-title">One connected business operation</title>
     <desc id="diagram-desc">
-      Website, inventory, ERP and payment systems connected through one integration and automation layer that
-      validates, syncs and reconciles data, sending only exceptions to your team.
+      Website, accounting and ERP, and inventory systems connected into one operation, with custom apps and portals,
+      automated workflows, and reports and AI built around it.
     </desc>
 
+    <text x="246" y="14" class="d-caption">Connect what you already use</text>
     {
-      systems.map((s) => (
+      top.map((n, i) => (
         <g>
-          <rect x={s.x} y="16" width="108" height="64" rx="8" class="d-node" />
-          <text x={s.x + 54} y="44" class="d-label">{s.label}</text>
-          <text x={s.x + 54} y="63" class="d-sub">{s.sub}</text>
-          <line x1={s.x + 54} y1="80" x2={s.x + 54} y2="138" class="d-link" />
-          <circle cx={s.x + 54} cy="138" r="4" class="d-dot" />
+          <rect x={x(i)} y="26" width="148" height="68" rx="10" class="d-node" />
+          <text x={x(i) + 74} y="56" class="d-label">{n.label}</text>
+          <text x={x(i) + 74} y="77" class="d-sub">{n.sub}</text>
+          <line x1={x(i) + 74} y1="94" x2={x(i) + 74} y2="156" class="d-link" />
+          <circle cx={x(i) + 74} cy="156" r="4.5" class="d-dot" />
         </g>
       ))
     }
 
-    <rect x="16" y="138" width="480" height="72" rx="10" class="d-layer" />
-    <text x="256" y="168" class="d-layer-title">Integration and automation layer</text>
-    <text x="256" y="190" class="d-layer-sub">validate · sync · reconcile · log</text>
+    <rect x="12" y="156" width="468" height="88" rx="12" class="d-layer" />
+    <text x="246" y="194" class="d-layer-title">Your business, connected</text>
+    <text x="246" y="220" class="d-layer-sub">one source of truth · less manual work</text>
 
-    <line x1="256" y1="210" x2="256" y2="262" class="d-link d-link--alert" />
-    <rect x="146" y="262" width="220" height="68" rx="8" class="d-node d-node--team" />
-    <text x="256" y="291" class="d-label">Your team</text>
-    <text x="256" y="311" class="d-sub">reviews only the exceptions</text>
+    {
+      bottom.map((n, i) => (
+        <g>
+          <circle cx={x(i) + 74} cy="244" r="4.5" class="d-dot d-dot--build" />
+          <line x1={x(i) + 74} y1="244" x2={x(i) + 74} y2="306" class="d-link d-link--build" />
+          <rect x={x(i)} y="306" width="148" height="68" rx="10" class="d-node d-node--build" />
+          <text x={x(i) + 74} y="336" class="d-label">{n.label}</text>
+          <text x={x(i) + 74} y="357" class="d-sub">{n.sub}</text>
+        </g>
+      ))
+    }
+    <text x="246" y="402" class="d-caption">Build and automate what is missing</text>
   </svg>
 </figure>
 
@@ -45,45 +60,54 @@ const systems = [
     margin: 0;
     background: var(--bg);
     border: 1px solid var(--line);
-    border-radius: 14px;
-    padding: 1.25rem;
-    box-shadow:
-      0 1px 2px rgb(15 28 43 / 0.04),
-      0 18px 40px -18px rgb(15 28 43 / 0.25);
+    border-radius: 16px;
+    padding: 1.25rem 1.25rem 1rem;
+    box-shadow: var(--shadow-lg);
   }
   svg {
     width: 100%;
     height: auto;
     font-family: var(--font);
   }
+  .d-caption {
+    fill: var(--muted);
+    font-size: 13px;
+    font-weight: 600;
+    letter-spacing: 0.06em;
+    text-transform: uppercase;
+    text-anchor: middle;
+  }
   .d-node {
     fill: var(--bg-soft);
-    stroke: #cfd4d9;
+    stroke: var(--line-strong);
   }
-  .d-node--team {
-    fill: #fff7ed;
-    stroke: #f2c9a1;
+  .d-node--build {
+    fill: var(--accent-soft);
+    stroke: #bfe0dc;
   }
   .d-label {
     fill: var(--ink);
-    font-size: 15px;
-    font-weight: 650;
+    font-size: 17px;
+    font-weight: 700;
     text-anchor: middle;
   }
   .d-sub {
     fill: var(--muted);
-    font-size: 12px;
+    font-size: 14px;
     text-anchor: middle;
   }
   .d-link {
-    stroke: var(--accent);
+    stroke: var(--navy);
     stroke-width: 2;
   }
-  .d-link--alert {
-    stroke: #c2410c;
+  .d-link--build {
+    stroke: var(--accent);
     stroke-dasharray: 5 4;
   }
   .d-dot {
+    fill: var(--navy);
+  }
+  .d-dot--build {
     fill: var(--accent);
   }
   .d-layer {
@@ -91,14 +115,14 @@ const systems = [
   }
   .d-layer-title {
     fill: #fff;
-    font-size: 16px;
-    font-weight: 650;
+    font-size: 19px;
+    font-weight: 700;
     text-anchor: middle;
   }
   .d-layer-sub {
-    fill: #9fc9cb;
-    font-size: 12.5px;
-    letter-spacing: 0.04em;
+    fill: var(--accent-bright);
+    font-size: 14px;
+    letter-spacing: 0.03em;
     text-anchor: middle;
   }
 </style>
