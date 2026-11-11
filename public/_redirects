@@ -1,1 +1,4 @@
 # Permanent redirects (Cloudflare Pages / Netlify format): /old-path/ /new-path/ 301
+
+# The standard sitemap address serves the generated sitemap index.
+/sitemap.xml /sitemap-index.xml 200
