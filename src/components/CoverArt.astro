@@ -1,0 +1,269 @@
+---
+import type { CoverKind } from '../data/covers';
+// Branded cover illustration (16:9), drawn with simple shapes so it stays sharp and weighs nothing.
+// Decorative: the heading next to it carries the meaning.
+interface Props {
+  kind: CoverKind;
+  label?: string;
+}
+const { kind, label } = Astro.props;
+const id = `g-${kind}-${Math.random().toString(36).slice(2, 8)}`;
+---
+
+<svg class="cover-art" viewBox="0 0 400 225" preserveAspectRatio="xMidYMid slice" aria-hidden="true" focusable="false">
+  <defs>
+    <linearGradient id={`${id}-bg`} x1="0" y1="0" x2="1" y2="1">
+      <stop offset="0" stop-color="#0b1b33"></stop>
+      <stop offset="1" stop-color="#123a4a"></stop>
+    </linearGradient>
+    <pattern id={`${id}-grid`} width="20" height="20" patternUnits="userSpaceOnUse">
+      <path d="M20 0H0V20" fill="none" stroke="#ffffff" stroke-opacity="0.05"></path>
+    </pattern>
+  </defs>
+  <rect width="400" height="225" fill={`url(#${id}-bg)`}></rect>
+  <rect width="400" height="225" fill={`url(#${id}-grid)`}></rect>
+  <circle cx="360" cy="20" r="90" fill="#0d7a74" fill-opacity="0.25"></circle>
+
+  {
+    kind === 'integration' && (
+      <g>
+        <g fill="#f5f7fa">
+          <rect x="40" y="40" width="80" height="34" rx="6" />
+          <rect x="40" y="96" width="80" height="34" rx="6" />
+          <rect x="40" y="152" width="80" height="34" rx="6" />
+          <rect x="280" y="68" width="80" height="34" rx="6" />
+          <rect x="280" y="124" width="80" height="34" rx="6" />
+        </g>
+        <g fill="#cfd4dc">
+          <rect x="52" y="52" width="40" height="5" rx="2" />
+          <rect x="52" y="108" width="48" height="5" rx="2" />
+          <rect x="52" y="164" width="36" height="5" rx="2" />
+          <rect x="292" y="80" width="44" height="5" rx="2" />
+          <rect x="292" y="136" width="38" height="5" rx="2" />
+        </g>
+        <g stroke="#5eead4" stroke-width="2.5" fill="none">
+          <path d="M120 57 C160 57 170 112 200 112" />
+          <path d="M120 113 H200" />
+          <path d="M120 169 C160 169 170 112 200 112" />
+          <path d="M200 112 C230 112 240 85 280 85" />
+          <path d="M200 112 C230 112 240 141 280 141" />
+        </g>
+        <circle cx="200" cy="112" r="22" fill="#0d7a74" stroke="#5eead4" stroke-width="3" />
+        <path d="M190 112h20M200 102v20" stroke="#fff" stroke-width="3" stroke-linecap="round" />
+      </g>
+    )
+  }
+
+  {
+    kind === 'automation' && (
+      <g>
+        <g fill="#f5f7fa">
+          <rect x="30" y="92" width="76" height="42" rx="21" />
+          <rect x="162" y="92" width="76" height="42" rx="21" />
+          <rect x="294" y="92" width="76" height="42" rx="21" />
+        </g>
+        <g fill="#0d7a74">
+          <circle cx="52" cy="113" r="8" />
+          <circle cx="184" cy="113" r="8" />
+          <circle cx="316" cy="113" r="8" />
+        </g>
+        <g stroke="#5eead4" stroke-width="3" fill="none" stroke-linecap="round" stroke-linejoin="round">
+          <path d="M110 113h46M148 105l8 8-8 8" />
+          <path d="M242 113h46M280 105l8 8-8 8" />
+          <path d="M332 88 C332 40 68 40 68 88" stroke-dasharray="6 6" />
+          <path d="M60 80l8 8 8-8" />
+        </g>
+        <g stroke="#f59e0b" stroke-width="3" fill="none" stroke-linecap="round">
+          <path d="M184 150v28M176 170l8 8 8-8" />
+        </g>
+        <rect x="150" y="182" width="68" height="22" rx="6" fill="#fff7ed" />
+      </g>
+    )
+  }
+
+  {
+    kind === 'ai' && (
+      <g>
+        <rect x="60" y="34" width="120" height="160" rx="8" fill="#f5f7fa" />
+        <g fill="#cfd4dc">
+          <rect x="76" y="54" width="60" height="7" rx="3" />
+          <rect x="76" y="76" width="88" height="5" rx="2" />
+          <rect x="76" y="90" width="80" height="5" rx="2" />
+          <rect x="76" y="104" width="88" height="5" rx="2" />
+        </g>
+        <rect x="74" y="122" width="92" height="22" rx="4" fill="#5eead4" fill-opacity="0.45" />
+        <g fill="#cfd4dc">
+          <rect x="76" y="156" width="70" height="5" rx="2" />
+          <rect x="76" y="170" width="84" height="5" rx="2" />
+        </g>
+        <g stroke="#5eead4" stroke-width="2.5" fill="none" stroke-dasharray="5 5">
+          <path d="M168 133 C220 133 220 112 252 112" />
+        </g>
+        <rect x="252" y="80" width="100" height="64" rx="10" fill="#0d7a74" />
+        <path d="M282 112l12 12 24-24" stroke="#fff" stroke-width="5" fill="none" stroke-linecap="round" stroke-linejoin="round" />
+        <path d="M330 40l6 14 14 6-14 6-6 14-6-14-14-6 14-6z" fill="#f59e0b" />
+        <path d="M296 168l4 9 9 4-9 4-4 9-4-9-9-4 9-4z" fill="#5eead4" />
+      </g>
+    )
+  }
+
+  {
+    kind === 'software' && (
+      <g>
+        <rect x="50" y="30" width="300" height="170" rx="10" fill="#f5f7fa" />
+        <rect x="50" y="30" width="300" height="24" rx="10" fill="#e4e7ec" />
+        <g fill="#cfd4dc">
+          <circle cx="66" cy="42" r="4" />
+          <circle cx="80" cy="42" r="4" />
+          <circle cx="94" cy="42" r="4" />
+        </g>
+        <rect x="50" y="54" width="70" height="146" fill="#0b1b33" />
+        <g fill="#5eead4" fill-opacity="0.8">
+          <rect x="62" y="70" width="44" height="6" rx="3" />
+        </g>
+        <g fill="#ffffff" fill-opacity="0.35">
+          <rect x="62" y="88" width="36" height="6" rx="3" />
+          <rect x="62" y="106" width="40" height="6" rx="3" />
+          <rect x="62" y="124" width="32" height="6" rx="3" />
+        </g>
+        <rect x="136" y="70" width="96" height="56" rx="6" fill="#e5f3f1" />
+        <rect x="242" y="70" width="94" height="56" rx="6" fill="#ffffff" stroke="#e4e7ec" />
+        <path d="M150 112 l18 -16 16 10 20 -22 16 12" stroke="#0d7a74" stroke-width="3" fill="none" />
+        <g fill="#cfd4dc">
+          <rect x="254" y="84" width="50" height="6" rx="3" />
+          <rect x="254" y="100" width="64" height="12" rx="3" fill="#0b1b33" />
+        </g>
+        <rect x="136" y="138" width="200" height="48" rx="6" fill="#ffffff" stroke="#e4e7ec" />
+        <g fill="#cfd4dc">
+          <rect x="148" y="150" width="120" height="5" rx="2" />
+          <rect x="148" y="164" width="150" height="5" rx="2" />
+        </g>
+      </g>
+    )
+  }
+
+  {
+    kind === 'ecommerce' && (
+      <g>
+        <rect x="46" y="40" width="150" height="150" rx="10" fill="#f5f7fa" />
+        <rect x="62" y="56" width="118" height="70" rx="6" fill="#e5f3f1" />
+        <path d="M100 76h44l-6 26h-32z" fill="#0d7a74" />
+        <path d="M108 76c0-10 8-16 14-16s14 6 14 16" stroke="#0d7a74" stroke-width="4" fill="none" />
+        <rect x="62" y="138" width="70" height="7" rx="3" fill="#cfd4dc" />
+        <rect x="62" y="154" width="50" height="10" rx="3" fill="#0b1b33" />
+        <rect x="138" y="152" width="42" height="18" rx="9" fill="#0d7a74" />
+        <g stroke="#5eead4" stroke-width="2.5" fill="none" stroke-dasharray="5 5">
+          <path d="M196 90 C240 90 240 70 270 70" />
+          <path d="M196 150 C240 150 240 160 270 160" />
+        </g>
+        <rect x="270" y="40" width="88" height="60" rx="8" fill="#fff7ed" />
+        <path d="M290 62l24-10 24 10v26l-24 10-24-10z" fill="#f59e0b" fill-opacity="0.85" />
+        <rect x="270" y="130" width="88" height="56" rx="8" fill="#f5f7fa" />
+        <rect x="282" y="144" width="64" height="10" rx="3" fill="#0b1b33" />
+        <rect x="282" y="162" width="40" height="8" rx="3" fill="#cfd4dc" />
+      </g>
+    )
+  }
+
+  {
+    kind === 'websites' && (
+      <g>
+        <rect x="40" y="26" width="320" height="178" rx="10" fill="#f5f7fa" />
+        <rect x="40" y="26" width="320" height="22" rx="10" fill="#e4e7ec" />
+        <rect x="120" y="32" width="160" height="10" rx="5" fill="#ffffff" />
+        <rect x="56" y="62" width="288" height="66" rx="6" fill="#0b1b33" />
+        <rect x="72" y="78" width="120" height="10" rx="4" fill="#ffffff" />
+        <rect x="72" y="96" width="90" height="7" rx="3" fill="#5eead4" />
+        <rect x="270" y="80" width="56" height="30" rx="15" fill="#0d7a74" />
+        <g fill="#ffffff" stroke="#e4e7ec">
+          <rect x="56" y="140" width="88" height="50" rx="6" />
+          <rect x="156" y="140" width="88" height="50" rx="6" />
+          <rect x="256" y="140" width="88" height="50" rx="6" />
+        </g>
+        <g fill="#cfd4dc">
+          <rect x="68" y="152" width="50" height="6" rx="3" />
+          <rect x="168" y="152" width="44" height="6" rx="3" />
+          <rect x="268" y="152" width="56" height="6" rx="3" />
+        </g>
+      </g>
+    )
+  }
+
+  {
+    kind === 'operations' && (
+      <g>
+        <rect x="60" y="30" width="170" height="170" rx="10" fill="#f5f7fa" />
+        {[0, 1, 2, 3].map((i) => (
+          <g>
+            <rect x="78" y={54 + i * 36} width="20" height="20" rx="5" fill={i < 3 ? '#0d7a74' : '#ffffff'} stroke="#0d7a74" stroke-width="2" />
+            {i < 3 && <path d={`M83 ${64 + i * 36}l4 4 8-8`} stroke="#fff" stroke-width="2.5" fill="none" />}
+            <rect x="108" y={60 + i * 36} width={[96, 80, 104, 70][i]} height="7" rx="3" fill="#cfd4dc" />
+          </g>
+        ))}
+        <circle cx="300" cy="96" r="48" fill="#0d7a74" fill-opacity="0.25" stroke="#5eead4" stroke-width="3" />
+        <path d="M300 64v32l20 14" stroke="#ffffff" stroke-width="4" fill="none" stroke-linecap="round" />
+        <rect x="256" y="164" width="88" height="26" rx="13" fill="#f59e0b" />
+      </g>
+    )
+  }
+
+  {
+    kind === 'migration' && (
+      <g>
+        <rect x="34" y="52" width="130" height="120" rx="10" fill="#f5f7fa" fill-opacity="0.55" />
+        <g fill="#cfd4dc" fill-opacity="0.8">
+          <rect x="48" y="70" width="100" height="40" rx="4" />
+          <rect x="48" y="120" width="46" height="36" rx="4" />
+          <rect x="102" y="120" width="46" height="36" rx="4" />
+        </g>
+        <g stroke="#5eead4" stroke-width="4" fill="none" stroke-linecap="round" stroke-linejoin="round">
+          <path d="M176 112h50M214 98l14 14-14 14" />
+        </g>
+        <rect x="238" y="40" width="132" height="144" rx="10" fill="#f5f7fa" />
+        <rect x="252" y="56" width="104" height="44" rx="4" fill="#0b1b33" />
+        <rect x="262" y="70" width="56" height="7" rx="3" fill="#5eead4" />
+        <g fill="#e5f3f1" stroke="#bfe0dc">
+          <rect x="252" y="110" width="48" height="58" rx="4" />
+          <rect x="308" y="110" width="48" height="58" rx="4" />
+        </g>
+        <circle cx="356" cy="40" r="16" fill="#0d7a74" stroke="#5eead4" stroke-width="2" />
+        <path d="M349 40l5 5 9-9" stroke="#fff" stroke-width="3" fill="none" stroke-linecap="round" />
+      </g>
+    )
+  }
+
+  {
+    kind === 'consulting' && (
+      <g>
+        <path d="M40 180 C110 180 110 120 170 120 S250 70 300 70 S350 50 370 40" stroke="#5eead4" stroke-width="3" stroke-dasharray="7 7" fill="none" />
+        <g>
+          <circle cx="60" cy="180" r="14" fill="#f5f7fa" />
+          <circle cx="170" cy="120" r="14" fill="#f5f7fa" />
+          <circle cx="300" cy="70" r="14" fill="#0d7a74" stroke="#5eead4" stroke-width="3" />
+        </g>
+        <g fill="#0b1b33" font-family="Inter Variable, Arial, sans-serif" font-size="13" font-weight="700" text-anchor="middle">
+          <text x="60" y="185">1</text>
+          <text x="170" y="125">2</text>
+          <text x="300" y="75" fill="#ffffff">3</text>
+        </g>
+        <rect x="80" y="30" width="120" height="60" rx="8" fill="#f5f7fa" />
+        <g fill="#cfd4dc">
+          <rect x="94" y="44" width="70" height="7" rx="3" />
+          <rect x="94" y="58" width="90" height="5" rx="2" />
+          <rect x="94" y="70" width="60" height="5" rx="2" />
+        </g>
+        <path d="M352 38l8-22 8 22z" fill="#f59e0b" />
+        <rect x="358" y="16" width="3" height="40" fill="#f5f7fa" />
+      </g>
+    )
+  }
+
+  {label && (
+    <g>
+      <rect x="10" y="194" width={Math.min(380, label.length * 8.6 + 20)} height="22" rx="11" fill="#0b1b33" fill-opacity="0.85" />
+      <text x="20" y="209" fill="#5eead4" font-family="Inter Variable, Arial, sans-serif" font-size="11.5" font-weight="700" letter-spacing="1">
+        {label.toUpperCase()}
+      </text>
+    </g>
+  )}
+</svg>

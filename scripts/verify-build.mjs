@@ -67,6 +67,10 @@ for (const file of pages) {
     descriptions.set(description, rel);
   }
 
+  const og = attr(html, /<meta property="og:image" content="([^"]*)"/g)[0];
+  if (!og) fail(rel, 'missing og:image');
+  else if (og.startsWith(SITE) && !existsSync(join(DIST, og.slice(SITE.length)))) fail(rel, `og:image not built: ${og}`);
+
   const canonical = attr(html, /<link rel="canonical" href="([^"]*)"/g)[0];
   if (rel !== '404.html' && canonical !== SITE + path) fail(rel, `canonical ${canonical} should be ${SITE + path}`);
 

@@ -32,6 +32,8 @@ export default defineConfig({
   trailingSlash: 'always',
   devToolbar: { enabled: false },
   build: { format: 'directory', assets: 'assets' },
+  // The image renderer is a native module: load it at build time, do not bundle it.
+  vite: { ssr: { external: ['@resvg/resvg-js'] } },
   integrations: [
     sitemap({
       filter: (page) => !page.includes('/contact/thanks/') && !page.includes('/404'),

@@ -4,6 +4,7 @@ metaTitle: 'How to Recover a Website That Has Gone Offline'
 description: 'Website down after an expired domain, a closed hosting account or a missing supplier? A calm, step-by-step guide to finding out what happened and getting it back.'
 answer: 'To recover a website that has gone offline, check separately whether the domain, the DNS or the hosting has failed, regain access to each account, then recover content from the old platform, backups, exports or public web archives such as the Wayback Machine. Restore or rebuild at the same addresses, then keep domain, DNS and hosting in accounts the business owns.'
 topic: Websites
+cover: migration
 published: 2026-11-06
 relatedServices:
   - website-migration-recovery

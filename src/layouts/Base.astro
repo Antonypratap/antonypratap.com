@@ -17,6 +17,8 @@ interface Props {
   jsonLd?: Record<string, unknown>[];
   publishedTime?: Date;
   modifiedTime?: Date;
+  /** Path of this page's sharing image, e.g. /og/insights/my-article.png. Defaults to the site image. */
+  ogImage?: string;
 }
 
 const {
@@ -28,11 +30,12 @@ const {
   jsonLd = [],
   publishedTime,
   modifiedTime,
+  ogImage: ogPath = '/og-default.png',
 } = Astro.props;
 
 const pageTitle = fullTitle ? title : `${title} | ${SITE.name}`;
 const canonical = new URL(Astro.url.pathname, SITE.url).href;
-const ogImage = new URL('/og-default.png', SITE.url).href;
+const ogImage = new URL(ogPath, SITE.url).href;
 const robots = noindex || !IS_PRODUCTION ? 'noindex, nofollow' : 'index, follow, max-image-preview:large';
 const graph = { '@context': 'https://schema.org', '@graph': [personSchema(), websiteSchema(), ...jsonLd] };
 ---

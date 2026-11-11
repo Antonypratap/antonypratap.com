@@ -11,6 +11,8 @@ import ArticleCard from '../../components/ArticleCard.astro';
 import { services, articlesFor, projectsForService } from '../../data/content';
 import { breadcrumbSchema, serviceSchema, faqSchema } from '../../data/schema';
 import { CTA } from '../../data/site';
+import CoverArt from '../../components/CoverArt.astro';
+import { coverForService } from '../../data/covers';
 
 export async function getStaticPaths() {
   return (await services()).map((service) => ({ params: { slug: service.id }, props: { service } }));
@@ -35,6 +37,7 @@ const crumbs = [
   title={data.metaTitle}
   fullTitle
   description={data.description}
+  ogImage={`/og/services/${service.id}.png`}
   jsonLd={[
     breadcrumbSchema(crumbs),
     serviceSchema({ name: data.title, description: data.description, path }),
@@ -43,7 +46,8 @@ const crumbs = [
 >
   <!-- 1. What this is -->
   <section class="page-head">
-    <div class="container">
+    <div class="container page-head__grid">
+      <div>
       <Breadcrumbs items={crumbs} />
       <span class="kicker">Service</span>
       <h1>{data.title}</h1>
@@ -52,6 +56,8 @@ const crumbs = [
         <a class="button" href={CTA.href} data-cta={`service-${service.id}-head`}>{data.ctaLabel}</a>
         <a class="button button--outline-light" href="#how-it-works">How it works</a>
       </div>
+      </div>
+      <div class="page-head__art"><CoverArt kind={coverForService(service.id)} label={data.shortTitle} /></div>
     </div>
   </section>
 

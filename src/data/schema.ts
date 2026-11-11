@@ -85,12 +85,14 @@ export function articleSchema(a: {
   updated?: Date;
   answer?: string;
   topic?: string;
+  image?: string;
 }) {
   return {
     '@type': 'BlogPosting',
     headline: a.title,
     description: a.description,
     ...(a.answer ? { abstract: a.answer } : {}),
+    ...(a.image ? { image: new URL(a.image, SITE.url).href } : {}),
     ...(a.topic ? { about: a.topic } : {}),
     url: new URL(a.path, SITE.url).href,
     mainEntityOfPage: new URL(a.path, SITE.url).href,

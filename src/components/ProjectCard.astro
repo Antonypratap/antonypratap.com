@@ -1,6 +1,8 @@
 ---
 import { Image } from 'astro:assets';
 import { getEntries, type CollectionEntry } from 'astro:content';
+import CoverArt from './CoverArt.astro';
+import { coverForService } from '../data/covers';
 interface Props {
   project: CollectionEntry<'projects'>;
   headingLevel?: 'h2' | 'h3';
@@ -14,6 +16,7 @@ const countries = (await getEntries(data.markets)).map((m) =>
   m.data.country === 'United Arab Emirates' ? 'UAE' : m.data.country,
 );
 const context = [...data.industries, ...countries].join(' · ');
+const kind = coverForService(data.services[0]?.id ?? '');
 ---
 
 <article class="case-card" data-services={data.services.map((s) => s.id).join(' ')}>
@@ -22,10 +25,7 @@ const context = [...data.industries, ...countries].join(' · ');
       shot ? (
         <Image src={shot.src} alt={shot.alt} widths={[480, 720]} sizes="(min-width: 1000px) 400px, 100vw" />
       ) : (
-        <span class="case-card__cover">
-          <span class="case-card__cover-title">{data.title.replace(' (pseudonym)', '')}</span>
-          {context && <span class="case-card__cover-meta">{context}</span>}
-        </span>
+        <CoverArt kind={kind} label={context || data.ownershipLabel} />
       )
     }
   </a>

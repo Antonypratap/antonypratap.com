@@ -1,6 +1,7 @@
 import { defineCollection, reference } from 'astro:content';
 import { glob } from 'astro/loaders';
 import { z } from 'astro/zod';
+import { COVER_KINDS } from './data/covers';
 
 const faq = z.object({ q: z.string(), a: z.string() });
 
@@ -91,6 +92,9 @@ const insights = defineCollection({
     answer: z.string().min(150).max(520).optional(),
     published: z.coerce.date(),
     updated: z.coerce.date().optional(),
+    /** Cover illustration; defaults to the topic's. One of: integration, automation, ai, software,
+     * ecommerce, websites, operations, migration, consulting. */
+    cover: z.enum(COVER_KINDS as [string, ...string[]]).optional(),
     /** Drafts are built only in development (npm run dev) and never published. */
     draft: z.boolean().default(false),
     relatedServices: z.array(reference('services')).default([]),

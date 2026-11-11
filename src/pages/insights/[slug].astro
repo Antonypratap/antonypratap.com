@@ -8,6 +8,8 @@ import { articles } from '../../data/content';
 import { articleSchema, breadcrumbSchema } from '../../data/schema';
 import { formatDate } from '../../data/format';
 import { SITE } from '../../data/site';
+import CoverArt from '../../components/CoverArt.astro';
+import { coverForTopic, type CoverKind } from '../../data/covers';
 
 export async function getStaticPaths() {
   return (await articles()).map((article) => ({ params: { slug: article.id }, props: { article } }));
@@ -19,6 +21,7 @@ const { Content } = await render(article);
 const services = await getEntries(data.relatedServices);
 const relatedProjects = await getEntries(data.relatedProjects);
 const markets = await getEntries(data.markets);
+const coverKind = (data.cover as CoverKind | undefined) ?? coverForTopic(data.topic);
 const path = `/insights/${article.id}/`;
 const crumbs = [
   { name: 'Home', path: '/' },
@@ -32,6 +35,7 @@ const crumbs = [
   fullTitle={Boolean(data.metaTitle)}
   description={data.description}
   ogType="article"
+  ogImage={`/og/insights/${article.id}.png`}
   noindex={data.draft}
   publishedTime={data.published}
   modifiedTime={data.updated}
@@ -45,12 +49,14 @@ const crumbs = [
       updated: data.updated,
       answer: data.answer,
       topic: data.topic,
+      image: `/og/insights/${article.id}.png`,
     }),
   ]}
 >
   <article>
     <header class="page-head">
-      <div class="container">
+      <div class="container page-head__grid">
+        <div>
         <Breadcrumbs items={crumbs} />
         {data.draft && <p><span class="draft-flag">Draft: not published</span></p>}
         <span class="eyebrow">
@@ -69,6 +75,8 @@ const crumbs = [
           <span>Published <time datetime={data.published.toISOString()}>{formatDate(data.published)}</time></span>
           {data.updated && <span>Updated <time datetime={data.updated.toISOString()}>{formatDate(data.updated)}</time></span>}
         </div>
+        </div>
+        <div class="page-head__art"><CoverArt kind={coverKind} label={data.topic} /></div>
       </div>
     </header>
 

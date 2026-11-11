@@ -43,7 +43,7 @@ const serviceSchema = {
 };
 ---
 
-<Base title={data.metaTitle} fullTitle description={data.description} jsonLd={[breadcrumbSchema(crumbs), serviceSchema, ...(data.faqs.length ? [faqSchema(data.faqs)] : [])]}>
+<Base title={data.metaTitle} fullTitle description={data.description} ogImage={`/og/${market.id}.png`} jsonLd={[breadcrumbSchema(crumbs), serviceSchema, ...(data.faqs.length ? [faqSchema(data.faqs)] : [])]}>
   <section class="page-head">
     <div class="container">
       <Breadcrumbs items={crumbs} />

@@ -1,6 +1,8 @@
 ---
 import type { CollectionEntry } from 'astro:content';
+import CoverArt from './CoverArt.astro';
 import { formatDate } from '../data/format';
+import { coverForTopic, type CoverKind } from '../data/covers';
 interface Props {
   article: CollectionEntry<'insights'>;
   headingLevel?: 'h2' | 'h3';
@@ -8,14 +10,18 @@ interface Props {
 const { article, headingLevel = 'h3' } = Astro.props;
 const { data } = article;
 const Heading = headingLevel;
+const href = `/insights/${article.id}/`;
+const kind = (data.cover as CoverKind | undefined) ?? coverForTopic(data.topic);
 ---
 
-<article class="card card--link">
-  <div class="badges">
-    <span class="badge">{data.topic}</span>
-    {data.draft && <span class="draft-flag">Draft</span>}
+<article class="case-card">
+  <a class="case-card__media" href={href} tabindex="-1" aria-hidden="true">
+    <CoverArt kind={kind} label={data.topic} />
+  </a>
+  <div class="case-card__body">
+    {data.draft && <p class="badges"><span class="draft-flag">Draft</span></p>}
+    <Heading><a href={href}>{data.title}</a></Heading>
+    <p>{data.description}</p>
+    <span class="case-card__more"><time datetime={data.published.toISOString()}>{formatDate(data.published)}</time> · Read →</span>
   </div>
-  <Heading><a href={`/insights/${article.id}/`}>{data.title}</a></Heading>
-  <p>{data.description}</p>
-  <div class="card__foot"><time datetime={data.published.toISOString()}>{formatDate(data.published)}</time></div>
 </article>

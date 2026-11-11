@@ -3,6 +3,8 @@ import Base from '../../layouts/Base.astro';
 import Breadcrumbs from '../../components/Breadcrumbs.astro';
 import CtaBand from '../../components/CtaBand.astro';
 import Capabilities from '../../components/Capabilities.astro';
+import CoverArt from '../../components/CoverArt.astro';
+import { coverForService } from '../../data/covers';
 import { services } from '../../data/content';
 import { breadcrumbSchema } from '../../data/schema';
 
@@ -34,7 +36,10 @@ const crumbs = [
       {
         all.map((s) => (
           <article class="service-row">
-            <div class="split">
+            <div class="service-row__grid">
+              <a class="service-row__art" href={`/services/${s.id}/`} tabindex="-1" aria-hidden="true">
+                <CoverArt kind={coverForService(s.id)} />
+              </a>
               <div>
                 <h2>
                   <a href={`/services/${s.id}/`}>{s.data.title}</a>

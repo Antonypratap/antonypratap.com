@@ -39,7 +39,7 @@ const facts = [
 ].filter((f) => f.value);
 ---
 
-<Base title={data.metaTitle} fullTitle description={data.description} jsonLd={[breadcrumbSchema(crumbs)]}>
+<Base title={data.metaTitle} fullTitle description={data.description} ogImage={`/og/projects/${project.id}.png`} jsonLd={[breadcrumbSchema(crumbs)]}>
   <!-- 1. The case at a glance -->
   <section class="page-head">
     <div class="container">
