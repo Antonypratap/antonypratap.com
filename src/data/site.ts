@@ -12,6 +12,13 @@ export const SITE = {
   sameAs: [] as string[],
 };
 
+/** WhatsApp for enquiries (India mobile). The link opens a chat with a short message filled in. */
+export const WHATSAPP = {
+  display: '+91 98800 00990',
+  number: '919880000990',
+  link: `https://wa.me/919880000990?text=${encodeURIComponent("Hi Antony, I'd like to discuss a project.")}`,
+};
+
 export const NAV = [
   { href: '/services/', label: 'Services' },
   { href: '/projects/', label: 'Projects' },

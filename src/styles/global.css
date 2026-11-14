@@ -2056,3 +2056,47 @@ a:hover {
   -webkit-box-orient: vertical;
   overflow: hidden;
 }
+
+/* WhatsApp: floating button */
+
+.wa-float {
+  position: fixed;
+  right: max(1rem, env(safe-area-inset-right, 0px));
+  bottom: max(1rem, env(safe-area-inset-bottom, 0px));
+  z-index: 30;
+  display: inline-flex;
+  align-items: center;
+  gap: 0.5rem;
+  padding: 0.7rem 1.1rem 0.7rem 0.85rem;
+  border-radius: 999px;
+  background: #1f8f4e;
+  color: #fff !important;
+  text-decoration: none !important;
+  font-weight: 650;
+  font-size: 0.95rem;
+  box-shadow: 0 10px 24px -8px rgb(11 18 32 / 0.45);
+}
+
+.wa-float:hover {
+  background: #187a42;
+}
+
+.wa-float svg {
+  width: 1.5rem;
+  height: 1.5rem;
+}
+
+@media (max-width: 600px) {
+  .wa-float span {
+    display: none;
+  }
+  .wa-float {
+    padding: 0.8rem;
+  }
+}
+
+.wa-inline {
+  display: inline-flex;
+  align-items: center;
+  gap: 0.45rem;
+}

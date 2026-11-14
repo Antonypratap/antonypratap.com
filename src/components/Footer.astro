@@ -1,6 +1,6 @@
 ---
 import { getCollection } from 'astro:content';
-import { SITE, CTA } from '../data/site';
+import { SITE, CTA, WHATSAPP } from '../data/site';
 
 import { services as getServices, projects as getProjects } from '../data/content';
 
@@ -27,6 +27,9 @@ const year = new Date().getFullYear();
           ))}
         </p>
         <p><a href={CTA.href} data-cta="footer">{CTA.label} →</a></p>
+        <p>
+          WhatsApp: <a href={WHATSAPP.link} target="_blank" rel="noopener" data-cta="whatsapp-footer">{WHATSAPP.display}</a>
+        </p>
       </div>
       <div>
         <h2>Services</h2>

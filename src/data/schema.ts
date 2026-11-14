@@ -1,4 +1,4 @@
-import { SITE } from './site';
+import { SITE, WHATSAPP } from './site';
 
 const PERSON_ID = `${SITE.url}/#person`;
 const WEBSITE_ID = `${SITE.url}/#website`;
@@ -10,6 +10,7 @@ export function personSchema() {
     name: SITE.name,
     url: `${SITE.url}/`,
     jobTitle: SITE.jobTitle,
+    telephone: WHATSAPP.display,
     homeLocation: {
       '@type': 'Place',
       name: 'Bangalore, India',

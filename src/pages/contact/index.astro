@@ -2,7 +2,7 @@
 import Base from '../../layouts/Base.astro';
 import Breadcrumbs from '../../components/Breadcrumbs.astro';
 import { breadcrumbSchema } from '../../data/schema';
-import { ENV } from '../../data/site';
+import { ENV, WHATSAPP } from '../../data/site';
 
 const crumbs = [
   { name: 'Home', path: '/' },
@@ -106,6 +106,14 @@ const countries = ['United Arab Emirates', 'New Zealand', 'Australia', 'Saudi Ar
       </div>
 
       <aside>
+        <div class="panel">
+          <h2>Prefer WhatsApp?</h2>
+          <p>Send a message and I will reply personally.</p>
+          <a class="button wa-inline" href={WHATSAPP.link} target="_blank" rel="noopener" data-cta="whatsapp-contact">
+            Chat on WhatsApp
+          </a>
+          <p class="note" style="margin-top:0.9rem">{WHATSAPP.display}</p>
+        </div>
         <div class="panel">
           <h2>What happens next</h2>
           <ol class="steps">

@@ -1,6 +1,6 @@
 import type { APIRoute } from 'astro';
 import { getCollection } from 'astro:content';
-import { SITE } from '../data/site';
+import { SITE, WHATSAPP } from '../data/site';
 import { services, projects, articles } from '../data/content';
 
 /**
@@ -49,6 +49,7 @@ export const GET: APIRoute = async () => {
     '## Contact',
     '',
     `- [Discuss a project](${url('/contact/')}): describe the business problem; no technical specification is needed.`,
+    `- WhatsApp: ${WHATSAPP.display} (${WHATSAPP.link.split('?')[0]})`,
     `- [About Antony Pratap](${url('/about/')})`,
     '',
   ];
